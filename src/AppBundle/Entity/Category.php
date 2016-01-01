@@ -48,12 +48,24 @@ class Category
     private $parent;
 
     /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parentMultilangue")
+     */
+    private $childrenMultilangue;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="childrenMultilangue")
+     * @ORM\JoinColumn(name="parent_multilangue_id", referencedColumnName="id")
+     */
+    private $parentMultilangue;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Content", mappedBy="category")
      */
     private $contents;
 
     public function __construct() {
         $this->children = new ArrayCollection();
+        $this->childrenMultilangue = new ArrayCollection();
         $this->contents = new ArrayCollection();
     }
 
@@ -205,5 +217,63 @@ class Category
     public function getContents()
     {
         return $this->contents;
+    }
+
+    /**
+     * Add childrenMultilangue
+     *
+     * @param \AppBundle\Entity\Category $childrenMultilangue
+     *
+     * @return Category
+     */
+    public function addChildrenMultilangue(Category $childrenMultilangue)
+    {
+        $this->childrenMultilangue[] = $childrenMultilangue;
+
+        return $this;
+    }
+
+    /**
+     * Remove childrenMultilangue
+     *
+     * @param \AppBundle\Entity\Category $childrenMultilangue
+     */
+    public function removeChildrenMultilangue(Category $childrenMultilangue)
+    {
+        $this->childrenMultilangue->removeElement($childrenMultilangue);
+    }
+
+    /**
+     * Get childrenMultilangue
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildrenMultilangue()
+    {
+        return $this->childrenMultilangue;
+    }
+
+    /**
+     * Set parentMultilangue
+     *
+     * @param \AppBundle\Entity\Category $parentMultilangue
+     *
+     * @return Category
+     */
+    public function setParentMultilangue(Category $parentMultilangue = null)
+    {
+        $this->parentMultilangue = $parentMultilangue;
+
+        return $this;
+    }
+
+    /**
+     * Get parentMultilangue
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getParentMultilangue()
+    {
+        return $this->parentMultilangue;
     }
 }
