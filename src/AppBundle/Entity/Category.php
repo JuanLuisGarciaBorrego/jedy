@@ -47,8 +47,14 @@ class Category
      */
     private $parent;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Content", mappedBy="category")
+     */
+    private $contents;
+
     public function __construct() {
         $this->children = new ArrayCollection();
+        $this->contents = new ArrayCollection();
     }
 
     /**
@@ -165,5 +171,39 @@ class Category
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Add content
+     *
+     * @param \AppBundle\Entity\Content $content
+     *
+     * @return Category
+     */
+    public function addContent(Content $content)
+    {
+        $this->contents[] = $content;
+
+        return $this;
+    }
+
+    /**
+     * Remove content
+     *
+     * @param \AppBundle\Entity\Content $content
+     */
+    public function removeContent(Content $content)
+    {
+        $this->contents->removeElement($content);
+    }
+
+    /**
+     * Get contents
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContents()
+    {
+        return $this->contents;
     }
 }
