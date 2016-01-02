@@ -1,0 +1,9 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block content %}
+
+    {% for category in categories %}
+        {{ category.name}} [{{ category.locale }}]<br>
+    {% endfor %}
+
+{% endblock %}
