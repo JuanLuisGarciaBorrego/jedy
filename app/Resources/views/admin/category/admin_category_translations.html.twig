@@ -1,0 +1,12 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block content %}
+
+    {% for translation in translations %}
+        {{ translation.name }} - <a
+            href="{{ path('admin_category_translation', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">add</a>
+
+        <br>
+    {% endfor %}
+
+{% endblock %}

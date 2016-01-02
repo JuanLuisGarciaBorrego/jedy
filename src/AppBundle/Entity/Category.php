@@ -276,4 +276,9 @@ class Category
     {
         return $this->parentMultilangue;
     }
+
+    function __toString()
+    {
+        return $this->getName()." [".$this->getLocale()."]";
+    }
 }

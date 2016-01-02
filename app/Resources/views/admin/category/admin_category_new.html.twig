@@ -1,0 +1,10 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">add</button>
+    {{ form_end(form) }}
+
+{% endblock %}
