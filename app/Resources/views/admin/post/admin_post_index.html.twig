@@ -1,0 +1,9 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block content %}
+
+    {% for post in posts %}
+        {{ post.title}} [{{ post.locale }}]<br>
+    {% endfor %}
+
+{% endblock %}
