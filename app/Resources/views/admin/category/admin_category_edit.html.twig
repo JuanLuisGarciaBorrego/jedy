@@ -1,7 +1,9 @@
 {% extends ':admin:base_admin.html.twig' %}
 
 {% block content %}
-
+    {% if form.vars.value.parentMultilangue %}
+        Translation: <b>{{ form.vars.value.parentMultilangue.name }}</b><br>
+    {% endif %}
     {{ form_start(form) }}
     {{ form_widget(form) }}
     <button type="submit">edit</button>

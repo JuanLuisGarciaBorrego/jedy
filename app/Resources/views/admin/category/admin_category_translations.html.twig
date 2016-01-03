@@ -9,10 +9,13 @@
         {% if category.locale == translation.code %}
             <a href="{{ path('admin_category_edit', {'id': category.id}) }}">edit</a>
         {% else %}
-            {% if(is_category_translation(category.locale, translation.code, category.id)) %}
-                <a href="{{ path('admin_category_translation', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">edit</a>
+
+            {% set category_translation = is_category_translation(category.locale, translation.code, category.id) %}
+
+            {% if category_translation %}
+                <a href="{{ path('admin_category_translation_edit', {'idParent': category.id, 'id': category_translation.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">edit</a>
             {% else %}
-                <a href="{{ path('admin_category_translation', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">add</a>
+                <a href="{{ path('admin_category_translation_add', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">add</a>
             {% endif %}
         {% endif %}
         <br>

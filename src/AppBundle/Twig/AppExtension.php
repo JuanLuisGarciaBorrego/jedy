@@ -25,8 +25,7 @@ class AppExtension extends \Twig_Extension
 
     public function isCategoryTranslation($localeDefault, $localeCategory, $parentMultilangue)
     {
-        $query = $this->em->getRepository('AppBundle:Category')->createQueryBuilder('c')
-            ->addSelect('c.id')
+        return $this->em->getRepository('AppBundle:Category')->createQueryBuilder('c')
             ->leftJoin('c.parentMultilangue', 't')
             ->andWhere('c.locale != :localeDefault and c.locale = :localeCategory and t.id = :parentMultilangue')
             ->setParameter('localeDefault', $localeDefault)
@@ -34,8 +33,6 @@ class AppExtension extends \Twig_Extension
             ->setParameter('parentMultilangue', $parentMultilangue)
             ->getQuery()
             ->getOneOrNullResult();
-
-        return ($query) ? true : false;
     }
 
     public function getName()

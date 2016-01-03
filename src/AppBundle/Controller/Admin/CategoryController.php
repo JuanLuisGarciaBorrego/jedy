@@ -19,7 +19,7 @@ class CategoryController extends Controller
     public function indexAction()
     {
         $categories = $this->getDoctrine()->getRepository('AppBundle:Category')->findBy(
-            ['locale' => $this->container->get('locales')->getLocaleActive()]
+            ['locale' => $this->get('locales')->getLocaleActive()]
         );
 
         return $this->render(
@@ -97,9 +97,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("y/{id}/translations/add/{localeCategory}/{localeTranslation}", name="admin_category_translation")
+     * @Route("y/{id}/translations/add/{localeCategory}/{localeTranslation}", name="admin_category_translation_add")
      */
-    public function translationAction(Request $request, Category $category, $localeTranslation)
+    public function addTranslationAction(Request $request, Category $category, $localeTranslation)
     {
         $newCategory = new Category();
         $newCategory->setName($category->getName());
@@ -127,4 +127,27 @@ class CategoryController extends Controller
         ]);
     }
 
+    /**
+     * @Route("y/{idParent}/translations/{id}/edit/{localeCategory}/{localeTranslation}", name="admin_category_translation_edit")
+     */
+    public function editTranslationAction(Request $request, $idParent, Category $category, $localeTranslation)
+    {
+        $form = $this->createForm(CategoryForm::class, $category);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            $this->addFlash('success', 'created_successfully');
+
+            return $this->redirectToRoute('admin_category_home');
+        }
+
+        return $this->render('admin/category/admin_category_edit.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
 }
