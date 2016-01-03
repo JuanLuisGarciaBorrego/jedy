@@ -1,11 +1,18 @@
 {% extends ':admin:base_admin.html.twig' %}
 
 {% block content %}
-
+    Translation {{ category }}
+    <hr>
     {% for translation in translations %}
-        {{ translation.name }} - <a
-            href="{{ path('admin_category_translation', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">add</a>
+        {{ translation.name }} -
 
+            {% if category.locale == translation.code %}
+                <a href="#edit">edit</a>
+            {% else %}
+                -
+                <a href="{{ path('admin_category_translation', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">add</a>
+
+            {% endif %}
         <br>
     {% endfor %}
 

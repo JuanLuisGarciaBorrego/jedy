@@ -73,9 +73,32 @@ class CategoryController extends Controller
     /**
      * @Route("y/{id}/translations/add/{localeCategory}/{localeTranslation}", name="admin_category_translation")
      */
-    public function translationAction(Category $category, $localeTranslation)
+    public function translationAction(Request $request, Category $category, $localeTranslation)
     {
+        $newCategory = new Category();
+        $newCategory->setName($category->getName());
+        $newCategory->setParentMultilangue($category);
 
+
+        $form = $this->createForm(CategoryForm::class, $newCategory);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $newCategory->setLocale($localeTranslation);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newCategory);
+            $em->flush();
+
+            $this->addFlash('success', 'created_successfully');
+
+            return $this->redirectToRoute('admin_category_translations', ['id' => $category->getId()]);
+        }
+
+        return $this->render('admin/category/admin_category_new.html.twig',[
+            'form' => $form->createView()
+        ]);
     }
 
 }
