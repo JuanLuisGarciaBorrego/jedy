@@ -4,7 +4,7 @@
     <a href="{{ path('admin_category_new') }}">New</a>
     <hr>
     {% for category in categories %}
-        {{ category.name}} [{{ category.locale }}] - <a href="{{ path('admin_category_translations', {'id': category.id}) }}">Translations</a><br>
+        {{ category.name}} [{{ category.locale }}] <a href="{{ path('admin_category_edit', {'id': category.id}) }}">edit</a> - <a href="{{ path('admin_category_translations', {'id': category.id}) }}">Translations</a><br>
     {% endfor %}
 
 {% endblock %}

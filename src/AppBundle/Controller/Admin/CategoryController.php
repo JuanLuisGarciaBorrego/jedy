@@ -59,6 +59,32 @@ class CategoryController extends Controller
     }
 
     /**
+     * @Route("y/{id}/edit/", name="admin_category_edit")
+     */
+    public function editAction(Category $category, Request $request)
+    {
+        $form = $this->createForm(CategoryForm::class, $category);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $category->setLocale($this->get('locales')->getLocaleActive());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+
+            $this->addFlash('success', 'created_successfully');
+
+            return $this->redirectToRoute('admin_category_home');
+        }
+
+        return $this->render('admin/category/admin_category_edit.html.twig',[
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("y/{id}/translations/", name="admin_category_translations")
      */
     public function translationsAction(Category $category)

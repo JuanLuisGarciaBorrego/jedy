@@ -7,7 +7,7 @@
         {{ translation.name }} -
 
             {% if category.locale == translation.code %}
-                <a href="#edit">edit</a>
+                <a href="{{ path('admin_category_edit', {'id': category.id}) }}">edit</a>
             {% else %}
                 -
                 <a href="{{ path('admin_category_translation', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">add</a>
