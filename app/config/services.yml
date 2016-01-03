@@ -2,3 +2,9 @@ services:
    locales:
        class: AppBundle\Util\Locales
        arguments: [%locale_active%, %app_locales%, "@session"]
+
+   app.twig.extension:
+       class: AppBundle\Twig\AppExtension
+       arguments: ["@doctrine.orm.entity_manager"]
+       tags:
+           - { name: twig.extension }
