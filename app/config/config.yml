@@ -41,6 +41,8 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         locales: "@locales"
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
 
 # Doctrine Configuration
 doctrine:
