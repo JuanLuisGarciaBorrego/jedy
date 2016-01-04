@@ -1,24 +1,49 @@
 {% extends ':admin:base_admin.html.twig' %}
 
 {% block content %}
-    Translation {{ category }}
-    <hr>
-    {% for translation in translations %}
-        {{ translation.name }} -
 
-        {% if category.locale == translation.code %}
-            <a href="{{ path('admin_category_edit', {'id': category.id}) }}">edit</a>
-        {% else %}
+    <ul class="breadcrumb">
+        <li><a href="{{ path('admin_home') }}">Home</a></li>
+        <li><a href="{{ path('admin_category_home') }}">Categories</a></li>
+        <li><a href="{{ path('admin_category_edit', {'id':category.id }) }}">{{ category.name }}</a></li>
+        <li class="active">Translations</li>
+    </ul>
 
-            {% set category_translation = is_category_translation(category.locale, translation.code, category.id) %}
+    <div class="row margin-vertical-md">
+        <div class="col-md-12">
+            <h1 class="h-btn-line">Translations</h1>
+        </div>
+    </div>
 
-            {% if category_translation %}
-                <a href="{{ path('admin_category_translation_edit', {'idParent': category.id, 'id': category_translation.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">edit</a>
-            {% else %}
-                <a href="{{ path('admin_category_translation_add', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}">add</a>
-            {% endif %}
-        {% endif %}
-        <br>
-    {% endfor %}
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Language</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for translation in translations %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ translation.name }}</td>
+                <td>
+                    {% if category.locale == translation.code %}
+                        <a href="{{ path('admin_category_edit', {'id': category.id}) }}" class="btn btn-warning btn-xs">Edit category</a>
+                    {% else %}
+                        {% set category_translation = is_category_translation(category.locale, translation.code, category.id) %}
+
+                        {% if category_translation %}
+                            <a href="{{ path('admin_category_translation_edit', {'idParent': category.id, 'id': category_translation.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-warning btn-xs">Edit translation</a>
+                        {% else %}
+                            <a href="{{ path('admin_category_translation_add', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-info btn-xs">Add translation</a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
