@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class PostController extends Controller
 {
     /**
-     * @Route("s/", name="admin_home")
+     * @Route("s/", name="admin_post_home")
      */
     public function indexAction()
     {
