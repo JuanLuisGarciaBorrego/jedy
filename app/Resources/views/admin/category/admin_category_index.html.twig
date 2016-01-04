@@ -27,7 +27,7 @@
         <tbody>
         {% for category in categories %}
             <tr>
-                <td>1</td>
+                <td>{{ loop.index }}</td>
                 <td>{{ category.name}}</td>
                 <td>{{ category.parent.name |default('-')}}</td>
                 <td>
