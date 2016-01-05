@@ -34,7 +34,7 @@ class ParentCategoryTranslationSubscriber implements EventSubscriberInterface
         $category = $event->getData();
 
         $category->setParentMultilangue($this->parentCategory);
-        $category->setParent($this->selectCategoryParent($this->parentCategory->getParent()));
+        $category->setParent($this->selectCategoryParent($this->parentCategory->getParent(), $category->getLocale()));
 
     }
 
@@ -45,10 +45,10 @@ class ParentCategoryTranslationSubscriber implements EventSubscriberInterface
         ];
     }
 
-    private function selectCategoryParent($parentMultilangue)
+    private function selectCategoryParent($parentMultilangue, $locale)
     {
         return $this->em->getRepository('AppBundle:Category')
-            ->selectCategoryParent($parentMultilangue);
+            ->selectCategoryParent($parentMultilangue, $locale);
     }
 
 }

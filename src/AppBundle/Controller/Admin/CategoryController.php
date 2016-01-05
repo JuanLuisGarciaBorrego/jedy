@@ -126,6 +126,7 @@ class CategoryController extends Controller
             'admin/category/admin_category_new.html.twig',
             [
                 'form' => $form->createView(),
+                'category' => $category
             ]
         );
     }

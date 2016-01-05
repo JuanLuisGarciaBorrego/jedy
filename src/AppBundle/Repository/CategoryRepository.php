@@ -10,12 +10,13 @@ namespace AppBundle\Repository;
  */
 class CategoryRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function selectCategoryParent($parentMultilangue)
+    public function selectCategoryParent($parentMultilangue, $locale)
     {
         return $this->createQueryBuilder('c')
             ->leftJoin('c.parentMultilangue', 'cp')
-            ->where('cp.id = :id')
+            ->where('cp.id = :id and c.locale = :locale')
             ->setParameter('id', $parentMultilangue)
+            ->setParameter('locale', $locale)
             ->getQuery()
             ->getOneOrNullResult();
     }
