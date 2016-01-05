@@ -38,22 +38,19 @@ class CategoryForm extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'name',
-            ])
-        ;
+            ]);
 
-        if(!$this->parent){
+        if (!$this->parent) {
             $builder
                 ->add('parent', EntityType::class, [
-                'class' => 'AppBundle\Entity\Category',
+                    'class' => 'AppBundle\Entity\Category',
                     'label' => 'subcategory',
                     'placeholder' => 'select parent',
                     'required' => false
                 ]);
-        }else{
+        } else {
             $builder->addEventSubscriber(new ParentCategoryTranslationSubscriber($this->em, $this->parent));
         }
-
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

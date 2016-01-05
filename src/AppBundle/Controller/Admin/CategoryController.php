@@ -147,7 +147,7 @@ class CategoryController extends Controller
 
             $this->addFlash('success', 'created_successfully');
 
-            return $this->redirectToRoute('admin_category_home');
+            return $this->redirectToRoute('admin_category_translations', ['id' => $idParent]);
         }
 
         return $this->render(
