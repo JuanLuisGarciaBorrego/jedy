@@ -63,10 +63,14 @@ class Category
      */
     private $contents;
 
-    public function __construct() {
+    public function __construct($locale = null)
+    {
         $this->children = new ArrayCollection();
         $this->childrenMultilangue = new ArrayCollection();
         $this->contents = new ArrayCollection();
+
+        $this->setLocale($locale);
+
     }
 
     /**

@@ -35,14 +35,12 @@ class CategoryController extends Controller
      */
     public function newAction(Request $request)
     {
-        $category = new Category();
+        $category = new Category($this->get('locales')->getLocaleActive());
 
         $form = $this->createForm(CategoryForm::class, $category);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
-            $category->setLocale($this->get('locales')->getLocaleActive());
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
@@ -53,9 +51,12 @@ class CategoryController extends Controller
             return $this->redirectToRoute('admin_category_home');
         }
 
-        return $this->render('admin/category/admin_category_new.html.twig',[
-            'form' => $form->createView()
-        ]);
+        return $this->render(
+            'admin/category/admin_category_new.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -66,9 +67,7 @@ class CategoryController extends Controller
         $form = $this->createForm(CategoryForm::class, $category);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
-            $category->setLocale($this->get('locales')->getLocaleActive());
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
@@ -79,9 +78,12 @@ class CategoryController extends Controller
             return $this->redirectToRoute('admin_category_home');
         }
 
-        return $this->render('admin/category/admin_category_edit.html.twig',[
-            'form' => $form->createView()
-        ]);
+        return $this->render(
+            'admin/category/admin_category_edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -89,11 +91,14 @@ class CategoryController extends Controller
      */
     public function translationsAction(Category $category)
     {
-        return $this->render('admin/category/admin_category_translations.html.twig',[
-            'category' => $category,
-            'translations' => $this->get('locales')->getLocales(),
-            'active' => $this->get('locales')->getLocaleActive()
-        ]);
+        return $this->render(
+            'admin/category/admin_category_translations.html.twig',
+            [
+                'category' => $category,
+                'translations' => $this->get('locales')->getLocales(),
+                'active' => $this->get('locales')->getLocaleActive(),
+            ]
+        );
     }
 
     /**
@@ -101,7 +106,7 @@ class CategoryController extends Controller
      */
     public function addTranslationAction(Request $request, Category $category, $localeTranslation)
     {
-        $newCategory = new Category();
+        $newCategory = new Category($localeTranslation);
         $newCategory->setName($category->getName());
         $newCategory->setParentMultilangue($category);
 
@@ -109,9 +114,7 @@ class CategoryController extends Controller
         $form = $this->createForm(CategoryForm::class, $newCategory);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
-            $newCategory->setLocale($localeTranslation);
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($newCategory);
@@ -122,9 +125,12 @@ class CategoryController extends Controller
             return $this->redirectToRoute('admin_category_translations', ['id' => $category->getId()]);
         }
 
-        return $this->render('admin/category/admin_category_new.html.twig',[
-            'form' => $form->createView()
-        ]);
+        return $this->render(
+            'admin/category/admin_category_new.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -135,7 +141,7 @@ class CategoryController extends Controller
         $form = $this->createForm(CategoryForm::class, $category);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
@@ -146,8 +152,11 @@ class CategoryController extends Controller
             return $this->redirectToRoute('admin_category_home');
         }
 
-        return $this->render('admin/category/admin_category_edit.html.twig',[
-            'form' => $form->createView()
-        ]);
+        return $this->render(
+            'admin/category/admin_category_edit.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 }
