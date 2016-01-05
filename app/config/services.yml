@@ -8,3 +8,9 @@ services:
        arguments: ["@doctrine.orm.entity_manager"]
        tags:
            - { name: twig.extension }
+
+   app.form.category:
+       class: AppBundle\Form\CategoryForm
+       arguments: ["@doctrine.orm.entity_manager"]
+       tags:
+           - { name: form.type }

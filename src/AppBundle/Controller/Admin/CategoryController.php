@@ -107,11 +107,12 @@ class CategoryController extends Controller
     public function addTranslationAction(Request $request, Category $category, $localeTranslation)
     {
         $newCategory = new Category($localeTranslation);
-        $newCategory->setName($category->getName());
-        $newCategory->setParentMultilangue($category);
+        //$newCategory->setName($category->getName());
+        //$newCategory->setParentMultilangue($category);
 
+        //dump($category);
 
-        $form = $this->createForm(CategoryForm::class, $newCategory);
+        $form = $this->createForm(CategoryForm::class, $newCategory, ['parent' => $category]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
