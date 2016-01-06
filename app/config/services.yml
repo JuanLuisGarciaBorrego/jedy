@@ -14,3 +14,9 @@ services:
        arguments: ["@doctrine.orm.entity_manager"]
        tags:
            - { name: form.type }
+
+   app.validator.has_translation_parent:
+       class: AppBundle\Validator\Constraints\HasTranslationParentValidator
+       arguments: ["@doctrine.orm.entity_manager", "@locales"]
+       tags:
+           - { name: validator.constraint_validator, alias: has_translation_parent }

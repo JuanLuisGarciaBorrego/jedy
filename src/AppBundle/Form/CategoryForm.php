@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\FormEvent\isParentCategorySubscriber;
 use AppBundle\Form\FormEvent\ParentCategoryTranslationSubscriber;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -10,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\Category;
+use AppBundle\Util\Locales;
 
 class CategoryForm extends AbstractType
 {
@@ -36,18 +38,26 @@ class CategoryForm extends AbstractType
         $this->parent = $options['parent'];
 
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'name',
-            ]);
+            ->add(
+                'name',
+                TextType::class,
+                [
+                    'label' => 'name',
+                ]
+            );
 
         if (!$this->parent) {
             $builder
-                ->add('parent', EntityType::class, [
-                    'class' => 'AppBundle\Entity\Category',
-                    'label' => 'subcategory',
-                    'placeholder' => 'select parent',
-                    'required' => false
-                ]);
+                ->add(
+                    'parent',
+                    EntityType::class,
+                    [
+                        'class' => 'AppBundle\Entity\Category',
+                        'label' => 'subcategory',
+                        'placeholder' => 'select parent',
+                        'required' => false,
+                    ]
+                );
         } else {
             $builder->addEventSubscriber(new ParentCategoryTranslationSubscriber($this->em, $this->parent));
         }
@@ -55,9 +65,11 @@ class CategoryForm extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Category',
-            'parent' => null,
-        ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'AppBundle\Entity\Category',
+                'parent' => null,
+            )
+        );
     }
 }

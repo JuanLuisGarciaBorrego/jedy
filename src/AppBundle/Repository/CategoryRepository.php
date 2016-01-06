@@ -20,4 +20,16 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function selectCategoryParentMultilangue($id, $locale)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c.id)')
+            ->leftJoin('c.parentMultilangue', 'cp')
+            ->where('cp.id = :id and c.locale != :locale')
+            ->setParameter('id', $id)
+            ->setParameter('locale', $locale)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
