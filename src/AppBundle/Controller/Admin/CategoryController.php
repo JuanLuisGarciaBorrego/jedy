@@ -16,6 +16,7 @@ class CategoryController extends Controller
 {
     /**
      * @Route("ies/", name="admin_category_home")
+     * @Method("GET")
      */
     public function indexAction()
     {
@@ -33,6 +34,7 @@ class CategoryController extends Controller
 
     /**
      * @Route("y/new/", name="admin_category_new")
+     * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
@@ -62,6 +64,7 @@ class CategoryController extends Controller
 
     /**
      * @Route("y/{id}/edit/", name="admin_category_edit")
+     * @Method({"GET", "POST"})
      */
     public function editAction(Category $category, Request $request)
     {
@@ -92,6 +95,7 @@ class CategoryController extends Controller
 
     /**
      * @Route("y/{id}/translations/", name="admin_category_translations")
+     * @Method("GET")
      */
     public function translationsAction(Category $category)
     {
@@ -107,6 +111,7 @@ class CategoryController extends Controller
 
     /**
      * @Route("y/{id}/translations/add/{localeCategory}/{localeTranslation}", name="admin_category_translation_add")
+     * @Method({"GET", "POST"})
      */
     public function addTranslationAction(Request $request, Category $category, $localeTranslation)
     {
@@ -137,6 +142,7 @@ class CategoryController extends Controller
 
     /**
      * @Route("y/{idParent}/translations/{id}/edit/{localeCategory}/{localeTranslation}", name="admin_category_translation_edit")
+     * @Method({"GET", "POST"})
      */
     public function editTranslationAction(Request $request, $idParent, Category $category, $localeTranslation)
     {
@@ -186,6 +192,10 @@ class CategoryController extends Controller
         return $this->redirectToRoute('admin_category_home');
     }
 
+    /**
+     * @param Category $category
+     * @return \Symfony\Component\Form\Form
+     */
     private function formDelete(Category $category)
     {
         return $this->createFormBuilder()
