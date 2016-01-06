@@ -24,11 +24,17 @@ class CategoryForm extends AbstractType
     private $parent;
 
     /**
+     * @var string
+     */
+    private $localeActive;
+
+    /**
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManager $em, $localeActive)
     {
         $this->em = $em;
+        $this->localeActive = $localeActive;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -51,6 +57,7 @@ class CategoryForm extends AbstractType
                     EntityType::class,
                     [
                         'class' => 'AppBundle\Entity\Category',
+                        'query_builder' => $this->selectCategoryLocaleActive(),
                         'label' => 'subcategory',
                         'placeholder' => 'select parent',
                         'required' => false,
@@ -69,5 +76,11 @@ class CategoryForm extends AbstractType
                 'parent' => null,
             )
         );
+    }
+
+    public function selectCategoryLocaleActive()
+    {
+        return $this->em->getRepository('AppBundle:Category')
+            ->selectCategoryLocaleActive($this->localeActive);
     }
 }

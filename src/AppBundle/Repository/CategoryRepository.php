@@ -32,4 +32,11 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function selectCategoryLocaleActive($localeActive)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.locale = :localeActive')
+            ->setParameter('localeActive', $localeActive);
+    }
 }
