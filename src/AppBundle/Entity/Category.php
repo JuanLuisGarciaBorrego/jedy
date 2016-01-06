@@ -37,7 +37,7 @@ class Category
     private $locale;
 
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parent", cascade={"persist", "remove"})
      */
     private $children;
 
@@ -48,7 +48,7 @@ class Category
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Category", mappedBy="parentMultilangue")
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="parentMultilangue", cascade={"persist", "remove"})
      */
     private $childrenMultilangue;
 

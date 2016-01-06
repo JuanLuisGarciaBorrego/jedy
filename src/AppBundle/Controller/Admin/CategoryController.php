@@ -7,6 +7,7 @@ use AppBundle\Form\CategoryForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * @Route("/admin/categor")
@@ -67,6 +68,8 @@ class CategoryController extends Controller
         $form = $this->createForm(CategoryForm::class, $category);
         $form->handleRequest($request);
 
+        $form_delete = $this->formDelete($category);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
@@ -82,6 +85,7 @@ class CategoryController extends Controller
             'admin/category/admin_category_edit.html.twig',
             [
                 'form' => $form->createView(),
+                'form_delete' => $form_delete->createView()
             ]
         );
     }
@@ -139,6 +143,8 @@ class CategoryController extends Controller
         $form = $this->createForm(CategoryForm::class, $category);
         $form->handleRequest($request);
 
+        $form_delete = $this->formDelete($category);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
@@ -154,7 +160,37 @@ class CategoryController extends Controller
             'admin/category/admin_category_edit.html.twig',
             [
                 'form' => $form->createView(),
+                'form_delete' => $form_delete->createView()
             ]
         );
+    }
+
+    /**
+     * @Route("/{id}/delete/", name="admin_category_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Category $category, Request $request)
+    {
+        $form = $this->formDelete($category);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($category);
+            $em->flush();
+
+            $this->addFlash('success', 'admin_category_home');
+        }
+
+        return $this->redirectToRoute('admin_category_home');
+    }
+
+    private function formDelete(Category $category)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin_category_delete', ['id' => $category->getId()]))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 }
