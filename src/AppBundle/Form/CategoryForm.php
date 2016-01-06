@@ -2,7 +2,6 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Form\FormEvent\isParentCategorySubscriber;
 use AppBundle\Form\FormEvent\ParentCategoryTranslationSubscriber;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -11,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\Category;
-use AppBundle\Util\Locales;
 
 class CategoryForm extends AbstractType
 {
