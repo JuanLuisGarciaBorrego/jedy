@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Util;
+namespace test\AppBundle\Util;
 
 use AppBundle\Util\Locales;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
