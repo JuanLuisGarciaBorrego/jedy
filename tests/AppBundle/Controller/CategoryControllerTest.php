@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CategoryControllerTest extends WebTestCase
 {
+    private $name = 'TestCategory';
+
     public function testIndexAction()
     {
         $client = static::createClient();
@@ -38,7 +40,7 @@ class CategoryControllerTest extends WebTestCase
         );
 
         //Good
-        $buttonCrawler['category_form[name]'] = 'TestCategory';
+        $buttonCrawler['category_form[name]'] = $this->name;
 
         $client->submit($buttonCrawler);
 
@@ -65,7 +67,7 @@ class CategoryControllerTest extends WebTestCase
 
         $idSelect = $crawler->filter('#category_form_parent option')->last()->attr('value');
 
-        $buttonCrawler['category_form[name]'] = 'SubCategory of TestCategory';
+        $buttonCrawler['category_form[name]'] = 'SubCategory of '.$this->name;
         $buttonCrawler['category_form[parent]'] = $idSelect;
 
         $client->submit($buttonCrawler);
