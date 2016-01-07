@@ -6,6 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CategoryControllerTest extends WebTestCase
 {
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
     private $name = 'TestCategory';
 
     public function testIndexAction()
@@ -76,5 +81,32 @@ class CategoryControllerTest extends WebTestCase
             '/You must create the translations of the parent category/',
             $client->getResponse()->getContent()
         );
+    }
+
+    /**
+     * Count translations of a category
+     */
+    public function testTranslationsAction()
+    {
+        $client = static::createClient();
+
+        $route = "/admin/category/".$this->selectCategoryByName()->getId()."/translations/";
+        $client->request('GET', $route);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+    }
+
+    /**
+     * @return mixed
+     */
+    private function selectCategoryByName()
+    {
+        self::bootKernel();
+
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+
+        return $this->em->getRepository('AppBundle:Category')->findOneBy(['name' => $this->name]);
     }
 }
