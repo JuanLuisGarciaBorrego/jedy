@@ -37,6 +37,13 @@ class Content
     private $locale;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=20)
+     */
+    private $type;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="contents")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
@@ -113,6 +120,30 @@ class Content
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return Content
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

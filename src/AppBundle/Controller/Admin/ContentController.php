@@ -6,23 +6,23 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
- * @Route("/admin/post")
+ * @Route("/admin/content")
  */
-class PostController extends Controller
+class ContentController extends Controller
 {
     /**
-     * @Route("s/", name="admin_post_home")
+     * @Route("s/", name="admin_content_home")
      */
     public function indexAction()
     {
-        $posts = $this->getDoctrine()->getRepository('AppBundle:Content')->findBy(
+        $contents = $this->getDoctrine()->getRepository('AppBundle:Content')->findBy(
             ['locale' => $this->container->get('locales')->getLocaleActive()]
         );
 
         return $this->render(
-            'admin/post/admin_post_index.html.twig',
+            'admin/content/admin_content_index.html.twig',
             [
-                'posts' => $posts,
+                'contents' => $contents,
             ]
         );
     }
