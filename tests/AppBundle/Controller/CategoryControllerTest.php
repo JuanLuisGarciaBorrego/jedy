@@ -97,6 +97,31 @@ class CategoryControllerTest extends WebTestCase
     }
 
     /**
+     * Test Edit Category
+     */
+    public function testEditAction()
+    {
+        $client = static::createClient();
+        $route = "/admin/category/".$this->selectCategoryByName()->getId()."/edit/";
+        $crawler = $client->request('GET', $route);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Edit category')->form();
+        $buttonCrawler['category_form[name]'] = $this->name." Edit";
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
      * @return mixed
      */
     private function selectCategoryByName()
