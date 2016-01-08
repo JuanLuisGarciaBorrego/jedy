@@ -3,6 +3,11 @@ services:
        class: AppBundle\Util\Locales
        arguments: [%locale_active%, %app_locales%, "@session"]
 
+   app.locale :
+       class: AppBundle\EventListener\LocaleListener
+       tags:
+           - { name: kernel.event_subscriber }
+
    app.twig.extension:
        class: AppBundle\Twig\AppExtension
        arguments: ["@doctrine.orm.entity_manager"]

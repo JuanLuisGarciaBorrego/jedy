@@ -16,7 +16,7 @@ class LocalesTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $session = new Session(new MockArraySessionStorage());
-        $session->set('locale_user', 'es');
+        $session->set('_locale', 'es');
 
         $this->locales = new Locales("es", "es|en|fr", $session);
     }
