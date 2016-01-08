@@ -172,7 +172,7 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Route("/{id}/delete/", name="admin_category_delete")
+     * @Route("y/{id}/delete/", name="admin_category_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Category $category, Request $request)

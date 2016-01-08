@@ -182,7 +182,8 @@ class CategoryControllerTest extends WebTestCase
     public function testEditTranslationAction()
     {
         $client = static::createClient();
-        $route = "/en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/translations/".$this->selectCategoryByName($this->name."En")->getId()."/edit/es/en";
+        $route = "/en/admin/category/".$this->selectCategoryByName($this->name)->getId(
+            )."/translations/".$this->selectCategoryByName($this->name."En")->getId()."/edit/es/en";
 
         $crawler = $client->request('GET', $route);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -213,7 +214,7 @@ class CategoryControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $buttonCrawler = $crawler->selectButton('Edit category')->form();
-        $buttonCrawler['category_form[name]'] = $this->name." Edit";
+        $buttonCrawler['category_form[name]'] = $this->name."Edit";
 
         $client->submit($buttonCrawler);
 
@@ -222,6 +223,26 @@ class CategoryControllerTest extends WebTestCase
 
         $this->assertContains(
             'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    public function testDeleteCategory()
+    {
+        $client = static::createClient();
+        $route = "/en/admin/category/".$this->selectCategoryByName($this->name."Edit")->getId()."/edit/";
+        $crawler = $client->request('GET', $route);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'admin_category_home.',
             $client->getResponse()->getContent()
         );
     }
