@@ -17,7 +17,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/admin/categories/');
+        $crawler = $client->request('GET', '/en/admin/categories/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Categories', $crawler->filter('h1.h-btn-line')->text());
@@ -30,7 +30,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/admin/category/new/');
+        $crawler = $client->request('GET', '/en/admin/category/new/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $buttonCrawler = $crawler->selectButton('Add category')->form();
@@ -65,7 +65,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/admin/category/new/');
+        $crawler = $client->request('GET', '/en/admin/category/new/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $buttonCrawler = $crawler->selectButton('Add category')->form();
@@ -90,7 +90,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $route = "/admin/category/".$this->selectCategoryByName()->getId()."/translations/";
+        $route = "/en/admin/category/".$this->selectCategoryByName()->getId()."/translations/";
         $client->request('GET', $route);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -102,7 +102,7 @@ class CategoryControllerTest extends WebTestCase
     public function testEditAction()
     {
         $client = static::createClient();
-        $route = "/admin/category/".$this->selectCategoryByName()->getId()."/edit/";
+        $route = "/en/admin/category/".$this->selectCategoryByName()->getId()."/edit/";
         $crawler = $client->request('GET', $route);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -124,7 +124,7 @@ class CategoryControllerTest extends WebTestCase
     /**
      * @return mixed
      */
-    private function selectCategoryByName()
+   private function selectCategoryByName()
     {
         self::bootKernel();
 
