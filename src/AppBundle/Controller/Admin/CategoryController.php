@@ -88,7 +88,7 @@ class CategoryController extends Controller
             'admin/category/admin_category_edit.html.twig',
             [
                 'form' => $form->createView(),
-                'form_delete' => $form_delete->createView()
+                'form_delete' => $form_delete->createView(),
             ]
         );
     }
@@ -135,7 +135,7 @@ class CategoryController extends Controller
             'admin/category/admin_category_new.html.twig',
             [
                 'form' => $form->createView(),
-                'category' => $category
+                'category' => $category,
             ]
         );
     }
@@ -166,7 +166,7 @@ class CategoryController extends Controller
             'admin/category/admin_category_edit.html.twig',
             [
                 'form' => $form->createView(),
-                'form_delete' => $form_delete->createView()
+                'form_delete' => $form_delete->createView(),
             ]
         );
     }
@@ -180,7 +180,7 @@ class CategoryController extends Controller
         $form = $this->formDelete($category);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($category);

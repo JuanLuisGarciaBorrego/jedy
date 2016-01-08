@@ -59,9 +59,9 @@ class CategoryControllerTest extends WebTestCase
     }
 
     /**
-     * Validation HasTranslationParent category
+     * Validation HasTranslationParent category error
      */
-    public function testNewParentAction()
+    public function testNewParentErrorAction()
     {
         $client = static::createClient();
 
@@ -90,10 +90,115 @@ class CategoryControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $route = "/en/admin/category/".$this->selectCategoryByName()->getId()."/translations/";
+        $route = "/en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/translations/";
         $client->request('GET', $route);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
+    }
+
+    /**
+     * add translation to category in English
+     */
+    public function testAddTranslationEnAction()
+    {
+        $client = static::createClient();
+        $routeEn = "en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/translations/add/es/en";
+
+        //English
+        $crawler = $client->request('GET', $routeEn);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $buttonCrawler = $crawler->selectButton('Add translation category')->form();
+
+        $buttonCrawler['category_form[name]'] = $this->name."En";
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * add translation to category in French
+     */
+    public function testAddTranslationFrAction()
+    {
+        $client = static::createClient();
+        $routeFr = "en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/translations/add/es/fr";
+
+        //French
+        $crawler = $client->request('GET', $routeFr);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $buttonCrawler = $crawler->selectButton('Add translation category')->form();
+
+        $buttonCrawler['category_form[name]'] = $this->name."Fr";
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Create a translation parent category ok
+     */
+    public function testNewParentOkAction()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', '/en/admin/category/new/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Add category')->form();
+
+        $idSelect = $crawler->filter('#category_form_parent option')->last()->attr('value');
+
+        $buttonCrawler['category_form[name]'] = 'SubCategory of '.$this->name;
+        $buttonCrawler['category_form[parent]'] = $idSelect;
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Edit translation english
+     */
+    public function testEditTranslationAction()
+    {
+        $client = static::createClient();
+        $route = "/en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/translations/".$this->selectCategoryByName($this->name."En")->getId()."/edit/es/en";
+
+        $crawler = $client->request('GET', $route);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Edit category')->form();
+
+        $buttonCrawler['category_form[name]'] = "Edit En";
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
     }
 
     /**
@@ -102,7 +207,7 @@ class CategoryControllerTest extends WebTestCase
     public function testEditAction()
     {
         $client = static::createClient();
-        $route = "/en/admin/category/".$this->selectCategoryByName()->getId()."/edit/";
+        $route = "/en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/edit/";
         $crawler = $client->request('GET', $route);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -124,7 +229,7 @@ class CategoryControllerTest extends WebTestCase
     /**
      * @return mixed
      */
-   private function selectCategoryByName()
+    private function selectCategoryByName($name)
     {
         self::bootKernel();
 
@@ -132,6 +237,6 @@ class CategoryControllerTest extends WebTestCase
             ->get('doctrine')
             ->getManager();
 
-        return $this->em->getRepository('AppBundle:Category')->findOneBy(['name' => $this->name]);
+        return $this->em->getRepository('AppBundle:Category')->findOneBy(['name' => $name]);
     }
 }
