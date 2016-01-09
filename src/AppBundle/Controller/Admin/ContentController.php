@@ -106,4 +106,36 @@ class ContentController extends Controller
             ]
         );
     }
+
+    /**
+     * @Route("/{id}/translations/add/{localeContent}/{localeTranslation}", name="admin_content_translation_add")
+     * @Method({"GET", "POST"})
+     */
+    public function addTranslationAction(Request $request, Content $content, $localeTranslation)
+    {
+        $newContent = new Content($localeTranslation);
+
+        $form = $this->createForm(ContentForm::class, $newContent, ['type' => $content->getType()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($newContent);
+            $em->flush();
+
+            $this->addFlash('success-content', 'created_successfully');
+
+            return $this->redirectToRoute('admin_content_translations', ['id' => $content->getId()]);
+        }
+
+        return $this->render(
+            'admin/content/admin_content_new.html.twig',
+            [
+                'form' => $form->createView(),
+                'content' => $content,
+                'type' => $content->getType()
+            ]
+        );
+    }
 }

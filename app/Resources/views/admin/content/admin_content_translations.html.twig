@@ -33,13 +33,12 @@
                         <a href="{{ path('admin_content_edit', {'id': content.id}) }}" class="btn btn-warning btn-xs">Edit {{ content.type }}</a>
                     {% else %}
 
-
                         {% set content_translation = is_content_translation(content.locale, translation.code, content.id) %}
 
                         {% if content_translation %}
                             <a href="" class="btn btn-warning btn-xs">Edit translation</a>
                         {% else %}
-                            <a href="" class="btn btn-info btn-xs">Add translation</a>
+                            <a href="{{ path('admin_content_translation_add', {'id': content.id, 'localeContent': content.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-info btn-xs">Add translation</a>
                         {% endif %}
 
                     {% endif %}
