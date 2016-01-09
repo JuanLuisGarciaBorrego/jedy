@@ -11,7 +11,14 @@
             <h1 class="h-btn-line">Contents</h1>
         </div>
         <div class="col-md-4 text-right">
-            <a href="" class="btn btn-primary btn-sm">Add content</a>
+            <div class="btn-group">
+                <a href="#" class="btn btn-primary btn-sm">Add content</a>
+                <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Page</a></li>
+                    <li><a href="#">Post</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
@@ -31,7 +38,7 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ content.title}}</td>
                 <td>{{ content.category.name |default("-")}}</td>
-                <td>{{ content.type}}</td>
+                <td><span class="label label-default">{{ content.type}}</span></td>
                 <td>
                     <a href="" class="btn btn-warning btn-xs">Edit</a>
                     <a href="" class="btn btn-info btn-xs">Translations</a>
