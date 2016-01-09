@@ -70,8 +70,10 @@ class Content
         return $this->id;
     }
 
-    public function __construct() {
+    public function __construct($locale = null) {
         $this->childrenMultilangue = new ArrayCollection();
+        
+        $this->setLocale($locale);
     }
 
     /**
