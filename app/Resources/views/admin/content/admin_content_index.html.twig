@@ -15,8 +15,8 @@
                 <a href="#" class="btn btn-primary btn-sm">Add content</a>
                 <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Page</a></li>
-                    <li><a href="#">Post</a></li>
+                    <li><a href="{{ path('admin_content_new', {'type': 'page'}) }}">Page</a></li>
+                    <li><a href="{{ path('admin_content_new', {'type': 'post'}) }}">Post</a></li>
                 </ul>
             </div>
         </div>

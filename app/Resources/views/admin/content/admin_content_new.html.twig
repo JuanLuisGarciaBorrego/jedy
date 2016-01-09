@@ -4,20 +4,19 @@
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
         <li><a href="{{ path('admin_content_home') }}">Contents</a></li>
-        <li class="active">Add content</li>
+        <li class="active">Add content - {{ type }}</li>
     </ul>
 
     <div class="row margin-vertical-md">
         <div class="col-md-12">
             <h1 class="h-btn-line">
-                Add content
-            </h1>
+                Add content - {{ type }}
         </div>
     </div>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary"> Add content</button>
+        <button type="submit" class="btn btn-primary"> Add content - {{ type }}</button>
     {{ form_end(form) }}
 
 {% endblock %}

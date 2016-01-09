@@ -32,14 +32,14 @@ class ContentController extends Controller
     }
 
     /**
-     * @Route("/new/", name="admin_content_new")
+     * @Route("/{type}/new/", name="admin_content_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $type)
     {
         $content = new Content($this->get('locales')->getLocaleActive());
 
-        $form = $this->createForm(ContentForm::class, $content);
+        $form = $this->createForm(ContentForm::class, $content, ['type' => $type]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -57,6 +57,7 @@ class ContentController extends Controller
             'admin/content/admin_content_new.html.twig',
             [
                 'form' => $form->createView(),
+                'type' => $type
             ]
         );
     }
