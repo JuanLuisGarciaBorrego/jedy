@@ -72,7 +72,7 @@ class Content
 
     public function __construct($locale = null) {
         $this->childrenMultilangue = new ArrayCollection();
-        
+
         $this->setLocale($locale);
     }
 
@@ -228,5 +228,10 @@ class Content
     public function getParentMultilangue()
     {
         return $this->parentMultilangue;
+    }
+
+    function __toString()
+    {
+        return $this->getTitle()." [".$this->getLocale()."]";
     }
 }
