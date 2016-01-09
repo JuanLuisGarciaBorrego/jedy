@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Form\FormEvent\ParentContentSubscriber;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -9,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\Content;
 
 class ContentForm extends AbstractType
 {
@@ -28,6 +30,11 @@ class ContentForm extends AbstractType
     private $localeActive;
 
     /**
+     * @var Content
+     */
+    private $parent;
+
+    /**
      * @param EntityManager $em
      */
     public function __construct(EntityManager $em, $localeActive)
@@ -39,6 +46,7 @@ class ContentForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->type = $options['type'];
+        $this->parent = $options['parent'];
 
         $builder
             ->add(
@@ -54,20 +62,9 @@ class ContentForm extends AbstractType
                 [
                     'data' => $this->type,
                 ]
-            )
-            ->add(
-                'parentMultilangue',
-                EntityType::class,
-                [
-                    'class' => 'AppBundle\Entity\Content',
-                    'label' => 'Translation',
-                    'placeholder' => 'select translation',
-                    'required' => false,
-                ]
             );
 
         if ($this->type == 'post') {
-
             $builder->add(
                 'category',
                 EntityType::class,
@@ -80,6 +77,21 @@ class ContentForm extends AbstractType
                 ]
             );
         }
+
+        if (!$this->parent) {
+            $builder->add(
+                'parentMultilangue',
+                EntityType::class,
+                [
+                    'class' => 'AppBundle\Entity\Content',
+                    'label' => 'Translation',
+                    'placeholder' => 'select translation',
+                    'required' => false,
+                ]
+            );
+        } else {
+            $builder->addEventSubscriber(new ParentContentSubscriber($this->parent));
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -88,6 +100,7 @@ class ContentForm extends AbstractType
             array(
                 'data_class' => 'AppBundle\Entity\Content',
                 'type' => null,
+                'parent' => null,
             )
         );
     }

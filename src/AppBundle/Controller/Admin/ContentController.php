@@ -115,7 +115,7 @@ class ContentController extends Controller
     {
         $newContent = new Content($localeTranslation);
 
-        $form = $this->createForm(ContentForm::class, $newContent, ['type' => $content->getType()]);
+        $form = $this->createForm(ContentForm::class, $newContent, ['type' => $content->getType(), 'parent' => $content]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
