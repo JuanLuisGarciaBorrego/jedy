@@ -40,7 +40,7 @@
                 <td>{{ content.category.name |default("-")}}</td>
                 <td><span class="label label-default">{{ content.type}}</span></td>
                 <td>
-                    <a href="" class="btn btn-warning btn-xs">Edit</a>
+                    <a href="{{ path('admin_content_edit', {'id': content.id}) }}" class="btn btn-warning btn-xs">Edit</a>
                     <a href="" class="btn btn-info btn-xs">Translations</a>
                 </td>
             </tr>

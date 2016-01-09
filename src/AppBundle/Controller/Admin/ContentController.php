@@ -61,4 +61,33 @@ class ContentController extends Controller
             ]
         );
     }
+
+    /**
+     * @Route("/{id}/edit/", name="admin_content_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Content $content, Request $request)
+    {
+        $form = $this->createForm(ContentForm::class, $content, ['type' => $content->getType()]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($content);
+            $em->flush();
+
+            $this->addFlash('success-content', 'created_successfully');
+
+            return $this->redirectToRoute('admin_content_home');
+        }
+
+        return $this->render(
+            'admin/content/admin_content_edit.html.twig',
+            [
+                'form' => $form->createView(),
+                'type' => $content->getType()
+            ]
+        );
+    }
 }
