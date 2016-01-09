@@ -32,7 +32,7 @@ class ContentController extends Controller
     }
 
     /**
-     * @Route("/{type}/new/", name="admin_content_new")
+     * @Route("/{type}/new/", name="admin_content_new", requirements={"type" = "page|post"} )
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request, $type)
