@@ -16,11 +16,12 @@ class ContentController extends Controller
 {
     /**
      * @Route("s/", name="admin_content_home")
+     * @Method("GET")
      */
     public function indexAction()
     {
         $contents = $this->getDoctrine()->getRepository('AppBundle:Content')->findBy(
-            ['locale' => $this->container->get('locales')->getLocaleActive()]
+            ['locale' => $this->get('locales')->getLocaleActive()]
         );
 
         return $this->render(

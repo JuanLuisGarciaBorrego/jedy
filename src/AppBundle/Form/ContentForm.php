@@ -2,7 +2,7 @@
 
 namespace AppBundle\Form;
 
-use AppBundle\Form\FormEvent\ParentContentSubscriber;
+use AppBundle\Form\FormEvent\ParentContentTranslationSubscriber;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -36,6 +36,7 @@ class ContentForm extends AbstractType
 
     /**
      * @param EntityManager $em
+     * @param $localeActive
      */
     public function __construct(EntityManager $em, $localeActive)
     {
@@ -65,32 +66,23 @@ class ContentForm extends AbstractType
             );
 
         if ($this->type == 'post') {
-            $builder->add(
-                'category',
-                EntityType::class,
-                [
-                    'class' => 'AppBundle\Entity\Category',
-                    'query_builder' => $this->selectCategoryLocaleActive(),
-                    'label' => 'subcategory',
-                    'placeholder' => 'select parent',
-                    'required' => false,
-                ]
-            );
+            if (!$this->parent) {
+                $builder->add(
+                    'category',
+                    EntityType::class,
+                    [
+                        'class' => 'AppBundle\Entity\Category',
+                        'query_builder' => $this->selectCategoryLocaleActive(),
+                        'label' => 'subcategory',
+                        'placeholder' => 'select parent',
+                        'required' => false,
+                    ]
+                );
+            }
         }
 
-        if (!$this->parent) {
-            $builder->add(
-                'parentMultilangue',
-                EntityType::class,
-                [
-                    'class' => 'AppBundle\Entity\Content',
-                    'label' => 'Translation',
-                    'placeholder' => 'select translation',
-                    'required' => false,
-                ]
-            );
-        } else {
-            $builder->addEventSubscriber(new ParentContentSubscriber($this->parent));
+        if ($this->parent) {
+            $builder->addEventSubscriber(new ParentContentTranslationSubscriber($this->em, $this->parent));
         }
     }
 

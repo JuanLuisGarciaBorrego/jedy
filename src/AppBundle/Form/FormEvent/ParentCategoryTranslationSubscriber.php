@@ -50,5 +50,4 @@ class ParentCategoryTranslationSubscriber implements EventSubscriberInterface
         return $this->em->getRepository('AppBundle:Category')
             ->selectCategoryParent($parentMultilangue, $locale);
     }
-
 }

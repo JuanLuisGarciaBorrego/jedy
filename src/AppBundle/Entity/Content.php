@@ -4,6 +4,8 @@ namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * Content
@@ -26,6 +28,8 @@ class Content
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     *
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -46,6 +50,8 @@ class Content
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="contents")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     *
+     * @AppAssert\HasTranslationParent()
      */
     private $category;
 
