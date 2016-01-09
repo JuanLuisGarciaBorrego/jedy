@@ -48,7 +48,7 @@ class ContentController extends Controller
             $em->persist($content);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success-content', 'created_successfully');
 
             return $this->redirectToRoute('admin_content_home');
         }
@@ -57,7 +57,7 @@ class ContentController extends Controller
             'admin/content/admin_content_new.html.twig',
             [
                 'form' => $form->createView(),
-                'type' => $type
+                'type' => $type,
             ]
         );
     }

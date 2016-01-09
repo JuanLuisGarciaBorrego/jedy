@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -15,6 +16,25 @@ class ContentForm extends AbstractType
      * @var string
      */
     private $type;
+
+    /**
+     * @var EntityManager
+     */
+    private $em;
+
+    /**
+     * @var string
+     */
+    private $localeActive;
+
+    /**
+     * @param EntityManager $em
+     */
+    public function __construct(EntityManager $em, $localeActive)
+    {
+        $this->em = $em;
+        $this->localeActive = $localeActive;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -53,6 +73,7 @@ class ContentForm extends AbstractType
                 EntityType::class,
                 [
                     'class' => 'AppBundle\Entity\Category',
+                    'query_builder' => $this->selectCategoryLocaleActive(),
                     'label' => 'subcategory',
                     'placeholder' => 'select parent',
                     'required' => false,
@@ -69,5 +90,11 @@ class ContentForm extends AbstractType
                 'type' => null,
             )
         );
+    }
+
+    public function selectCategoryLocaleActive()
+    {
+        return $this->em->getRepository('AppBundle:Category')
+            ->selectCategoryLocaleActive($this->localeActive);
     }
 }

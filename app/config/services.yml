@@ -20,6 +20,12 @@ services:
        tags:
            - { name: form.type }
 
+   app.form.content:
+       class: AppBundle\Form\ContentForm
+       arguments: ["@doctrine.orm.entity_manager", %locale_active%]
+       tags:
+           - { name: form.type }
+
    app.validator.has_translation_parent:
        class: AppBundle\Validator\Constraints\HasTranslationParentValidator
        arguments: ["@doctrine.orm.entity_manager", "@locales"]
