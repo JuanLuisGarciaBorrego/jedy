@@ -20,6 +20,7 @@ class AppExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('is_category_translation', array($this, 'isCategoryTranslation')),
+            new \Twig_SimpleFunction('is_content_translation', array($this, 'isContentTranslation')),
         );
     }
 
@@ -30,6 +31,18 @@ class AppExtension extends \Twig_Extension
             ->andWhere('c.locale != :localeDefault and c.locale = :localeCategory and t.id = :parentMultilangue')
             ->setParameter('localeDefault', $localeDefault)
             ->setParameter('localeCategory', $localeCategory)
+            ->setParameter('parentMultilangue', $parentMultilangue)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function isContentTranslation($localeDefault, $localeContent, $parentMultilangue)
+    {
+        return $this->em->getRepository('AppBundle:Content')->createQueryBuilder('c')
+            ->leftJoin('c.parentMultilangue', 't')
+            ->andWhere('c.locale != :localeDefault and c.locale = :localeContent and t.id = :parentMultilangue')
+            ->setParameter('localeDefault', $localeDefault)
+            ->setParameter('localeContent', $localeContent)
             ->setParameter('parentMultilangue', $parentMultilangue)
             ->getQuery()
             ->getOneOrNullResult();

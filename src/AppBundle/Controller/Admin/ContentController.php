@@ -86,7 +86,23 @@ class ContentController extends Controller
             'admin/content/admin_content_edit.html.twig',
             [
                 'form' => $form->createView(),
-                'type' => $content->getType()
+                'type' => $content->getType(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/{id}/translations/", name="admin_content_translations")
+     * @Method("GET")
+     */
+    public function translationsAction(Content $content)
+    {
+        return $this->render(
+            'admin/content/admin_content_translations.html.twig',
+            [
+                'content' => $content,
+                'translations' => $this->get('locales')->getLocales(),
+                'active' => $this->get('locales')->getLocaleActive(),
             ]
         );
     }

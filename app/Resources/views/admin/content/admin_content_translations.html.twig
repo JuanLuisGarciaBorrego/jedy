@@ -1,0 +1,52 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block content %}
+
+    <ul class="breadcrumb">
+        <li><a href="{{ path('admin_home') }}">Home</a></li>
+        <li><a href="{{ path('admin_content_home') }}">Contents</a></li>
+        <li><a href="{{ path('admin_content_edit', {'id':content.id }) }}">{{ content.title }}</a></li>
+        <li class="active">Translations</li>
+    </ul>
+
+    <div class="row margin-vertical-md">
+        <div class="col-md-12">
+            <h1 class="h-btn-line">Translations</h1>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Language</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for translation in translations %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ translation.name }}</td>
+                <td>
+                    {% if content.locale == translation.code %}
+                        <a href="{{ path('admin_content_edit', {'id': content.id}) }}" class="btn btn-warning btn-xs">Edit {{ content.type }}</a>
+                    {% else %}
+
+
+                        {% set content_translation = is_content_translation(content.locale, translation.code, content.id) %}
+
+                        {% if content_translation %}
+                            <a href="" class="btn btn-warning btn-xs">Edit translation</a>
+                        {% else %}
+                            <a href="" class="btn btn-info btn-xs">Add translation</a>
+                        {% endif %}
+
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
