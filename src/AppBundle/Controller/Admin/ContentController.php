@@ -72,6 +72,8 @@ class ContentController extends Controller
         $form = $this->createForm(ContentForm::class, $content, ['type' => $content->getType()]);
         $form->handleRequest($request);
 
+        $form_delete = $this->formDelete($content);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
@@ -88,6 +90,7 @@ class ContentController extends Controller
             [
                 'form' => $form->createView(),
                 'type' => $content->getType(),
+                'form_delete' => $form_delete->createView(),
             ]
         );
     }
@@ -149,13 +152,15 @@ class ContentController extends Controller
         $form = $this->createForm(ContentForm::class, $content, ['type' => $content->getType(), 'parent' => $content]);
         $form->handleRequest($request);
 
+        $form_delete = $this->formDelete($content);
+
         if ($form->isSubmitted() && $form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($content);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success-content', 'created_successfully');
 
             return $this->redirectToRoute('admin_content_translations', ['id' => $idParent]);
         }
@@ -164,8 +169,42 @@ class ContentController extends Controller
             'admin/content/admin_content_edit.html.twig',
             [
                 'form' => $form->createView(),
-                'type' => $content->getType()
+                'type' => $content->getType(),
+                'form_delete' => $form_delete->createView(),
             ]
         );
+    }
+
+    /**
+     * @Route("/{id}/delete/", name="admin_content_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Content $content, Request $request)
+    {
+        $form = $this->formDelete($content);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($content);
+            $em->flush();
+
+            $this->addFlash('success-content', 'admin_content_home');
+        }
+
+        return $this->redirectToRoute('admin_content_home');
+    }
+
+    /**
+     * @param Content $content
+     * @return \Symfony\Component\Form\Form
+     */
+    private function formDelete(Content $content)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin_content_delete', ['id' => $content->getId()]))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 }

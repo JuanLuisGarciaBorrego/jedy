@@ -14,6 +14,10 @@
         </div>
 
         <div class="col-xs-4">
+            {{ form_start(form_delete) }}
+                {{ form_widget(form_delete) }}
+                <button class="btn btn-block btn-danger" type="submit">Delete</button>
+            {{ form_end(form_delete) }}
         </div>
     </div>
 
