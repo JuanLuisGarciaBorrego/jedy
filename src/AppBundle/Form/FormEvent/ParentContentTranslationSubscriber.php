@@ -29,8 +29,13 @@ class ParentContentTranslationSubscriber implements EventSubscriberInterface
     public function onPostSubmit(FormEvent $event)
     {
         $content = $event->getData();
-        $content->setParentMultilangue($this->parentContent);
-        $content->setCategory($this->selectCategoryParent($this->parentContent->getCategory(), $content->getLocale()));
+
+        if (!$content->getParentMultilangue()) {
+            $content->setParentMultilangue($this->parentContent);
+            $content->setCategory(
+                $this->selectCategoryParent($this->parentContent->getCategory(), $content->getLocale())
+            );
+        }
     }
 
     public static function getSubscribedEvents()

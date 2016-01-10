@@ -33,7 +33,7 @@ class HasTranslationParentValidator extends ConstraintValidator
 
     public function validate($category, Constraint $constraint)
     {
-        if ($category) {
+        if ($category && $category->getLocale() == $this->locales->getLocaleActive()) {
             if ($this->selectCategoryParentMultilangue($category->getId()) != (count(
                         $this->locales->getLocales()
                     ) - 1)
