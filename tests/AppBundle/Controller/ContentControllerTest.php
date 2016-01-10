@@ -105,12 +105,36 @@ class ContentControllerTest extends WebTestCase
         $client = static::createClient();
 
         $routeEn = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/translations/add/es/en";
-        dump($this->selectContentByTitle($this->nameTitle."Page")->getId());
         $crawler = $client->request('GET', $routeEn);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $buttonCrawler = $crawler->selectButton('Add content - page')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Page En";
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Creation a Translation Page Fr
+     */
+    public function testTranslationPageFrAction()
+    {
+        $client = static::createClient();
+
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/translations/add/es/fr";
+        $crawler = $client->request('GET', $routeFr);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Add content - page')->form();
+        $buttonCrawler['content_form[title]'] = $this->nameTitle."Page Fr";
 
         $client->submit($buttonCrawler);
 
