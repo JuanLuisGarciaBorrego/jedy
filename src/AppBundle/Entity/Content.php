@@ -56,7 +56,7 @@ class Content
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Content", mappedBy="parentMultilangue")
+     * @ORM\OneToMany(targetEntity="Content", mappedBy="parentMultilangue", cascade={"persist", "remove"})
      */
     private $childrenMultilangue;
 
