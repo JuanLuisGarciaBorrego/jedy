@@ -63,6 +63,41 @@ class ContentControllerTest extends WebTestCase
     }
 
     /**
+     * Creation a Page
+     */
+    public function testNewPageAction()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', 'en/admin/content/page/new/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Add content - page')->form();
+
+        //Error validation
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertRegExp(
+            '/This value should not be blank./',
+            $client->getResponse()->getContent()
+        );
+
+        //Good
+        $buttonCrawler['content_form[title]'] = $this->nameTitle."Page";
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
      * @return mixed
      */
     private function selectCategoryByName($name)

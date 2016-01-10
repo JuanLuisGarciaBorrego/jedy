@@ -49,7 +49,7 @@ class ContentController extends Controller
             $em->persist($content);
             $em->flush();
 
-            $this->addFlash('success-content', 'created_successfully');
+            $this->addFlash('success', 'created_successfully');
 
             return $this->redirectToRoute('admin_content_home');
         }
