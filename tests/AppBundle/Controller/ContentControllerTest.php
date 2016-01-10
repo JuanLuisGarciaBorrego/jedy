@@ -98,6 +98,32 @@ class ContentControllerTest extends WebTestCase
     }
 
     /**
+     * Creation a Translation Page En
+     */
+    public function testTranslationPageEnAction()
+    {
+        $client = static::createClient();
+
+        $routeEn = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/translations/add/es/en";
+        dump($this->selectContentByTitle($this->nameTitle."Page")->getId());
+        $crawler = $client->request('GET', $routeEn);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Add content - page')->form();
+        $buttonCrawler['content_form[title]'] = $this->nameTitle."Page En";
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
      * @return mixed
      */
     private function selectCategoryByName($name)
@@ -109,5 +135,20 @@ class ContentControllerTest extends WebTestCase
             ->getManager();
 
         return $this->em->getRepository('AppBundle:Category')->findOneBy(['name' => $name]);
+    }
+
+    /**
+     * @param $title
+     * @return mixed
+     */
+    private function selectContentByTitle($title)
+    {
+        self::bootKernel();
+
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+
+        return $this->em->getRepository('AppBundle:Content')->findOneBy(['title' => $title]);
     }
 }
