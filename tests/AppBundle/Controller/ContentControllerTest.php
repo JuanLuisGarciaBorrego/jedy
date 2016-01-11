@@ -148,6 +148,31 @@ class ContentControllerTest extends WebTestCase
     }
 
     /**
+     * Edit a Translation Page Fr
+     */
+    public function testEditTranslationPageFrAction()
+    {
+        $client = static::createClient();
+
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/translations/".$this->selectContentByTitle($this->nameTitle."Page Fr")->getId()."/edit/es/fr";
+        $crawler = $client->request('GET', $routeFr);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Edit content - page')->form();
+        $buttonCrawler['content_form[title]'] = $this->nameTitle."Page Fr Edit";
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+    
+    /**
      * @return mixed
      */
     private function selectCategoryByName($name)
