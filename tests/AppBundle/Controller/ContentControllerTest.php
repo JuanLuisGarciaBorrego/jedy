@@ -219,6 +219,33 @@ class ContentControllerTest extends WebTestCase
     }
 
     /**
+     * Creation a Post
+     */
+    public function testNewPostAction()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('GET', 'en/admin/content/post/new/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Add content - post')->form();
+
+        $buttonCrawler['content_form[title]'] = $this->nameTitle."Post";
+        $idSelect = $crawler->filter('#content_form_category option')->last()->attr('value');
+        $buttonCrawler['content_form[category]'] = $idSelect;
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
      * @return mixed
      */
     private function selectCategoryByName($name)
