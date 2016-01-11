@@ -30,8 +30,8 @@
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{ path('admin_content_home') }}">All contents</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="{{ path('admin_content_home') }}">Posts</a></li>
-                                        <li><a href="{{ path('admin_content_home') }}">Pages</a></li>
+                                        <li><a href="{{ path('admin_content_home', {'type': 'post'}) }}">Posts</a></li>
+                                        <li><a href="{{ path('admin_content_home', {'type': 'page'}) }}">Pages</a></li>
                                     </ul>
                                 </li>
                             </ul>

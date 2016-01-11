@@ -2,15 +2,21 @@
 
 {% block content %}
     <ul class="breadcrumb">
-        <li><a href="{{ path('admin_content_home') }}">Home</a></li>
-        <li class="active">Contents</li>
+        <li><a href="{{ path('admin_home') }}">Home</a></li>
+        {% if type %}
+            <li><a href="{{ path('admin_content_home') }}">Content</a></li>
+            <li class="active">Contents {{ type }}</li>
+        {% else %}
+            <li class="active">Contents</li>
+        {% endif %}
+
     </ul>
 
     {% include 'admin/_flashbag.html.twig' %}
 
     <div class="row margin-vertical-md">
         <div class="col-md-8">
-            <h1 class="h-btn-line">Contents</h1>
+            <h1 class="h-btn-line">Contents {{ type }}</h1>
         </div>
         <div class="col-md-4 text-right">
             <div class="btn-group">

@@ -15,19 +15,26 @@ use Symfony\Component\HttpFoundation\Request;
 class ContentController extends Controller
 {
     /**
-     * @Route("s/", name="admin_content_home")
+     * @Route("s/{type}", name="admin_content_home", defaults={"type" = null}, requirements={"type" = "page|post"} )
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction($type)
     {
-        $contents = $this->getDoctrine()->getRepository('AppBundle:Content')->findBy(
-            ['locale' => $this->get('locales')->getLocaleActive()]
-        );
+        if ($type == null) {
+            $contents = $this->getDoctrine()->getRepository('AppBundle:Content')->findBy(
+                ['locale' => $this->get('locales')->getLocaleActive()]
+            );
+        } else {
+            $contents = $this->getDoctrine()->getRepository('AppBundle:Content')->findBy(
+                ['locale' => $this->get('locales')->getLocaleActive(), 'type' => $type]
+            );
+        }
 
         return $this->render(
             'admin/content/admin_content_index.html.twig',
             [
                 'contents' => $contents,
+                'type' => $type,
             ]
         );
     }
@@ -119,7 +126,11 @@ class ContentController extends Controller
     {
         $newContent = new Content($localeTranslation);
 
-        $form = $this->createForm(ContentForm::class, $newContent, ['type' => $content->getType(), 'parent' => $content]);
+        $form = $this->createForm(
+            ContentForm::class,
+            $newContent,
+            ['type' => $content->getType(), 'parent' => $content]
+        );
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -138,7 +149,7 @@ class ContentController extends Controller
             [
                 'form' => $form->createView(),
                 'content' => $content,
-                'type' => $content->getType()
+                'type' => $content->getType(),
             ]
         );
     }
