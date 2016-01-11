@@ -246,6 +246,56 @@ class ContentControllerTest extends WebTestCase
     }
 
     /**
+     * Creation a Translation Post En
+     */
+    public function testTranslationPostEnAction()
+    {
+        $client = static::createClient();
+
+        $routeEn = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId()."/translations/add/es/en";
+        $crawler = $client->request('GET', $routeEn);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Add content - post')->form();
+        $buttonCrawler['content_form[title]'] = $this->nameTitle."Post En";
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Creation a Translation Page Fr
+     */
+    public function testTranslationPostFrAction()
+    {
+        $client = static::createClient();
+
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId()."/translations/add/es/fr";
+        $crawler = $client->request('GET', $routeFr);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Add content - post')->form();
+        $buttonCrawler['content_form[title]'] = $this->nameTitle."Post Fr";
+
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'created_successfully',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
      * @return mixed
      */
     private function selectCategoryByName($name)
