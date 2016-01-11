@@ -33,7 +33,8 @@ class ContentControllerTest extends WebTestCase
 
         //English
         $client = static::createClient();
-        $routeEn = "en/admin/category/".$this->selectCategoryByName($this->nameCategory)->getId()."/translations/add/es/en";
+        $routeEn = "en/admin/category/".$this->selectCategoryByName($this->nameCategory)->getId(
+            )."/translations/add/es/en";
 
         $crawler = $client->request('GET', $routeEn);
         $buttonCrawler = $crawler->selectButton('Add translation category')->form();
@@ -44,7 +45,8 @@ class ContentControllerTest extends WebTestCase
 
         //French
         $client = static::createClient();
-        $routeFr = "en/admin/category/".$this->selectCategoryByName($this->nameCategory)->getId()."/translations/add/es/fr";
+        $routeFr = "en/admin/category/".$this->selectCategoryByName($this->nameCategory)->getId(
+            )."/translations/add/es/fr";
         $crawler = $client->request('GET', $routeFr);
         $buttonCrawler = $crawler->selectButton('Add translation category')->form();
         $buttonCrawler['category_form[name]'] = $this->nameCategory."Fr";
@@ -104,7 +106,8 @@ class ContentControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $routeEn = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/translations/add/es/en";
+        $routeEn = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId(
+            )."/translations/add/es/en";
         $crawler = $client->request('GET', $routeEn);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -129,7 +132,8 @@ class ContentControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/translations/add/es/fr";
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId(
+            )."/translations/add/es/fr";
         $crawler = $client->request('GET', $routeFr);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -154,7 +158,8 @@ class ContentControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/translations/".$this->selectContentByTitle($this->nameTitle."Page Fr")->getId()."/edit/es/fr";
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId(
+            )."/translations/".$this->selectContentByTitle($this->nameTitle."Page Fr")->getId()."/edit/es/fr";
         $crawler = $client->request('GET', $routeFr);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -178,7 +183,8 @@ class ContentControllerTest extends WebTestCase
     public function testDeleteTranslationPage()
     {
         $client = static::createClient();
-        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/translations/".$this->selectContentByTitle($this->nameTitle."Page Fr Edit")->getId()."/edit/es/fr";
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId(
+            )."/translations/".$this->selectContentByTitle($this->nameTitle."Page Fr Edit")->getId()."/edit/es/fr";
         $crawler = $client->request('GET', $routeFr);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -252,7 +258,8 @@ class ContentControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $routeEn = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId()."/translations/add/es/en";
+        $routeEn = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId(
+            )."/translations/add/es/en";
         $crawler = $client->request('GET', $routeEn);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -277,7 +284,8 @@ class ContentControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId()."/translations/add/es/fr";
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId(
+            )."/translations/add/es/fr";
         $crawler = $client->request('GET', $routeFr);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -302,7 +310,8 @@ class ContentControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId()."/translations/".$this->selectContentByTitle($this->nameTitle."Post Fr")->getId()."/edit/es/fr";
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId(
+            )."/translations/".$this->selectContentByTitle($this->nameTitle."Post Fr")->getId()."/edit/es/fr";
         $crawler = $client->request('GET', $routeFr);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
@@ -326,7 +335,8 @@ class ContentControllerTest extends WebTestCase
     public function testDeleteTranslationPost()
     {
         $client = static::createClient();
-        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId()."/translations/".$this->selectContentByTitle($this->nameTitle."Post Fr Edit")->getId()."/edit/es/fr";
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId(
+            )."/translations/".$this->selectContentByTitle($this->nameTitle."Post Fr Edit")->getId()."/edit/es/fr";
         $crawler = $client->request('GET', $routeFr);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -362,6 +372,26 @@ class ContentControllerTest extends WebTestCase
 
         $this->assertContains(
             'admin_content_home',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    public function testDestructInitialCategory()
+    {
+        $client = static::createClient();
+        $route = "/en/admin/category/".$this->selectCategoryByName($this->nameCategory)->getId()."/edit/";
+        $crawler = $client->request('GET', $route);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'admin_category_home.',
             $client->getResponse()->getContent()
         );
     }
