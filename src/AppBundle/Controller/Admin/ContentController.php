@@ -80,7 +80,7 @@ class ContentController extends Controller
             $em->persist($content);
             $em->flush();
 
-            $this->addFlash('success-content', 'created_successfully');
+            $this->addFlash('success', 'created_successfully');
 
             return $this->redirectToRoute('admin_content_home');
         }
@@ -190,7 +190,7 @@ class ContentController extends Controller
             $em->remove($content);
             $em->flush();
 
-            $this->addFlash('success-content', 'admin_content_home');
+            $this->addFlash('success', 'admin_content_home');
         }
 
         return $this->redirectToRoute('admin_content_home');

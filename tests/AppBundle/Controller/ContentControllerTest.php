@@ -171,7 +171,53 @@ class ContentControllerTest extends WebTestCase
             $client->getResponse()->getContent()
         );
     }
-    
+
+    /**
+     * Delete Page Fr
+     */
+    public function testDeleteTranslationPage()
+    {
+        $client = static::createClient();
+        $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/translations/".$this->selectContentByTitle($this->nameTitle."Page Fr Edit")->getId()."/edit/es/fr";
+        $crawler = $client->request('GET', $routeFr);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            ' admin_content_home.',
+            $client->getResponse()->getContent()
+        );
+    }
+
+    /**
+     * Delete Parent Page
+     */
+    public function testDeletePage()
+    {
+        $client = static::createClient();
+        $route = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/edit/";
+        $crawler = $client->request('GET', $route);
+
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $client->submit($buttonCrawler);
+
+        $this->assertEquals(200, $client->getResponse()->isRedirect());
+        $client->followRedirect();
+
+        $this->assertContains(
+            'admin_content_home',
+            $client->getResponse()->getContent()
+        );
+    }
+
     /**
      * @return mixed
      */
