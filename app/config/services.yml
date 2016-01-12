@@ -32,8 +32,8 @@ services:
        tags:
            - { name: validator.constraint_validator, alias: has_translation_parent }
 
-   app.slugger:
-       class: AppBundle\EventListener\SlugifySubscriber
+   app.setter_content_category:
+       class: AppBundle\EventListener\SetterSubscriber
        arguments: ["@slugify"]
        tags:
            - { name: doctrine.event_subscriber }

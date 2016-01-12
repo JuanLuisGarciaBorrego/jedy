@@ -51,6 +51,9 @@ class Content
      * @var string
      *
      * @ORM\Column(name="content", type="text")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "10")
      */
     private $content;
 

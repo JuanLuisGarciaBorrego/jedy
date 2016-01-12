@@ -2,12 +2,13 @@
 
 namespace AppBundle\EventListener;
 
+use AppBundle\Entity\Content;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Category;
 use Cocur\Slugify\Slugify;
 
-class SlugifySubscriber implements EventSubscriber
+class SetterSubscriber implements EventSubscriber
 {
     private $slugify;
 
@@ -21,20 +22,34 @@ class SlugifySubscriber implements EventSubscriber
 
     public function preUpdate(LifecycleEventArgs $args)
     {
-        $this->index($args);
+        $this->slug($args);
     }
 
     public function prePersist(LifecycleEventArgs $args)
     {
-        $this->index($args);
+        $this->slug($args);
+        $this->publishedAt($args);
     }
 
-    public function index(LifecycleEventArgs $args)
+    public function publishedAt(LifecycleEventArgs $args)
+    {
+        $entity = $args->getEntity();
+
+        if ($entity instanceof Content) {
+            $entity->setPublishedAt(new \DateTime('now'));
+        }
+    }
+
+    public function slug(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
 
         if ($entity instanceof Category) {
             $entity->setSlug($this->slugify->slugify($entity->getName()));
+        }
+
+        if ($entity instanceof Content) {
+            $entity->setSlug($this->slugify->slugify($entity->getTitle()));
         }
     }
 
