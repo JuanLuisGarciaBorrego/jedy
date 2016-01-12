@@ -16,6 +16,8 @@ class ContentControllerTest extends WebTestCase
 
     private $nameTitle = 'Title test';
 
+    private $content = 'Lo ren Impsun Loren Impsun Loren Impsun LorenImpsun, Loren Impsun Loren Impsun Lo ren Imp sun. LorenImp sun Loren Impsun, LorenImp sun Loren Impsun LorenImp sun.';
+
     /**
      * Init Category Es,En,Fr
      */
@@ -58,7 +60,7 @@ class ContentControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/en/admin/contents/');
+        $crawler = $client->request('GET', '/en/admin/contents');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Contents', $crawler->filter('h1.h-btn-line')->text());
@@ -87,6 +89,7 @@ class ContentControllerTest extends WebTestCase
 
         //Good
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Page";
+        $buttonCrawler['content_form[content]'] = $this->content;
 
         $client->submit($buttonCrawler);
 
@@ -113,6 +116,7 @@ class ContentControllerTest extends WebTestCase
 
         $buttonCrawler = $crawler->selectButton('Add content - page')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Page En";
+        $buttonCrawler['content_form[content]'] = $this->content;
 
         $client->submit($buttonCrawler);
 
@@ -139,6 +143,7 @@ class ContentControllerTest extends WebTestCase
 
         $buttonCrawler = $crawler->selectButton('Add content - page')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Page Fr";
+        $buttonCrawler['content_form[content]'] = $this->content;
 
         $client->submit($buttonCrawler);
 
@@ -237,6 +242,7 @@ class ContentControllerTest extends WebTestCase
         $buttonCrawler = $crawler->selectButton('Add content - post')->form();
 
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Post";
+        $buttonCrawler['content_form[content]'] = $this->content;
         $idSelect = $crawler->filter('#content_form_category option')->last()->attr('value');
         $buttonCrawler['content_form[category]'] = $idSelect;
 
@@ -265,6 +271,7 @@ class ContentControllerTest extends WebTestCase
 
         $buttonCrawler = $crawler->selectButton('Add content - post')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Post En";
+        $buttonCrawler['content_form[content]'] = $this->content;
 
         $client->submit($buttonCrawler);
 
@@ -291,6 +298,7 @@ class ContentControllerTest extends WebTestCase
 
         $buttonCrawler = $crawler->selectButton('Add content - post')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Post Fr";
+        $buttonCrawler['content_form[content]'] = $this->content;
 
         $client->submit($buttonCrawler);
 
