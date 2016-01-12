@@ -31,3 +31,9 @@ services:
        arguments: ["@doctrine.orm.entity_manager", "@locales"]
        tags:
            - { name: validator.constraint_validator, alias: has_translation_parent }
+
+   app.slugger:
+       class: AppBundle\EventListener\SlugifySubscriber
+       arguments: ["@slugify"]
+       tags:
+           - { name: doctrine.event_subscriber }
