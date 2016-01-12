@@ -43,9 +43,23 @@ class Category
     /**
      * @var string
      *
+     * @ORM\Column(name="slug", type="string")
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="locale", type="string", length=5)
      */
     private $locale;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
 
     /**
      * @ORM\OneToMany(targetEntity="Category", mappedBy="parent", cascade={"persist", "remove"})
@@ -111,6 +125,30 @@ class Category
     }
 
     /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
      * Get name
      *
      * @return string
@@ -142,6 +180,30 @@ class Category
     public function getLocale()
     {
         return $this->locale;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Category
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**
