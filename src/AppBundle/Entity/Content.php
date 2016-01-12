@@ -36,6 +36,27 @@ class Content
     /**
      * @var string
      *
+     * @ORM\Column(name="slug", type="string")
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="summary", type="text", nullable=true)
+     */
+    private $summary;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text")
+     */
+    private $content;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="locale", type="string", length=5)
      */
     private $locale;
@@ -46,6 +67,12 @@ class Content
      * @ORM\Column(name="type", type="string", length=20)
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
+     */
+    private $publishedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="contents")
@@ -107,6 +134,78 @@ class Content
     }
 
     /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return Category
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Set summary
+     *
+     * @param string $summary
+     *
+     * @return Category
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+
+        return $this;
+    }
+
+    /**
+     * Get summary
+     *
+     * @return string
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * Set content
+     *
+     * @param string $content
+     *
+     * @return Category
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Get content
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
      * Set locale
      *
      * @param string $locale
@@ -152,6 +251,29 @@ class Content
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set category
+     *
+     * @param Category|\DateTime $publishedAt
+     * @return Content
+     */
+    public function setPublishedAt(\DateTime $publishedAt)
+    {
+        $this->publishedAt = $publishedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get publishedAt
+     *
+     * @return string
+     */
+    public function getPublishedAt()
+    {
+        return $this->publishedAt;
     }
 
     /**
