@@ -214,7 +214,7 @@ class CategoryControllerTest extends WebTestCase
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $buttonCrawler = $crawler->selectButton('Edit category')->form();
-        $buttonCrawler['category_form[name]'] = $this->name."Edit";
+        $buttonCrawler['category_form[name]'] = $this->name."A";
 
         $client->submit($buttonCrawler);
 
@@ -227,10 +227,10 @@ class CategoryControllerTest extends WebTestCase
         );
     }
 
-    public function testDeleteCategory()
+    public function testDeleteSubCategory()
     {
         $client = static::createClient();
-        $route = "/en/admin/category/".$this->selectCategoryByName($this->name."Edit")->getId()."/edit/";
+        $route = "/en/admin/category/".$this->selectCategoryByName("SubCategory of ".$this->name)->getId()."/edit/";
         $crawler = $client->request('GET', $route);
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
