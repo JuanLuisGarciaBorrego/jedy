@@ -43,3 +43,9 @@ services:
        arguments: ["@slugify"]
        tags:
            - { name: doctrine.event_subscriber }
+
+   twig.intl_extension:
+       public: false
+       class:  Twig_Extensions_Extension_Intl
+       tags:
+           - { name: twig.extension }

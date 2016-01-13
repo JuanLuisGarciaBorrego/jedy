@@ -2,10 +2,20 @@
 
 {% block content %}
 
-    {% for post in posts %}
-        <h1>{{ post.title }}</h1>
-        <p>{{ post.summary }}</p>
-        <a href="{{ path('app_blog_post', {'_locale': post.locale, 'slug': post.slug}) }}">Read more</a>
-    {% endfor %}
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <h1>Blog</h1>
+    </div>
+
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-xs-12">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.summary }}</p>
+                <span>{{ post.publishedAt|localizeddate('medium', 'short') }}</span>
+                <p><a class="btn btn-default" href="{{ path('app_blog_post', {'_locale': post.locale, 'slug': post.slug}) }}" role="button">View details &raquo;</a></p>
+            </div>
+        {% endfor %}
+    </div>
 
 {% endblock %}
