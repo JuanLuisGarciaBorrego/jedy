@@ -39,9 +39,14 @@ class AppPublicExtension extends \Twig_Extension
         );
     }
 
-    public function translation_content(Content $content)
+    /**
+     * @param Content $content
+     * @param string $class
+     * @return string
+     */
+    public function translation_content(Content $content, $class = 'translation_content')
     {
-        $result = "<ul>";
+        $result = "<ul class='".$class."'>";
         foreach ($this->getTranslations($content) as $item) {
             $result .= "<li><a href='".$this->routingExtenxion->getPath(
                     'app_blog_post',
