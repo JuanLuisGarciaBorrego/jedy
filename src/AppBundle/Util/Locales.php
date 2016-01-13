@@ -30,9 +30,10 @@ class Locales
     }
 
     /**
+     * @param bool|false $translation
      * @return array
      */
-    public function getLocales()
+    public function getLocales($translation = false)
     {
         $localeCodes = explode('|', $this->locales);
         $locales = array();
@@ -41,7 +42,7 @@ class Locales
             $locales[] = [
                 'code' => $localeCode,
                 'name' => ucfirst(
-                    Intl::getLocaleBundle()->getLocaleName($localeCode, $this->session->get('_locale'))
+                    Intl::getLocaleBundle()->getLocaleName($localeCode, (!$translation) ? $this->session->get('_locale'): $localeCode)
                 ),
                 'active' => ($this->locale_active == $localeCode ? true : false),
             ];

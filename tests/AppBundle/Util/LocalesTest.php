@@ -27,6 +27,12 @@ class LocalesTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($this->resultLocales(), $result);
     }
 
+    public function testGetLocalesTranslation()
+    {
+        $result = $this->locales->getLocales(true);
+        $this->assertEquals($this->resultLocalesTranslation(), $result);
+    }
+
     public function testLocaleActive()
     {
         $result = $this->locales->getLocaleActive();
@@ -49,6 +55,27 @@ class LocalesTest extends \PHPUnit_Framework_TestCase
             [
                 'code' => "fr",
                 'name' => "Francés",
+                'active' => false,
+            ],
+        ];
+    }
+
+    public function resultLocalesTranslation()
+    {
+        return [
+            [
+                'code' => "es",
+                'name' => "Español",
+                'active' => true,
+            ],
+            [
+                'code' => "en",
+                'name' => "English",
+                'active' => false,
+            ],
+            [
+                'code' => "fr",
+                'name' => "Français",
                 'active' => false,
             ],
         ];
