@@ -1,0 +1,11 @@
+{% extends '::base_public.html.twig' %}
+
+{% block content %}
+
+    {% for post in posts %}
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.summary }}</p>
+        <a href="">Read more</a>
+    {% endfor %}
+
+{% endblock %}
