@@ -8,6 +8,12 @@ services:
        tags:
            - { name: kernel.event_subscriber }
 
+   app.redirect_to_locale_active:
+       class: AppBundle\EventListener\RedirectToLocaleActiveListener
+       arguments: ["@service_container", "%locale_active%"]
+       tags:
+           - { name: kernel.event_subscriber }
+
    app_admin.twig.extension:
        class: AppBundle\Twig\AppAdminExtension
        arguments: ["@doctrine.orm.entity_manager"]
