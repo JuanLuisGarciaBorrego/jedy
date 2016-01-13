@@ -14,6 +14,12 @@ services:
        tags:
            - { name: twig.extension }
 
+   app_public.twig.extension:
+          class: AppBundle\Twig\AppPublicExtension
+          arguments: ["@locales", "@twig.extension.routing"]
+          tags:
+              - { name: twig.extension }
+
    app.form.category:
        class: AppBundle\Form\CategoryForm
        arguments: ["@doctrine.orm.entity_manager", %locale_active%]

@@ -3,7 +3,9 @@
 {% block content %}
 
     <h1>{{ post.title }}</h1>
-    <span>{{ post.publishedAt|date("m/d/Y") }}</span>
-    <p>{{ post.content }}</p>
 
+    <span>{{ post.publishedAt|date("m/d/Y") }}</span>
+    <p>{{ post.content }}.</p>
+    <hr>
+    {{ translation_content(post) }}
 {% endblock %}

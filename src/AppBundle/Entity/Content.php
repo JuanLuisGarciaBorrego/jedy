@@ -86,12 +86,12 @@ class Content
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Content", mappedBy="parentMultilangue", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Content", mappedBy="parentMultilangue", cascade={"persist", "remove"}, fetch="EAGER")
      */
     private $childrenMultilangue;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Content", inversedBy="childrenMultilangue")
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="childrenMultilangue", fetch="EAGER")
      * @ORM\JoinColumn(name="parent_multilangue_id", referencedColumnName="id")
      */
     private $parentMultilangue;
@@ -334,7 +334,7 @@ class Content
      */
     public function getChildrenMultilangue()
     {
-        return $this->childrenMultilangue;
+        return $this->childrenMultilangue->toArray();
     }
 
     /**
