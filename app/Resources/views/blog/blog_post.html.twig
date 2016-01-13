@@ -1,0 +1,9 @@
+{% extends '::base_public.html.twig' %}
+
+{% block content %}
+
+    <h1>{{ post.title }}</h1>
+    <span>{{ post.publishedAt|date("m/d/Y") }}</span>
+    <p>{{ post.content }}</p>
+
+{% endblock %}

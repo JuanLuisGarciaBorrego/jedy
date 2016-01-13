@@ -8,8 +8,8 @@ services:
        tags:
            - { name: kernel.event_subscriber }
 
-   app.twig.extension:
-       class: AppBundle\Twig\AppExtension
+   app_admin.twig.extension:
+       class: AppBundle\Twig\AppAdminExtension
        arguments: ["@doctrine.orm.entity_manager"]
        tags:
            - { name: twig.extension }

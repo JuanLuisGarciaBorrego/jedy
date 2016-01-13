@@ -5,7 +5,7 @@
     {% for post in posts %}
         <h1>{{ post.title }}</h1>
         <p>{{ post.summary }}</p>
-        <a href="">Read more</a>
+        <a href="{{ path('app_blog_post', {'_locale': post.locale, 'slug': post.slug}) }}">Read more</a>
     {% endfor %}
 
 {% endblock %}

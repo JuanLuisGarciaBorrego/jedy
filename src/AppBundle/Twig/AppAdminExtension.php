@@ -4,7 +4,7 @@ namespace AppBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
 
-class AppExtension extends \Twig_Extension
+class AppAdminExtension extends \Twig_Extension
 {
     /**
      * @var EntityManager
@@ -50,6 +50,6 @@ class AppExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'app.twig.extension';
+        return 'app_admin.twig.extension';
     }
 }
