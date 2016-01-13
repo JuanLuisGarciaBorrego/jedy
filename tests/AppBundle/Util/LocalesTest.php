@@ -53,4 +53,10 @@ class LocalesTest extends \PHPUnit_Framework_TestCase
             ],
         ];
     }
+
+    public function testLanguage()
+    {
+        $result = $this->locales->getLanguage('en');
+        $this->assertEquals("English", $result);
+    }
 }

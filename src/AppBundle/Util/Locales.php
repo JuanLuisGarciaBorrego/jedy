@@ -57,4 +57,13 @@ class Locales
     {
         return $this->locale_active;
     }
+
+    /**
+     * @param $locale
+     * @return string
+     */
+    public function getLanguage($locale)
+    {
+        return ucfirst(Intl::getLocaleBundle()->getLocaleName($locale, $locale));
+    }
 }
