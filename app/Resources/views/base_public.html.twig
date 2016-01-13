@@ -3,6 +3,7 @@
 {% block stylesheets %}
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha256-Av2lUNJFz7FqxLquvIFyxyCQA/VHUFna3onVy+5jUBM= sha512-zyqATyziDoUzMiMR8EAD3c5Ye55I2V3K7GcmJDHbL49cXzFQCEA6flSKqxEzwxXqq73/M4A0jKFFJ/ysEhbExQ==" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/style-public.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block body %}
@@ -40,9 +41,14 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Languages <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            {% for locale in locales.getLocales(true) %}
+                                <li><a href="{{ path('app_index', {'_locale': locale.code}) }}">
+                                    {% if app.request.locale == locale.code %}
+                                        <i class="fa fa-language"></i>
+                                    {% endif %}
+                                    {{ locale.name }}
+                                </a></li>
+                            {% endfor %}
                         </ul>
                     </li>
                 </ul>

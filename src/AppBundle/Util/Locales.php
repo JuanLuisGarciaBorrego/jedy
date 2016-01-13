@@ -42,7 +42,10 @@ class Locales
             $locales[] = [
                 'code' => $localeCode,
                 'name' => ucfirst(
-                    Intl::getLocaleBundle()->getLocaleName($localeCode, (!$translation) ? $this->session->get('_locale'): $localeCode)
+                    Intl::getLocaleBundle()->getLocaleName(
+                        $localeCode,
+                        (!$translation) ? $this->session->get('_locale') : $localeCode
+                    )
                 ),
                 'active' => ($this->locale_active == $localeCode ? true : false),
             ];
