@@ -16,6 +16,11 @@ use AppBundle\Validator\Constraints as AppAssert;
 class Content
 {
     /**
+     * Pagination post
+     */
+    const NUM_ITEMS = 10;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="id", type="integer")

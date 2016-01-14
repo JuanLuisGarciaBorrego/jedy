@@ -10,4 +10,52 @@ namespace AppBundle\Repository;
  */
 class ContentRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @param $locale
+     * @param null $type
+     * @param null $status
+     * @return integer
+     */
+    public function getTotalRegisters($locale, $type = null, $status = null)
+    {
+        $post = ($type) ? $type : 'post';
+        $page = ($type) ? $type : 'page';
+
+        $published = ($status) ? $status : true;
+        $unpublished = ($status) ? $status : false;
+
+        return $this->createQueryBuilder('c')
+            ->select('COUNT(c) AS TOTAL')
+            ->where('(c.type = :post or c.type = :page) and (c.status = :published or c.status = :unpublished)')
+            ->andWhere('c.locale = :locale')
+            ->setParameter('post', $post)
+            ->setParameter('page', $page)
+            ->setParameter('published', $published)
+            ->setParameter('unpublished', $unpublished)
+            ->setParameter('locale', $locale)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getResultsPaginated($offset, $sizePage, $locale, $type = null, $status = null)
+    {
+        $post = ($type) ? $type : 'post';
+        $page = ($type) ? $type : 'page';
+
+        $published = ($status) ? $status : true;
+        $unpublished = ($status) ? $status : false;
+
+        return $this->createQueryBuilder('c')
+            ->where('(c.type = :post or c.type = :page) and (c.status = :published or c.status = :unpublished)')
+            ->andWhere('c.locale = :locale')
+            ->setParameter('post', $post)
+            ->setParameter('page', $page)
+            ->setParameter('published', $published)
+            ->setParameter('unpublished', $unpublished)
+            ->setParameter('locale', $locale)
+            ->setFirstResult($offset)
+            ->setMaxResults($sizePage)
+            ->getQuery()
+            ->execute();
+    }
 }

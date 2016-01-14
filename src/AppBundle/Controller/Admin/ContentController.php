@@ -15,20 +15,29 @@ use Symfony\Component\HttpFoundation\Request;
 class ContentController extends Controller
 {
     /**
-     * @Route("s/{type}", name="admin_content_home", defaults={"type" = null}, requirements={"type" = "page|post"} )
+     * @Route("s/{page}/{type}", name="admin_content_home", defaults={"type" = null, "page" = 1}, requirements={"type" = "page|post"} )
      * @Method("GET")
      */
-    public function indexAction($type)
+    public function indexAction($type, $page)
     {
-        if ($type == null) {
-            $contents = $this->getDoctrine()->getRepository('AppBundle:Content')->findBy(
-                ['locale' => $this->get('locales')->getLocaleActive()]
-            );
-        } else {
-            $contents = $this->getDoctrine()->getRepository('AppBundle:Content')->findBy(
-                ['locale' => $this->get('locales')->getLocaleActive(), 'type' => $type]
-            );
+        $total = $this->getDoctrine()->getManager()->getRepository('AppBundle:Content')->getTotalRegisters(
+            $this->get('locales')->getLocaleActive(),
+            $type
+        );
+
+        $totalPages = ceil($total / Content::NUM_ITEMS);
+
+        if ($totalPages != 0 && ($page > $totalPages || $page <= 0)) {
+            return $this->redirectToRoute('admin_content_home', ['type' => $type]);
         }
+
+        $offset = Content::NUM_ITEMS * ($page - 1);
+        $contents = $this->getDoctrine()->getManager()->getRepository('AppBundle:Content')->getResultsPaginated(
+            $offset,
+            Content::NUM_ITEMS,
+            $this->get('locales')->getLocaleActive(),
+            $type
+        );
 
         return $this->render(
             'admin/content/admin_content_index.html.twig',
