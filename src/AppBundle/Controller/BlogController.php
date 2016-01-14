@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Content;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
@@ -38,6 +39,7 @@ class BlogController extends Controller
 
     /**
      * @Route("/post/{slug}", name="app_blog_post")
+     * @ParamConverter("post", class="AppBundle:Content", options={"repository_method" = "findBySlugIfContentIsPublished"})
      */
     public function postShowAction(Content $post)
     {

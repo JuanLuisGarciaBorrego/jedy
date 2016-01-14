@@ -66,4 +66,14 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->execute();
     }
+
+    public function findBySlugIfContentIsPublished($slug)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.status = :status and c.slug = :slug')
+            ->setParameter('status', true)
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
