@@ -78,6 +78,11 @@ class Content
     private $publishedAt;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="contents")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      *
@@ -277,6 +282,29 @@ class Content
     public function getPublishedAt()
     {
         return $this->publishedAt;
+    }
+
+    /**
+     * Set category
+     *
+     * @param Category|Boolean $status
+     * @return Content
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 
     /**
