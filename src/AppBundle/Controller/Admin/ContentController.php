@@ -20,30 +20,20 @@ class ContentController extends Controller
      */
     public function indexAction($type, $page)
     {
-        $total = $this->getDoctrine()->getManager()->getRepository('AppBundle:Content')->getTotalRegisters(
-            $this->get('locales')->getLocaleActive(),
-            $type
-        );
-
-        $totalPages = ceil($total / Content::NUM_ITEMS);
-
-        if ($totalPages != 0 && ($page > $totalPages || $page <= 0)) {
-            return $this->redirectToRoute('admin_content_home', ['type' => $type]);
-        }
-
-        $offset = Content::NUM_ITEMS * ($page - 1);
-        $contents = $this->getDoctrine()->getManager()->getRepository('AppBundle:Content')->getResultsPaginated(
-            $offset,
-            Content::NUM_ITEMS,
-            $this->get('locales')->getLocaleActive(),
-            $type
+        $pagination = $this->get('pagination')->pagination(
+            $type,
+            $page,
+            $this->get('locales')->getLocaleActive()
         );
 
         return $this->render(
             'admin/content/admin_content_index.html.twig',
             [
-                'contents' => $contents,
-                'type' => $type,
+                'contents' => $pagination['contents'],
+                'type' => $pagination['type'],
+                'total' => $pagination['total'],
+                'totalPages' => $pagination['totalPages'],
+                'page' => $page,
             ]
         );
     }

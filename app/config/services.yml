@@ -55,3 +55,7 @@ services:
        class:  Twig_Extensions_Extension_Intl
        tags:
            - { name: twig.extension }
+
+   pagination:
+       class: AppBundle\Util\Pagination
+       arguments: ["@doctrine.orm.entity_manager"]
