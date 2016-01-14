@@ -18,4 +18,19 @@
         {% endfor %}
     </div>
 
+    <ul class="pager">
+        {% set prev = page -1  %}
+
+        {% if prev != 0 %}
+            <li class="previous"><a href="{{ path('app_blog_index_paginated', {'page': prev}) }}">&larr; Older</a></li>
+        {% else %}
+            <li class="previous disabled"><a href="">&larr; Older</a></li>
+        {% endif %}
+
+        {% if totalPages >= (page+1) %}
+            <li class="next"><a href="{{ path('app_blog_index_paginated', {'page': page+1}) }}">Newer &rarr;</a></li>
+        {% else %}
+            <li class="next disabled"><a href="">Newer &rarr;</a></li>
+        {% endif %}
+    </ul>
 {% endblock %}
