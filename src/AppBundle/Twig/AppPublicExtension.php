@@ -73,7 +73,7 @@ class AppPublicExtension extends \Twig_Extension
 
             foreach ($content->getParentMultilangue()->getChildrenMultilangue() as $item) {
 
-                if ($item->getLocale() != $content->getLocale()) {
+                if (($item->getLocale() != $content->getLocale()) && $item->getStatus()) {
                     $contents[] = [
                         'locale' => $item->getLocale(),
                         'language' => $this->locales->getLanguage($item->getLocale()),
@@ -87,12 +87,14 @@ class AppPublicExtension extends \Twig_Extension
         if ($content->getChildrenMultilangue()) {
 
             foreach ($content->getChildrenMultilangue() as $item) {
-                $contents[] = [
-                    'locale' => $item->getLocale(),
-                    'language' => $this->locales->getLanguage($item->getLocale()),
-                    'slug' => $item->getSlug(),
-                    'title' => $item->getTitle(),
-                ];
+                if ($item->getStatus()) {
+                    $contents[] = [
+                        'locale' => $item->getLocale(),
+                        'language' => $this->locales->getLanguage($item->getLocale()),
+                        'slug' => $item->getSlug(),
+                        'title' => $item->getTitle(),
+                    ];
+                }
             }
 
         }
