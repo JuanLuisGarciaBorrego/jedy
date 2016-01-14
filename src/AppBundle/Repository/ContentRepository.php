@@ -37,6 +37,14 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
             ->getSingleScalarResult();
     }
 
+    /**
+     * @param $offset
+     * @param $sizePage
+     * @param $locale
+     * @param null $type
+     * @param null $status
+     * @return array Content
+     */
     public function getResultsPaginated($offset, $sizePage, $locale, $type = null, $status = null)
     {
         $post = ($type) ? $type : 'post';

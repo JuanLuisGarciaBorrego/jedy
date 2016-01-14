@@ -21,11 +21,19 @@ class Pagination
         $this->em = $em;
     }
 
-    public function pagination($type, $page, $locale)
+    /**
+     * @param $type
+     * @param $page
+     * @param $locale
+     * @param null $status
+     * @return array
+     */
+    public function pagination($type, $page, $locale, $status = null)
     {
         $total = $this->em->getRepository('AppBundle:Content')->getTotalRegisters(
             $locale,
-            $type
+            $type,
+            $status
         );
 
         $totalPages = ceil($total / Content::NUM_ITEMS);
@@ -39,7 +47,8 @@ class Pagination
             $offset,
             Content::NUM_ITEMS,
             $locale,
-            $type
+            $type,
+            $status
         );
 
         return [
@@ -47,7 +56,7 @@ class Pagination
             'total' => $total,
             'totalPages' => $totalPages,
             'type' => $type,
-            'locale' => $locale
+            'locale' => $locale,
         ];
     }
 }
