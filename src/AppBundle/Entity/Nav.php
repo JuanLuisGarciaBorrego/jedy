@@ -47,9 +47,15 @@ class Nav
      */
     private $parentMultilangue;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ContentsNav", mappedBy="nav")
+     */
+    private $contentsNav;
+
     public function __construct($locale = null)
     {
         $this->childrenMultilangue = new ArrayCollection();
+        $this->contentsNav = new ArrayCollection();
     }
 
     /**
@@ -117,7 +123,7 @@ class Nav
      *
      * @return Nav
      */
-    public function addChildrenMultilangue(\AppBundle\Entity\Nav $childrenMultilangue)
+    public function addChildrenMultilangue(Nav $childrenMultilangue)
     {
         $this->childrenMultilangue[] = $childrenMultilangue;
 
@@ -129,7 +135,7 @@ class Nav
      *
      * @param \AppBundle\Entity\Nav $childrenMultilangue
      */
-    public function removeChildrenMultilangue(\AppBundle\Entity\Nav $childrenMultilangue)
+    public function removeChildrenMultilangue(Nav $childrenMultilangue)
     {
         $this->childrenMultilangue->removeElement($childrenMultilangue);
     }
@@ -151,7 +157,7 @@ class Nav
      *
      * @return Nav
      */
-    public function setParentMultilangue(\AppBundle\Entity\Nav $parentMultilangue = null)
+    public function setParentMultilangue(Nav $parentMultilangue = null)
     {
         $this->parentMultilangue = $parentMultilangue;
 
@@ -166,6 +172,40 @@ class Nav
     public function getParentMultilangue()
     {
         return $this->parentMultilangue;
+    }
+
+    /**
+     * Add contentsNav
+     *
+     * @param \AppBundle\Entity\ContentsNav $contentsNav
+     *
+     * @return Nav
+     */
+    public function addContentsNav(ContentsNav $contentsNav)
+    {
+        $this->contentsNav[] = $contentsNav;
+
+        return $this;
+    }
+
+    /**
+     * Remove contentsNav
+     *
+     * @param \AppBundle\Entity\ContentsNav $contentsNav
+     */
+    public function removeContentsNav(ContentsNav $contentsNav)
+    {
+        $this->contentsNav->removeElement($contentsNav);
+    }
+
+    /**
+     * Get contentsNav
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContentsNav()
+    {
+        return $this->contentsNav;
     }
 
     function __toString()

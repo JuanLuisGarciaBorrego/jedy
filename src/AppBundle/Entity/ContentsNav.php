@@ -47,6 +47,12 @@ class ContentsNav
      */
     private $parent;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Nav", inversedBy="contentsNav")
+     * @ORM\JoinColumn(name="nav_id", referencedColumnName="id")
+     */
+    private $nav;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
@@ -168,8 +174,32 @@ class ContentsNav
         return $this->parent;
     }
 
+    /**
+     * Set nav
+     *
+     * @param Nav $nav
+     *
+     * @return ContentsNav
+     */
+    public function setNav(Nav $nav = null)
+    {
+        $this->nav = $nav;
+
+        return $this;
+    }
+
+    /**
+     * Get nav
+     *
+     * @return Nav
+     */
+    public function getNav()
+    {
+        return $this->nav;
+    }
+
     function __toString()
     {
-       return $this->getIdElement()." [".$this->getId()."]";
+        return $this->getIdElement()." [".$this->getId()."]";
     }
 }
