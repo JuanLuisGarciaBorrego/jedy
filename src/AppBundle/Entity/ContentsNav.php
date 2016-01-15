@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,21 @@ class ContentsNav
      */
     private $sort;
 
+    /**
+     * @ORM\OneToMany(targetEntity="ContentsNav", mappedBy="parent", cascade={"persist", "remove"})
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ContentsNav", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parent;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -93,5 +109,67 @@ class ContentsNav
     {
         return $this->sort;
     }
-}
 
+    /**
+     * Add child
+     *
+     * @param ContentsNav $child
+     *
+     * @return ContentsNav
+     */
+    public function addChild(ContentsNav $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param ContentsNav $child
+     */
+    public function removeChild(ContentsNav $child)
+    {
+        $this->children->removeElement($child);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param ContentsNav $parent
+     *
+     * @return ContentsNav
+     */
+    public function setParent(ContentsNav $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return ContentsNav
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    function __toString()
+    {
+       return $this->getIdElement()." [".$this->getId()."]";
+    }
+}
