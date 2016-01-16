@@ -56,6 +56,8 @@ class Nav
     {
         $this->childrenMultilangue = new ArrayCollection();
         $this->contentsNav = new ArrayCollection();
+
+        $this->setLocale($locale);
     }
 
     /**
