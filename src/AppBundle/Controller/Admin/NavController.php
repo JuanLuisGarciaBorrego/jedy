@@ -9,6 +9,7 @@ use AppBundle\Form\NavForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Route("/admin/nav")
@@ -59,20 +60,38 @@ class NavController extends Controller
      */
     public function addContentToNavAction(Nav $nav, Request $request)
     {
-        $formCategory = $this->createForm(NavCategoryForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
+        //$request->getSession()->remove('contents');
 
+        $contents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
+
+        $formCategory = $this->createForm(NavCategoryForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
         $formCategory->handleRequest($request);
 
         if ($formCategory->isSubmitted() && $formCategory->isValid()) {
-            dump("dentro del form");
 
-            dump($formCategory->getData());
+            $category = $formCategory->getData();
+
+            $item = [
+                'idElement' => $category['category']->getId(),
+                'name' => $category['category']->getName(),
+                'slug' => $category['category']->getSlug(),
+                'type' => 'category'
+            ];
+
+            if(!$contents->contains($item)) {
+                $contents->add($item);
+                $request->getSession()->set('contents', $contents);
+            }else{
+                $this->addFlash('error', 'exits');
+            }
+
         }
 
         return $this->render(
             'admin/nav/admin_nav_add_content.html.twig', [
                 'nav' => $nav,
-                'form_category' => $formCategory->createView()
+                'form_category' => $formCategory->createView(),
+                'contents' => $request->getSession()->get('contents')
             ]
         );
     }

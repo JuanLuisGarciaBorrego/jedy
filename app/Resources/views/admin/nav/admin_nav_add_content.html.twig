@@ -16,6 +16,13 @@
         </div>
     </div>
 
+    {% for flash_message in app.session.flashbag.get('error') %}
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            <strong>Well done!</strong> {{ flash_message }}.
+        </div>
+    {% endfor %}
+
     <div class="row margin-vertical-md">
         <div class="col-md-5">
 
@@ -33,7 +40,30 @@
 
         </div>
         <div class="col-md-6 col-md-offset-1">
-            hola
+            <table class="table table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Parent</th>
+                    <th>Sort</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for item in contents %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ item.name }} <span class="label label-success">{{ item.type }}</span></td>
+                            <td>--</td>
+                            <td>--</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4"> -- </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 {% endblock %}

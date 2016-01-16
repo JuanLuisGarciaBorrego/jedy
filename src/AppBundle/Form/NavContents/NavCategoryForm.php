@@ -27,7 +27,7 @@ class NavCategoryForm extends AbstractType
 
         $builder
             ->add(
-                'parent',
+                'category',
                 EntityType::class,
                 [
                     'class' => 'AppBundle\Entity\Category',
