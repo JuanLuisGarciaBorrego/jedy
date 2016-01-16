@@ -16,5 +16,25 @@
         </div>
     </div>
 
+    <div class="row margin-vertical-md">
+        <div class="col-md-5">
 
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    Select content
+
+                    {{ form_start(form_category) }}
+                        {{ form_widget(form_category) }}
+                        <button type="submit" class="btn btn-primary btn-xs btn-block"> Add category</button>
+                    {{ form_end(form_category) }}
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-6 col-md-offset-1">
+            hola
+        </div>
+    </div>
 {% endblock %}
+
