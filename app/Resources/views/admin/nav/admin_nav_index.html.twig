@@ -31,6 +31,7 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ nav.name}}</td>
                 <td>
+                    <a href="{{ path('admin_nav_add_content', {'id': nav.id}) }}" class="btn btn-primary btn-xs">Add content</a>
                     <a href="" class="btn btn-warning btn-xs">Edit</a>
                     <a href="" class="btn btn-info btn-xs">Translations</a>
                 </td>

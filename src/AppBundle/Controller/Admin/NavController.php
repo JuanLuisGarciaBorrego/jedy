@@ -45,9 +45,21 @@ class NavController extends Controller
         }
 
         return $this->render(
-            'admin/category/admin_category_new.html.twig',
+            'admin/nav/admin_nav_new.html.twig',
             [
                 'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/{id}/add-content/", name="admin_nav_add_content")
+     */
+    public function addContentToNavAction(Nav $nav)
+    {
+        return $this->render(
+            'admin/nav/admin_nav_add_content.html.twig', [
+                'nav' => $nav
             ]
         );
     }
