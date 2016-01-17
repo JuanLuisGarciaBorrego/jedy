@@ -45,21 +45,21 @@
                 <tr>
                     <th>#</th>
                     <th>Name</th>
-                    <th>Parent</th>
-                    <th>Sort</th>
+                    <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
-                    {% for item in contents %}
+                    {% for key,item in contents %}
                         <tr>
                             <td>{{ loop.index }}</td>
                             <td>{{ item.name }} <span class="label label-success">{{ item.type }}</span></td>
-                            <td>--</td>
-                            <td>--</td>
+                            <td>
+                                <a href="{{ path('admin_nav_remove_content', {'id': nav.id, 'keyArray': key}) }}" class="btn btn-primary btn-xs"><i class="fa fa-trash"></i></a>
+                            </td>
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="4"> -- </td>
+                            <td colspan="3"> -- </td>
                         </tr>
                     {% endfor %}
                 </tbody>

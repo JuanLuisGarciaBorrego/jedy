@@ -60,8 +60,6 @@ class NavController extends Controller
      */
     public function addContentToNavAction(Nav $nav, Request $request)
     {
-        //$request->getSession()->remove('contents');
-
         $contents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
 
         $formCategory = $this->createForm(NavCategoryForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
@@ -72,7 +70,10 @@ class NavController extends Controller
             $category = $formCategory->getData();
 
             $item = [
+                'parent_id' => null,
+                'nav_id' => $nav->getId(),
                 'idElement' => $category['category']->getId(),
+                'sort' => null,
                 'name' => $category['category']->getName(),
                 'slug' => $category['category']->getSlug(),
                 'type' => 'category'
@@ -94,5 +95,16 @@ class NavController extends Controller
                 'contents' => $request->getSession()->get('contents')
             ]
         );
+    }
+
+    /**
+     * @Route("/{id}/remove-content-nav/{keyArray}", name="admin_nav_remove_content")
+     */
+    public function removeContentNavAction($id, $keyArray)
+    {
+        $contents = $this->get('session')->get('contents');
+        $contents->remove($keyArray);
+
+        return $this->redirectToRoute('admin_nav_add_content', ['id' => $id]);
     }
 }
