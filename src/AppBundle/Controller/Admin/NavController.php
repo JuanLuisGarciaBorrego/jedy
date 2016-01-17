@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Nav;
 use AppBundle\Form\NavContents\NavCategoryForm;
+use AppBundle\Form\NavContents\NavPageForm;
 use AppBundle\Form\NavForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -63,21 +64,40 @@ class NavController extends Controller
         $contents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
 
         $formCategory = $this->createForm(NavCategoryForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
-        $formCategory->handleRequest($request);
+        $formPage = $this->createForm(NavPageForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
 
-        if ($formCategory->isSubmitted() && $formCategory->isValid()) {
+        $formCategory->handleRequest($request);
+        $formPage->handleRequest($request);
+
+        if (($formCategory->isSubmitted() && $formCategory->isValid()) || ($formPage->isSubmitted() && $formPage->isValid())) {
 
             $category = $formCategory->getData();
+            $page = $formPage->getData();
 
-            $item = [
-                'parent_id' => null,
-                'nav_id' => $nav->getId(),
-                'idElement' => $category['category']->getId(),
-                'sort' => null,
-                'name' => $category['category']->getName(),
-                'slug' => $category['category']->getSlug(),
-                'type' => 'category'
-            ];
+            if($category){
+                $item = [
+                    'parent_id' => null,
+                    'nav_id' => $nav->getId(),
+                    'idElement' => $category['category']->getId(),
+                    'sort' => null,
+                    'name' => $category['category']->getName(),
+                    'slug' => $category['category']->getSlug(),
+                    'type' => 'category'
+                ];
+            }
+
+            if($page){
+                $item = [
+                    'parent_id' => null,
+                    'nav_id' => $nav->getId(),
+                    'idElement' => $page['page']->getId(),
+                    'sort' => null,
+                    'name' => $page['page']->getTitle(),
+                    'slug' => $page['page']->getSlug(),
+                    'type' => 'page'
+                ];
+            }
+
 
             if(!$contents->contains($item)) {
                 $contents->add($item);
@@ -92,6 +112,7 @@ class NavController extends Controller
             'admin/nav/admin_nav_add_content.html.twig', [
                 'nav' => $nav,
                 'form_category' => $formCategory->createView(),
+                'form_page' => $formPage->createView(),
                 'contents' => $request->getSession()->get('contents')
             ]
         );
