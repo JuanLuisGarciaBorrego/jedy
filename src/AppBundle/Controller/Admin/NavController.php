@@ -67,7 +67,6 @@ class NavController extends Controller
      */
     public function addContentToNavAction(Nav $nav, Request $request)
     {
-        //$request->getSession()->remove('contents');
         $contents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
 
         $formCategory = $this->createForm(NavCategoryForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
@@ -97,7 +96,45 @@ class NavController extends Controller
             }
         }
 
+        $formSession = $this->createFormSession($contents, $nav);
+
+        return $this->render(
+            'admin/nav/admin_nav_add_content.html.twig', [
+                'nav' => $nav,
+                'form_category' => $formCategory->createView(),
+                'form_page' => $formPage->createView(),
+                'contents' => $request->getSession()->get('contents'),
+                'formSession' => $formSession->createView()
+            ]
+        );
+    }
+
+    /**
+     * @Route("/{id}/remove-content-nav/{keyArray}", name="admin_nav_remove_content")
+     */
+    public function removeContentNavAction($id, $keyArray)
+    {
+        $contents = $this->get('session')->get('contents');
+        $contents->remove($keyArray);
+
+        return $this->redirectToRoute('admin_nav_add_content', ['id' => $id]);
+    }
+
+    /**
+     * @Route("/save-contents-nav/{id}", name="admin_nav_save_content")
+     */
+    public function saveContentNavAction(Nav $nav, Request $request)
+    {
+        $formSession = $this->createFormSession($request->getSession()->get('contents'), $nav);
+        $formSession->handleRequest($request);
+        dump($formSession->getData());
+    }
+
+    private function createFormSession(ArrayCollection $contents, $nav)
+    {
         $cnb = $this->get('form.factory')->createNamedBuilder('formSession');
+        $cnb->setAction($this->generateUrl('admin_nav_save_content', ['id'=> $nav->getId()]));
+
         foreach ($contents as $key => $element) {
             $cnb->add('parent_id' . $key, ChoiceType::class, [
                     'choices' => $this->selectParent($contents),
@@ -131,28 +168,7 @@ class NavController extends Controller
                 ]
             ]);
         }
-        $formSession = $cnb->getForm();
-
-        return $this->render(
-            'admin/nav/admin_nav_add_content.html.twig', [
-                'nav' => $nav,
-                'form_category' => $formCategory->createView(),
-                'form_page' => $formPage->createView(),
-                'contents' => $request->getSession()->get('contents'),
-                'formSession' => $formSession->createView()
-            ]
-        );
-    }
-
-    /**
-     * @Route("/{id}/remove-content-nav/{keyArray}", name="admin_nav_remove_content")
-     */
-    public function removeContentNavAction($id, $keyArray)
-    {
-        $contents = $this->get('session')->get('contents');
-        $contents->remove($keyArray);
-
-        return $this->redirectToRoute('admin_nav_add_content', ['id' => $id]);
+        return $cnb->getForm();
     }
 
     private function createArray($item, $type)

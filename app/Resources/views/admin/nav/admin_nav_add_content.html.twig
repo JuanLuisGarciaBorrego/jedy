@@ -45,31 +45,6 @@
 
         </div>
         <div class="col-md-6 col-md-offset-1">
-            <table class="table table-striped table-hover ">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                    {% for key,item in contents %}
-                        <tr>
-                            <td>{{ loop.index }}</td>
-                            <td>{{ item.name }} <span class="label label-success">{{ item.type }}</span></td>
-                            <td>
-                                <a href="{{ path('admin_nav_remove_content', {'id': nav.id, 'keyArray': key}) }}" class="btn btn-primary btn-xs"><i class="fa fa-trash"></i></a>
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="3"> -- </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
             {{ form_start(formSession) }}
                 {{ form_errors(formSession) }}
                 <table class="table table-striped table-hover ">
@@ -106,6 +81,4 @@
             {{ form_end(formSession) }}
         </div>
     </div>
-
-
 {% endblock %}
