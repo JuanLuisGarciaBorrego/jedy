@@ -30,6 +30,20 @@ class ContentsNav
     private $idElement;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=80)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=20)
+     */
+    private $type;
+    
+    /**
      * @var int
      *
      * @ORM\Column(name="sort", type="integer")
@@ -92,6 +106,54 @@ class ContentsNav
         return $this->idElement;
     }
 
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return ContentsNav
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return ContentsNav
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    
     /**
      * Set sort
      *
