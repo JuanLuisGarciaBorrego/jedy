@@ -2,11 +2,8 @@
 
 namespace AppBundle\Controller\Admin;
 
-use AppBundle\Entity\Category;
-use AppBundle\Entity\Content;
 use AppBundle\Entity\ContentsNav;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use AppBundle\Entity\Nav;
@@ -15,7 +12,6 @@ use AppBundle\Form\NavContents\NavPageForm;
 use AppBundle\Form\NavForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -148,8 +144,10 @@ class NavController extends Controller
                 $em->persist($contentsNav);
 
             }
-
             $em->flush();
+            $request->getSession()->remove('contents');
+
+            return $this->redirectToRoute('admin_nav_add_content', ['id' => $nav->getId()]);
         }
 
     }
