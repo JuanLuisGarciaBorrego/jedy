@@ -153,7 +153,7 @@ class ContentsNav
     {
         return $this->type;
     }
-    
+
     /**
      * Set sort
      *
