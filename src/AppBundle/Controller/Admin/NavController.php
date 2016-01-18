@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Category;
+use AppBundle\Entity\Content;
 use AppBundle\Entity\ContentsNav;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -127,16 +128,39 @@ class NavController extends Controller
     {
         $formSession = $this->createFormSession($request->getSession()->get('contents'), $nav);
         $formSession->handleRequest($request);
-        dump($formSession->getData());
+
+        if ($formSession->isSubmitted() && $formSession->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $contentsNav = array_chunk($formSession->getData(), 5);
+
+            foreach ($contentsNav as $list) {
+
+                $contentsNav = new ContentsNav();
+                $contentsNav->setParent($list[0]);
+                $contentsNav->setIdElement($list[1]);
+                $contentsNav->setName($list[2]);
+                $contentsNav->setType($list[3]);
+                $contentsNav->setSort($list[4]);
+                $contentsNav->setNav($nav);
+
+                $em->persist($contentsNav);
+
+            }
+
+            $em->flush();
+        }
+
     }
 
     private function createFormSession(ArrayCollection $contents, $nav)
     {
         $cnb = $this->get('form.factory')->createNamedBuilder('formSession');
-        $cnb->setAction($this->generateUrl('admin_nav_save_content', ['id'=> $nav->getId()]));
+        $cnb->setAction($this->generateUrl('admin_nav_save_content', ['id' => $nav->getId()]));
 
         foreach ($contents as $key => $element) {
-            $cnb->add('parent_id' . $key, ChoiceType::class, [
+            $cnb->add('parent_id-' . $key, ChoiceType::class, [
                     'choices' => $this->selectParent($contents),
                     'placeholder' => "Subcategory",
                     'group_by' => function ($val, $key, $index) {
@@ -146,23 +170,20 @@ class NavController extends Controller
                     'required' => false
                 ]
             );
-            $cnb->add('nav_id' . $key, HiddenType::class, [
-                'data' => $nav->getId()
-            ]);
-            $cnb->add('idElement' . $key, HiddenType::class, [
+            $cnb->add('idElement-' . $key, HiddenType::class, [
                 'data' => $element['idElement']
             ]);
-            $cnb->add('name' . $key, HiddenType::class, [
+            $cnb->add('name-' . $key, HiddenType::class, [
                 'data' => $element['name']
             ]);
-            $cnb->add('type', HiddenType::class, [
+            $cnb->add('type-' . $key, HiddenType::class, [
                 'data' => $element['type']
             ]);
-            $cnb->add('sort' . $key, IntegerType::class, [
+            $cnb->add('sort-' . $key, IntegerType::class, [
                 'data' => $element['sort'],
                 'label' => false,
                 'required' => false,
-                'attr' =>[
+                'attr' => [
                     'min' => 0,
                     'max' => $contents->count()
                 ]
@@ -175,7 +196,6 @@ class NavController extends Controller
     {
         return [
             'parent_id' => null,
-            'nav_id' => $item->getId(),
             'idElement' => $item->getId(),
             'name' => ($type == 'category') ? $item->getName() : $item->getTitle(),
             'type' => $type,

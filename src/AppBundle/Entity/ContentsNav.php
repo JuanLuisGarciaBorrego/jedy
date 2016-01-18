@@ -51,13 +51,9 @@ class ContentsNav
     private $sort;
 
     /**
-     * @ORM\OneToMany(targetEntity="ContentsNav", mappedBy="parent", cascade={"persist", "remove"})
-     */
-    private $children;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="ContentsNav", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @var int
+     *
+     * @ORM\Column(name="parent_id", type="integer", nullable=true)
      */
     private $parent;
 
@@ -66,11 +62,6 @@ class ContentsNav
      * @ORM\JoinColumn(name="nav_id", referencedColumnName="id")
      */
     private $nav;
-
-    public function __construct()
-    {
-        $this->children = new ArrayCollection();
-    }
 
     /**
      * Get id
@@ -179,47 +170,13 @@ class ContentsNav
     }
 
     /**
-     * Add child
-     *
-     * @param ContentsNav $child
-     *
-     * @return ContentsNav
-     */
-    public function addChild(ContentsNav $child)
-    {
-        $this->children[] = $child;
-
-        return $this;
-    }
-
-    /**
-     * Remove child
-     *
-     * @param ContentsNav $child
-     */
-    public function removeChild(ContentsNav $child)
-    {
-        $this->children->removeElement($child);
-    }
-
-    /**
-     * Get children
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-
-    /**
      * Set parent
      *
-     * @param ContentsNav $parent
+     * @param integer $parent
      *
      * @return ContentsNav
      */
-    public function setParent(ContentsNav $parent = null)
+    public function setParent($parent)
     {
         $this->parent = $parent;
 
@@ -229,7 +186,7 @@ class ContentsNav
     /**
      * Get parent
      *
-     * @return ContentsNav
+     * @return integer
      */
     public function getParent()
     {

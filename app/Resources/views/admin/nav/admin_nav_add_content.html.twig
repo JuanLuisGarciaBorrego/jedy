@@ -62,9 +62,9 @@
                         <tr>
                             <td>{{ loop.index }}</td>
                             <td>{{ item.name }} <span class="label label-success">{{ item.type }}</span></td>
-                            {% set parent = 'parent_id' ~ key %}
+                            {% set parent = 'parent_id-' ~ key %}
                             <td>{{ form_row(attribute(formSession,parent)) }}</td>
-                            {% set sort = 'sort' ~ key %}
+                            {% set sort = 'sort-' ~ key %}
                             <td>{{ form_row(attribute(formSession,sort)) }}</td>
                             <td>
                                 <a href="{{ path('admin_nav_remove_content', {'id': nav.id, 'keyArray': key}) }}" class="btn btn-primary btn-xs"><i class="fa fa-trash"></i></a>
