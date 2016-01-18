@@ -104,7 +104,9 @@ class NavController extends Controller
                     'placeholder' => "Subcategory",
                     'group_by' => function ($val, $key, $index) {
                         //
-                    }
+                    },
+                    'label' => false,
+                    'required' => false
                 ]
             );
             $cnb->add('nav_id' . $key, HiddenType::class, [
@@ -120,7 +122,13 @@ class NavController extends Controller
                 'data' => $element['type']
             ]);
             $cnb->add('sort' . $key, IntegerType::class, [
-                'data' => $element['sort']
+                'data' => $element['sort'],
+                'label' => false,
+                'required' => false,
+                'attr' =>[
+                    'min' => 0,
+                    'max' => $contents->count()
+                ]
             ]);
         }
         $formSession = $cnb->getForm();
