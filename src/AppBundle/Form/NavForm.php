@@ -23,7 +23,7 @@ class NavForm extends AbstractType
         $builder->add('contentsNav', CollectionType::class, array(
             'label' => false,
             'entry_type' => ContentsNavForm::class,
-            'entry_options' => ['contentsNav' => $this->createArray($options['contentsNav'])],
+            'entry_options' => ['contentsNav' => $options['contentsNav']],
             'allow_add' => true,
         ));
     }
@@ -36,20 +36,5 @@ class NavForm extends AbstractType
                 'contentsNav' => null
             )
         );
-    }
-
-    private function createArray($contentsNav)
-    {
-        if (!empty($contentsNav)) {
-            $arrayContent = [];
-
-            foreach ($contentsNav as $item) {
-                $arrayContent[$item['name']] = $item['idElement'];
-            }
-
-            return $arrayContent;
-        }else{
-            return null;
-        }
     }
 }

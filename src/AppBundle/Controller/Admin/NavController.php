@@ -10,7 +10,6 @@ use AppBundle\Form\NavForm;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -38,9 +37,9 @@ class NavController extends Controller
     {
         $sessionContents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
 
-        if($id) {
-            foreach($sessionContents as $item) {
-                if($item['idElement'] == $id){
+        if ($id) {
+            foreach ($sessionContents as $item) {
+                if ($item['idElement'] == $id) {
                     $sessionContents->removeElement($item);
                     return $this->redirectToRoute('admin_nav_new');
                 }
@@ -79,7 +78,7 @@ class NavController extends Controller
             }
         }
 
-        $formNavContents = $this->createForm(NavForm::class, $nav, ['contentsNav' => $sessionContents]);
+        $formNavContents = $this->createForm(NavForm::class, $nav, ['contentsNav' => $this->createArray($sessionContents)]);
         $formNavContents->handleRequest($request);
 
         if ($formNavContents->isSubmitted() && $formNavContents->isValid()) {
@@ -126,5 +125,20 @@ class NavController extends Controller
             'sort' => 0,
             'parent' => null,
         ];
+    }
+
+    private function createArray($contentsNav)
+    {
+        if (!empty($contentsNav)) {
+            $arrayContent = [];
+
+            foreach ($contentsNav as $item) {
+                $arrayContent[$item['name']] = $item['idElement'];
+            }
+
+            return $arrayContent;
+        } else {
+            return null;
+        }
     }
 }
