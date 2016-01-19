@@ -32,7 +32,6 @@ class NavController extends Controller
      */
     public function newAction(Request $request)
     {
-        //$request->getSession()->remove('contents');
         $sessionContents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
 
         $nav = new Nav($this->get('locales')->getLocaleActive());
@@ -52,14 +51,11 @@ class NavController extends Controller
             $category = $formCategory->getData();
             $page = $formPage->getData();
 
-            //:::::::::::::::::::::::::::::::::::
-            $sessionContent = [
-                'idElement' => $category['category']->getId(),
-                'name' => $category['category']->getName(),
-                'type' => 'category',
-                'sort' => 0,
-                'parent' => null,
-            ];
+            if ($category) {
+                $sessionContent = $this->createSession($category['category'], 'category');
+            } else {
+                $sessionContent = $this->createSession($page['page'], 'page');
+            }
 
             if (!$sessionContents->contains($sessionContent)) {
                 $sessionContents->add($sessionContent);
@@ -68,8 +64,6 @@ class NavController extends Controller
             } else {
                 $this->addFlash('error', 'exits');
             }
-
-            //:::::::::::::::::::::::::::::::::::
         }
 
         $formNavContents = $this->createForm(NavForm::class, $nav, ['contentsNav' => $sessionContents]);
@@ -107,5 +101,16 @@ class NavController extends Controller
         $contentsNav->setSort($sessionContent['sort']);
         $contentsNav->setParent($sessionContent['parent']);
         $nav->getContentsNav()->add($contentsNav);
+    }
+
+    private function createSession($item, $type)
+    {
+        return [
+            'idElement' => $item->getId(),
+            'name' => ($type == 'page') ? $item->getTitle() : $item->getName(),
+            'type' => $type,
+            'sort' => 0,
+            'parent' => null,
+        ];
     }
 }
