@@ -10,6 +10,7 @@ use AppBundle\Form\NavForm;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -22,6 +23,8 @@ class NavController extends Controller
      */
     public function indexAction()
     {
+        $this->get('session')->remove('contents');
+
         return $this->render('admin/nav/admin_nav_index.html.twig', [
             'navs' => $this->getDoctrine()->getRepository('AppBundle:Nav')->findBy(['locale' => $this->get('locales')->getLocaleActive()])
         ]);
@@ -29,10 +32,20 @@ class NavController extends Controller
 
     /**
      * @Route("/new/", name="admin_nav_new")
+     * @Route("/new/{id}", name="admin_nav_new_remove_element", requirements={"id" : "\d+"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request, $id = null)
     {
         $sessionContents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
+
+        if($id) {
+            foreach($sessionContents as $item) {
+                if($item['idElement'] == $id){
+                    $sessionContents->removeElement($item);
+                    return $this->redirectToRoute('admin_nav_new');
+                }
+            }
+        }
 
         $nav = new Nav($this->get('locales')->getLocaleActive());
 
@@ -100,7 +113,8 @@ class NavController extends Controller
         $contentsNav->setType($sessionContent['type']);
         $contentsNav->setSort($sessionContent['sort']);
         $contentsNav->setParent($sessionContent['parent']);
-        $nav->getContentsNav()->add($contentsNav);
+        $contentsNav->setNav($nav);
+        $nav->addContentsNav($contentsNav);
     }
 
     private function createSession($item, $type)

@@ -68,7 +68,9 @@
                         <td>{{ content.vars.value.name }}</td>
                         <td>{{ form_row(content.parent) }}</td>
                         <td>{{ form_row(content.sort) }}</td>
-                        <td>botones</td>
+                        <td><a href="{{ path('admin_nav_new_remove_element', {'id': content.vars.value.idElement}) }}"
+                               class="btn btn-danger btn-md btn-block"><i class="fa fa-trash"></i></a>
+                        </td>
                     </tr>
                 {% else %}
                     <tr class="active">
@@ -76,7 +78,9 @@
                     </tr>
                 {% endfor %}
                 <tr class="active">
-                    <td colspan="5"><button type="submit" class="btn btn-primary btn-xs btn-block"> Add nav</button></td>
+                    <td colspan="5">
+                        <button type="submit" class="btn btn-primary btn-xs btn-block"> Add nav</button>
+                    </td>
                 </tr>
                 </tbody>
             </table>
