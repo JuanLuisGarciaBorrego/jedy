@@ -3,17 +3,14 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\ContentsNav;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use AppBundle\Entity\Nav;
 use AppBundle\Form\NavContents\NavCategoryForm;
 use AppBundle\Form\NavContents\NavPageForm;
 use AppBundle\Form\NavForm;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Route("/admin/nav")
@@ -35,12 +32,51 @@ class NavController extends Controller
      */
     public function newAction(Request $request)
     {
+        //$request->getSession()->remove('contents');
+        $sessionContents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
+
         $nav = new Nav($this->get('locales')->getLocaleActive());
 
-        $form = $this->createForm(NavForm::class, $nav);
-        $form->handleRequest($request);
+        foreach ($sessionContents as $item) {
+            $this->createContentsNav($item, $nav);
+        }
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        $formCategory = $this->createForm(NavCategoryForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
+        $formPage = $this->createForm(NavPageForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
+
+        $formCategory->handleRequest($request);
+        $formPage->handleRequest($request);
+
+        if (($formCategory->isSubmitted() && $formCategory->isValid()) || ($formPage->isSubmitted() && $formPage->isValid())) {
+
+            $category = $formCategory->getData();
+            $page = $formPage->getData();
+
+            //:::::::::::::::::::::::::::::::::::
+            $sessionContent = [
+                'idElement' => $category['category']->getId(),
+                'name' => $category['category']->getName(),
+                'type' => 'category',
+                'sort' => 0,
+                'parent' => null,
+            ];
+
+            if (!$sessionContents->contains($sessionContent)) {
+                $sessionContents->add($sessionContent);
+                $request->getSession()->set('contents', $sessionContents);
+            } else {
+                //$this->addFlash('error', 'exits');
+            }
+
+            $this->createContentsNav($sessionContent, $nav);
+
+            //:::::::::::::::::::::::::::::::::::
+        }
+
+        $formNavContents = $this->createForm(NavForm::class, $nav, ['contentsNav' => $request->getSession()->get('contents')]);
+        $formNavContents->handleRequest($request);
+
+        if ($formNavContents->isSubmitted() && $formNavContents->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($nav);
@@ -54,161 +90,21 @@ class NavController extends Controller
         return $this->render(
             'admin/nav/admin_nav_new.html.twig',
             [
-                'form' => $form->createView(),
-            ]
-        );
-    }
-
-    /**
-     * @Route("/{id}/add-content/", name="admin_nav_add_content")
-     */
-    public function addContentToNavAction(Nav $nav, Request $request)
-    {
-        $contents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
-
-        $formCategory = $this->createForm(NavCategoryForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
-        $formPage = $this->createForm(NavPageForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
-
-        $formCategory->handleRequest($request);
-        $formPage->handleRequest($request);
-
-        if (($formCategory->isSubmitted() && $formCategory->isValid()) || ($formPage->isSubmitted() && $formPage->isValid())) {
-
-            $category = $formCategory->getData();
-            $page = $formPage->getData();
-
-            if ($category) {
-                $item = $this->createArray($category['category'], 'category');
-            }
-
-            if ($page) {
-                $item = $this->createArray($page['page'], 'page');
-            }
-
-            if (!$contents->contains($item)) {
-                $contents->add($item);
-                $request->getSession()->set('contents', $contents);
-            } else {
-                $this->addFlash('error', 'exits');
-            }
-        }
-
-        $formSession = $this->createFormSession($contents, $nav);
-
-        return $this->render(
-            'admin/nav/admin_nav_add_content.html.twig', [
-                'nav' => $nav,
+                'formNavContents' => $formNavContents->createView(),
                 'form_category' => $formCategory->createView(),
                 'form_page' => $formPage->createView(),
-                'contents' => $request->getSession()->get('contents'),
-                'formSession' => $formSession->createView()
             ]
         );
     }
 
-    /**
-     * @Route("/{id}/remove-content-nav/{keyArray}", name="admin_nav_remove_content")
-     */
-    public function removeContentNavAction($id, $keyArray)
+    private function createContentsNav($sessionContent, Nav $nav)
     {
-        $contents = $this->get('session')->get('contents');
-        $contents->remove($keyArray);
-
-        return $this->redirectToRoute('admin_nav_add_content', ['id' => $id]);
-    }
-
-    /**
-     * @Route("/save-contents-nav/{id}", name="admin_nav_save_content")
-     */
-    public function saveContentNavAction(Nav $nav, Request $request)
-    {
-        $formSession = $this->createFormSession($request->getSession()->get('contents'), $nav);
-        $formSession->handleRequest($request);
-
-        if ($formSession->isSubmitted() && $formSession->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-
-            $contentsNav = array_chunk($formSession->getData(), 5);
-
-            foreach ($contentsNav as $list) {
-
-                $contentsNav = new ContentsNav();
-                $contentsNav->setParent($list[0]);
-                $contentsNav->setIdElement($list[1]);
-                $contentsNav->setName($list[2]);
-                $contentsNav->setType($list[3]);
-                $contentsNav->setSort($list[4]);
-                $contentsNav->setNav($nav);
-
-                $em->persist($contentsNav);
-
-            }
-            $em->flush();
-            $request->getSession()->remove('contents');
-
-            return $this->redirectToRoute('admin_nav_add_content', ['id' => $nav->getId()]);
-        }
-
-    }
-
-    private function createFormSession(ArrayCollection $contents, $nav)
-    {
-        $cnb = $this->get('form.factory')->createNamedBuilder('formSession');
-        $cnb->setAction($this->generateUrl('admin_nav_save_content', ['id' => $nav->getId()]));
-
-        foreach ($contents as $key => $element) {
-            $cnb->add('parent_id-' . $key, ChoiceType::class, [
-                    'choices' => $this->selectParent($contents),
-                    'placeholder' => "Subcategory",
-                    'group_by' => function ($val, $key, $index) {
-                        //
-                    },
-                    'label' => false,
-                    'required' => false
-                ]
-            );
-            $cnb->add('idElement-' . $key, HiddenType::class, [
-                'data' => $element['idElement']
-            ]);
-            $cnb->add('name-' . $key, HiddenType::class, [
-                'data' => $element['name']
-            ]);
-            $cnb->add('type-' . $key, HiddenType::class, [
-                'data' => $element['type']
-            ]);
-            $cnb->add('sort-' . $key, IntegerType::class, [
-                'data' => $element['sort'],
-                'label' => false,
-                'required' => false,
-                'attr' => [
-                    'min' => 0,
-                    'max' => $contents->count()
-                ]
-            ]);
-        }
-        return $cnb->getForm();
-    }
-
-    private function createArray($item, $type)
-    {
-        return [
-            'parent_id' => null,
-            'idElement' => $item->getId(),
-            'name' => ($type == 'category') ? $item->getName() : $item->getTitle(),
-            'type' => $type,
-            'sort' => 0
-        ];
-    }
-
-    private function selectParent($contents)
-    {
-        $resutl = array();
-        foreach ($contents as $item) {
-            $resutl[] = [
-                $item['name'] . " [" . $item['type'] . "]" => $item['idElement']
-            ];
-        }
-        return $resutl;
+        $contentsNav = new ContentsNav();
+        $contentsNav->setIdElement($sessionContent['idElement']);
+        $contentsNav->setName($sessionContent['name']);
+        $contentsNav->setType($sessionContent['type']);
+        $contentsNav->setSort($sessionContent['sort']);
+        $contentsNav->setParent($sessionContent['parent']);
+        $nav->getContentsNav()->add($contentsNav);
     }
 }

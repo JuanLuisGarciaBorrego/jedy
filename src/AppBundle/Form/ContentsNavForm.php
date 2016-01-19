@@ -3,9 +3,9 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,29 +14,27 @@ class ContentsNavForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'idElement',
-                IntegerType::class
-            )
-            ->add(
-                'name',
-                TextType::class
-            )
-            ->add('type',
-                ChoiceType::class,[
-                    'choices' => [
-                        'page' => 'Page',
-                        'post' => 'Post'
+            ->add('idElement', HiddenType::class)
+            ->add('name', HiddenType::class)
+            ->add('type', HiddenType::class)
+            ->add('sort',
+                IntegerType::class, [
+                    'label' => false,
+                    'required' => false,
+                    'attr' => [
+                        'min' => 0,
+                        'max' => count($options['contentsNav']),
                     ]
                 ]
             )
-            ->add('sort',
-                IntegerType::class
-            )
             ->add('parent',
-                IntegerType::class
-            )
-        ;
+                ChoiceType::class, [
+                    'choices' => $options['contentsNav'],
+                    'placeholder' => "Subcategory",
+                    'label' => false,
+                    'required' => false
+                ]
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -44,8 +42,8 @@ class ContentsNavForm extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'AppBundle\Entity\ContentsNav',
+                'contentsNav' => null
             )
         );
     }
-
 }
