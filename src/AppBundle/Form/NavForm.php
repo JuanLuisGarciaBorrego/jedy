@@ -21,6 +21,8 @@ class NavForm extends AbstractType
                 ]
             );
         $builder->add('contentsNav', CollectionType::class, array(
+            'label' => false,
+
             'entry_type' => ContentsNavForm::class,
             'entry_options' => ['contentsNav' => $this->createArray($options['contentsNav'])],
             'allow_add' => true,
