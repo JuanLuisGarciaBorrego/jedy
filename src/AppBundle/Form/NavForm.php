@@ -12,8 +12,6 @@ class NavForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        dump($this->createArray($options['contentsNav']));
-
         $builder
             ->add(
                 'name',

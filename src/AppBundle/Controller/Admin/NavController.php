@@ -64,16 +64,15 @@ class NavController extends Controller
             if (!$sessionContents->contains($sessionContent)) {
                 $sessionContents->add($sessionContent);
                 $request->getSession()->set('contents', $sessionContents);
+                $this->createContentsNav($sessionContent, $nav);
             } else {
-                //$this->addFlash('error', 'exits');
+                $this->addFlash('error', 'exits');
             }
-
-            $this->createContentsNav($sessionContent, $nav);
 
             //:::::::::::::::::::::::::::::::::::
         }
 
-        $formNavContents = $this->createForm(NavForm::class, $nav, ['contentsNav' => $request->getSession()->get('contents')]);
+        $formNavContents = $this->createForm(NavForm::class, $nav, ['contentsNav' => $sessionContents]);
         $formNavContents->handleRequest($request);
 
         if ($formNavContents->isSubmitted() && $formNavContents->isValid()) {
@@ -81,6 +80,8 @@ class NavController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($nav);
             $em->flush();
+
+            $request->getSession()->remove('contents');
 
             $this->addFlash('success', 'created_successfully');
 
