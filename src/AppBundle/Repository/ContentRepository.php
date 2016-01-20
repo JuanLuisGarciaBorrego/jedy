@@ -76,4 +76,13 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function selectPagesLocaleActive($localeActive)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.locale = :localeActive and c.type = :type and c.status = :status')
+            ->setParameter('localeActive', $localeActive)
+            ->setParameter('type', 'page')
+            ->setParameter('status', true);
+    }
 }
