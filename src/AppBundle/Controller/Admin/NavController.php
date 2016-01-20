@@ -23,7 +23,6 @@ class NavController extends Controller
     public function indexAction()
     {
         $this->get('session')->remove('contents');
-        $this->get('session')->remove('flagNav');
 
         return $this->render('admin/nav/admin_nav_index.html.twig', [
             'navs' => $this->getDoctrine()->getRepository('AppBundle:Nav')->findBy(['locale' => $this->get('locales')->getLocaleActive()])
@@ -33,9 +32,8 @@ class NavController extends Controller
     /**
      * @Route("/new/", name="admin_nav_new")
      * @Route("/new/{idRemove}", name="admin_nav_new_remove_element", requirements={"idRemove" : "\d+"})
-     * @Route("/edit/{id}", name="admin_nav_edit")
      */
-    public function newAction(Request $request, $idRemove = null, Nav $nav = null)
+    public function newAction(Request $request, $idRemove = null)
     {
         $sessionContents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
 
@@ -43,36 +41,111 @@ class NavController extends Controller
             foreach ($sessionContents as $item) {
                 if ($item['idElement'] == $idRemove) {
                     $sessionContents->removeElement($item);
+
                     return $this->redirectToRoute('admin_nav_new');
                 }
             }
         }
 
-        if (!$nav) {
-            $nav = new Nav($this->get('locales')->getLocaleActive());
-            foreach ($sessionContents as $item) {
-                $this->createContentsNav($item, $nav);
+        $nav = new Nav($this->get('locales')->getLocaleActive());
+
+        foreach ($sessionContents as $item) {
+            $this->createContentsNav($item, $nav);
+        }
+
+        $formCategory = $this->createForm(NavCategoryForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
+        $formPage = $this->createForm(NavPageForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
+
+        $formCategory->handleRequest($request);
+        $formPage->handleRequest($request);
+
+        if (($formCategory->isSubmitted() && $formCategory->isValid()) || ($formPage->isSubmitted() && $formPage->isValid())) {
+
+            $category = $formCategory->getData();
+            $page = $formPage->getData();
+
+            if ($category) {
+                $sessionContent = $this->createSession($category['category'], 'category');
+            } else {
+                $sessionContent = $this->createSession($page['page'], 'page');
             }
 
-        } else {
-            $request->getSession()->has('flagNav') ? $request->getSession()->get('flagNav') : $request->getSession()->set('flagNav', true);
-
-            if ($request->getSession()->get('flagNav')) {
-
-                foreach ($nav->getContentsNav()->toArray() as $item) {
-                    $contentsNavBD = [
-                        'idElement' => $item->getIdElement(),
-                        'name' => $item->getName(),
-                        'type' => $item->getType(),
-                        'sort' => $item->getSort(),
-                        'parent' => $item->getParent(),
-                    ];
-                    $sessionContents->add($contentsNavBD);
+            $checkIdElement = function ($sessionContent) use ($sessionContents) {
+                foreach ($sessionContents as $item) {
+                    if ($item['idElement'] == $sessionContent['idElement']) {
+                        return false;
+                    }
                 }
+                return true;
+            };
+
+            if ($checkIdElement($sessionContent)) {
+                $sessionContents->add($sessionContent);
                 $request->getSession()->set('contents', $sessionContents);
-                $request->getSession()->set('flagNav', false);
+                $this->createContentsNav($sessionContent, $nav);
+
+            } else {
+                $this->addFlash('error', 'exits');
             }
         }
+
+        $formNavContents = $this->createForm(NavForm::class, $nav, ['contentsNav' => $this->createArray($sessionContents)]);
+        $formNavContents->handleRequest($request);
+
+        if ($formNavContents->isSubmitted() && $formNavContents->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($nav);
+            $em->flush();
+
+            $request->getSession()->remove('contents');
+            $request->getSession()->remove('flagNav');
+
+            $this->addFlash('success', 'created_successfully');
+
+            return $this->redirectToRoute('admin_nav_home');
+        }
+
+        return $this->render(
+            'admin/nav/admin_nav_new.html.twig',
+            [
+                'formNavContents' => $formNavContents->createView(),
+                'form_category' => $formCategory->createView(),
+                'form_page' => $formPage->createView(),
+            ]
+        );
+    }
+
+    /**
+     * @Route("/edit/{id}", name="admin_nav_edit")
+     * @Route("/edit/{id}/{idRemove}", name="admin_nav_edit_remove_element", requirements={"idRemove" : "\d+"})
+     */
+    public function editAction(Request $request, Nav $nav = null, $idRemove = null)
+    {
+        $sessionContents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
+
+        if ($idRemove) {
+            foreach ($sessionContents as $item) {
+                if ($item['idElement'] == $idRemove) {
+                    $sessionContents->removeElement($item);
+                    $this->getDoctrine()->getRepository('AppBundle:ContentsNav')->removeNavContentByIdElement($idRemove, $nav);
+                    return $this->redirectToRoute('admin_nav_edit', ['id' => $nav->getId()]);
+                }
+            }
+        }
+
+        foreach ($nav->getContentsNav()->toArray() as $item) {
+            $contentsNavBD = [
+                'idElement' => $item->getIdElement(),
+                'name' => $item->getName(),
+                'type' => $item->getType(),
+                'sort' => $item->getSort(),
+                'parent' => $item->getParent(),
+            ];
+            $sessionContents->add($contentsNavBD);
+        }
+
+        $request->getSession()->set('contents', $sessionContents);
 
         $formCategory = $this->createForm(NavCategoryForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
         $formPage = $this->createForm(NavPageForm::class, null, ['em' => $this->getDoctrine(), 'locale_active' => $this->get('locales')->getLocaleActive()]);
@@ -119,22 +192,19 @@ class NavController extends Controller
 
         if ($formNavContents->isSubmitted() && $formNavContents->isValid()) {
 
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($nav);
             $em->flush();
 
             $request->getSession()->remove('contents');
-            $request->getSession()->remove('flagNav');
 
             $this->addFlash('success', 'created_successfully');
 
             return $this->redirectToRoute('admin_nav_home');
-
         }
 
         return $this->render(
-            'admin/nav/admin_nav_new.html.twig',
+            'admin/nav/admin_nav_edit.html.twig',
             [
                 'formNavContents' => $formNavContents->createView(),
                 'form_category' => $formCategory->createView(),
@@ -155,7 +225,6 @@ class NavController extends Controller
         $nav->addContentsNav($contentsNav);
 
         return $contentsNav;
-
     }
 
     private function createSession($item, $type)

@@ -4,13 +4,13 @@
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
         <li><a href="{{ path('admin_nav_home') }}">Navs</a></li>
-        <li class="active">Add nav</li>
+        <li class="active">Edit nav</li>
     </ul>
 
     <div class="row margin-vertical-md">
         <div class="col-md-12">
             <h1 class="h-btn-line">
-                Add nav
+                Edit nav
             </h1>
         </div>
     </div>
@@ -68,7 +68,7 @@
                         <td>{{ content.vars.value.name }}</td>
                         <td>{{ form_row(content.parent) }}</td>
                         <td>{{ form_row(content.sort) }}</td>
-                        <td><a href="{{ path('admin_nav_new_remove_element', {'idRemove': content.vars.value.idElement}) }}"
+                        <td><a href="{{ path('admin_nav_edit_remove_element', {'id': content.vars.value.nav.id, 'idRemove': content.vars.value.idElement}) }}"
                                class="btn btn-danger btn-md btn-block"><i class="fa fa-trash"></i></a>
                         </td>
                     </tr>
@@ -79,7 +79,7 @@
                 {% endfor %}
                 <tr class="active">
                     <td colspan="5">
-                        <button type="submit" class="btn btn-primary btn-xs btn-block"> Add nav</button>
+                        <button type="submit" class="btn btn-primary btn-xs btn-block"> Edit nav</button>
                     </td>
                 </tr>
                 </tbody>

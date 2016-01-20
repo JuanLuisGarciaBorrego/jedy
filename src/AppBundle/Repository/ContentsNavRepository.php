@@ -10,4 +10,16 @@ namespace AppBundle\Repository;
  */
 class ContentsNavRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function removeNavContentByIdElement($id, $nav)
+    {
+        $this->createQueryBuilder('cn')
+            ->leftJoin('cn.nav', 'nav')
+            ->where('cn.nav = :nav and cn.idElement = :id')
+            ->setParameter('nav', $nav)
+            ->setParameter('id', $id)
+            ->delete('AppBundle:ContentsNav', 'cn')
+            ->getQuery()
+            ->execute()
+        ;
+    }
 }
