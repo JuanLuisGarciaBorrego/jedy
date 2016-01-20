@@ -34,7 +34,7 @@ class NavCategoryForm extends AbstractType
                     'query_builder' => $this->selectCategoryLocaleActive(),
                     'label' => 'Add category',
                     'placeholder' => 'Add category',
-                    'required' => false,
+                    'required' => true,
                 ]
             );
     }

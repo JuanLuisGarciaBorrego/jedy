@@ -34,7 +34,7 @@ class NavPageForm extends AbstractType
                     'query_builder' => $this->selectPagesLocaleActive(),
                     'label' => 'Page',
                     'placeholder' => 'Add page',
-                    'required' => false,
+                    'required' => true,
                 ]
             );
     }
