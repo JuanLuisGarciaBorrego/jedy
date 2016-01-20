@@ -10,6 +10,7 @@ use AppBundle\Form\NavForm;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -124,6 +125,8 @@ class NavController extends Controller
     {
         $sessionContents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
 
+        $form_delete = $this->formDelete($nav);
+
         if ($idRemove) {
             foreach ($sessionContents as $item) {
                 if ($item['idElement'] == $idRemove) {
@@ -209,8 +212,42 @@ class NavController extends Controller
                 'formNavContents' => $formNavContents->createView(),
                 'form_category' => $formCategory->createView(),
                 'form_page' => $formPage->createView(),
+                'form_delete' => $form_delete->createView()
             ]
         );
+    }
+
+    /**
+     * @Route("/{id}/delete/", name="admin_nav_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Nav $nav, Request $request)
+    {
+        $form = $this->formDelete($nav);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($nav);
+            $em->flush();
+
+            $this->addFlash('success', 'admin_nav');
+        }
+
+        return $this->redirectToRoute('admin_nav_home');
+    }
+
+    /**
+     * @param Nav $nav
+     * @return \Symfony\Component\Form\Form
+     */
+    private function formDelete(Nav $nav)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin_nav_delete', ['id' => $nav->getId()]))
+            ->setMethod('DELETE')
+            ->getForm();
     }
 
     private function createContentsNav($sessionContent, Nav $nav)

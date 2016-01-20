@@ -48,7 +48,7 @@ class Nav
     private $parentMultilangue;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ContentsNav", mappedBy="nav",cascade={"persist"}, fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\ContentsNav", mappedBy="nav",cascade={"persist", "remove"}, fetch="EAGER")
      */
     private $contentsNav;
 
