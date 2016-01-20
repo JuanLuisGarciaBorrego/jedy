@@ -1,0 +1,53 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block content %}
+
+    <ul class="breadcrumb">
+        <li><a href="{{ path('admin_home') }}">Home</a></li>
+        <li><a href="{{ path('admin_nav_home') }}">Navs</a></li>
+        <li><a href="{{ path('admin_nav_edit', {'id': nav.id }) }}">{{ nav.name }}</a></li>
+        <li class="active">Translation</li>
+    </ul>
+
+    {% include 'admin/_flashbag.html.twig' %}
+
+    <div class="row margin-vertical-md">
+        <div class="col-md-12">
+            <h1 class="h-btn-line">Translations</h1>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Language</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for translation in translations %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ translation.name }}</td>
+                <td>
+                    {% if nav.locale == translation.code %}
+                        <a href="{{ path('admin_nav_edit', {'id': nav.id }) }}" class="btn btn-warning btn-xs">Edit nav</a>
+                    {% else %}
+
+                        {% set nav_translation = is_nav_translation(nav.locale, translation.code, nav.id) %}
+
+                        {% if nav_translation %}
+                            <a href="" class="btn btn-warning btn-xs">Edit translation</a>
+                        {% else %}
+                            <a href="" class="btn btn-info btn-xs">Add translation</a>
+                        {% endif %}
+
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

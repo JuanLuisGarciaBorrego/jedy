@@ -250,6 +250,22 @@ class NavController extends Controller
             ->getForm();
     }
 
+    /**
+     * @Route("/{id}/translations/", name="admin_nav_translations")
+     * @Method("GET")
+     */
+    public function translationsAction(Nav $nav)
+    {
+        return $this->render(
+            'admin/nav/admin_nav_translations.html.twig',
+            [
+                'nav' => $nav,
+                'translations' => $this->get('locales')->getLocales(),
+                'active' => $this->get('locales')->getLocaleActive(),
+            ]
+        );
+    }
+
     private function createContentsNav($sessionContent, Nav $nav)
     {
         $contentsNav = new ContentsNav();

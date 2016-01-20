@@ -33,7 +33,7 @@
                 <td>
                     <a href="" class="btn btn-primary btn-xs">Add content</a>
                     <a href="{{ path('admin_nav_edit', {'id': nav.id}) }}" class="btn btn-warning btn-xs">Edit</a>
-                    <a href="" class="btn btn-info btn-xs">Translations</a>
+                    <a href="{{ path('admin_nav_translations', {'id':nav.id}) }}" class="btn btn-info btn-xs">Translations</a>
                 </td>
             </tr>
         {% endfor %}
