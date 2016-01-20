@@ -21,6 +21,7 @@ class AppAdminExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('is_category_translation', array($this, 'isCategoryTranslation')),
             new \Twig_SimpleFunction('is_content_translation', array($this, 'isContentTranslation')),
+            new \Twig_SimpleFunction('is_nav_translation', array($this, 'isNavTranslation')),
         );
     }
 
@@ -41,6 +42,18 @@ class AppAdminExtension extends \Twig_Extension
         return $this->em->getRepository('AppBundle:Content')->createQueryBuilder('c')
             ->leftJoin('c.parentMultilangue', 't')
             ->andWhere('c.locale != :localeDefault and c.locale = :localeContent and t.id = :parentMultilangue')
+            ->setParameter('localeDefault', $localeDefault)
+            ->setParameter('localeContent', $localeContent)
+            ->setParameter('parentMultilangue', $parentMultilangue)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function isNavTranslation($localeDefault, $localeContent, $parentMultilangue)
+    {
+        return $this->em->getRepository('AppBundle:Nav')->createQueryBuilder('n')
+            ->leftJoin('n.parentMultilangue', 't')
+            ->andWhere('n.locale != :localeDefault and n.locale = :localeContent and t.id = :parentMultilangue')
             ->setParameter('localeDefault', $localeDefault)
             ->setParameter('localeContent', $localeContent)
             ->setParameter('parentMultilangue', $parentMultilangue)
