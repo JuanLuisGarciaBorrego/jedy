@@ -25,6 +25,7 @@ class NavForm extends AbstractType
             'entry_type' => ContentsNavForm::class,
             'entry_options' => ['contentsNav' => $options['contentsNav']],
             'allow_add' => true,
+            'allow_delete' => true,
         ));
     }
 
