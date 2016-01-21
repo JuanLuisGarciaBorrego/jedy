@@ -1,0 +1,38 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="{{ path('admin_home') }}">Home</a></li>
+        <li class="active">Files</li>
+    </ul>
+
+    {% include 'admin/_flashbag.html.twig' %}
+
+    <div class="row margin-vertical-md">
+        <div class="col-md-8">
+            <h1 class="h-btn-line">Files</h1>
+        </div>
+        <div class="col-md-4 text-right">
+            <a href="" class="btn btn-primary btn-sm">Add File</a>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover ">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Parent</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+            <td>--</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
