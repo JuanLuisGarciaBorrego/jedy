@@ -22,7 +22,7 @@ services:
 
    app_public.twig.extension:
           class: AppBundle\Twig\AppPublicExtension
-          arguments: ["@locales", "@twig.extension.routing"]
+          arguments: ["@locales", "@twig.extension.routing", "@service_container"]
           tags:
               - { name: twig.extension }
 

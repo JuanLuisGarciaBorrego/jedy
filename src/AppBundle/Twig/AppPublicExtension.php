@@ -5,6 +5,7 @@ namespace AppBundle\Twig;
 use AppBundle\Entity\Content;
 use AppBundle\Util\Locales;
 use Symfony\Bridge\Twig\Extension\RoutingExtension;
+use Symfony\Component\DependencyInjection\Container;
 
 class AppPublicExtension extends \Twig_Extension
 {
@@ -19,23 +20,26 @@ class AppPublicExtension extends \Twig_Extension
     private $routingExtenxion;
 
     /**
+     * @var Container
+     */
+    private $container;
+
+    /**
      * @param Locales $locales
      * @param RoutingExtension $routingExtenxion
      */
-    public function __construct(Locales $locales, RoutingExtension $routingExtenxion)
+    public function __construct(Locales $locales, RoutingExtension $routingExtenxion, Container $container)
     {
         $this->locales = $locales;
         $this->routingExtenxion = $routingExtenxion;
+        $this->container = $container;
     }
 
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction(
-                'translation_content',
-                [$this, 'translation_content'],
-                ['is_safe' => ['html']]
-            ),
+            new \Twig_SimpleFunction('translation_content', [$this, 'translation_content'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('nav_locale', [$this, 'nav_locale'], ['is_safe' => ['html'] ] ),
         );
     }
 
@@ -56,6 +60,23 @@ class AppPublicExtension extends \Twig_Extension
         $result .= "</ul>";
 
         return $result;
+    }
+
+    public function nav_locale($name, $locale)
+    {
+        //$nav = $this->container->get('doctrine')->getRepository('AppBundle:Nav')->findOneBy(['name' => $name, 'locale' => $locale]);
+        /*
+        $contentsNav = [];
+
+        foreach ($nav->getContentsNav() as $item ) {
+            dump($item->getSort());
+            $contentsNav[] = $item;
+        }
+
+
+        dump($contentsNav);
+        */
+        return "order";
     }
 
     private function getTranslations(Content $content)
