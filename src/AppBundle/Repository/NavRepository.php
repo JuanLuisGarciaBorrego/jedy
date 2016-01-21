@@ -10,8 +10,13 @@ namespace AppBundle\Repository;
  */
 class NavRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function removeTranslationNavByIdElement($nav, $locale)
+    public function removeTranslationNavByIdElement($nav)
     {
-        //
+       return $this->createQueryBuilder('nav')
+            ->where('nav.parentMultilangue = :nav and nav.locale = :locale')
+            ->setParameter('nav', $nav['id'])
+            ->setParameter('locale', $nav['localeTranslation'])
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 }
