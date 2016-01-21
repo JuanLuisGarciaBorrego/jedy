@@ -68,10 +68,21 @@ class AppPublicExtension extends \Twig_Extension
         if($nav){
 
             $contentsNav = [];
+
             $result = "<ul class='nav navbar-nav'>";
+
             foreach ($nav->getContentsNav() as $item ) {
                 $contentsNav[] = $item;
-                $result .= "<li><a href='#'>".$item->getName()."</a></li>";
+
+                if($item->getType() == 'category') {
+                    $route = $this->routingExtenxion->getPath('app_blog_category', ['slug' => $item->getSlug()]);
+                    $result .= "<li><a href='".$route."'>".$item->getName()."</a></li>";
+                }
+                if($item->getType() == 'page'){
+                    $route = $this->routingExtenxion->getPath('app_blog_page', ['slug' => $item->getSlug()]);
+                    $result .= "<li><a href='".$route."'>".$item->getName()."</a></li>";
+                }
+
             }
             $result .= "</ul>";
 
@@ -90,7 +101,6 @@ class AppPublicExtension extends \Twig_Extension
                 'slug' => $content->getParentMultilangue()->getSlug(),
                 'title' => $content->getParentMultilangue()->getTitle(),
             ];
-
 
             foreach ($content->getParentMultilangue()->getChildrenMultilangue() as $item) {
 

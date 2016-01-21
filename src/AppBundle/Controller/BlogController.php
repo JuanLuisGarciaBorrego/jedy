@@ -6,6 +6,7 @@ use AppBundle\Entity\Content;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\Category;
 
 /**
  * @Route("/blog")
@@ -44,5 +45,21 @@ class BlogController extends Controller
     public function postShowAction(Content $post)
     {
         return $this->render('blog/blog_post.html.twig', ['post' => $post]);
+    }
+
+    /**
+     * @Route("/category/{slug}", name="app_blog_category")
+     */
+    public function categoryAction(Category $category)
+    {
+        return $this->render('blog/blog_category.html.twig', ['category' => $category]);
+    }
+
+    /**
+     * @Route("/page/{slug}", name="app_blog_page")
+     */
+    public function pageAction(Content $content)
+    {
+        return $this->render('blog/blog_page.html.twig', ['page' => $content]);
     }
 }
