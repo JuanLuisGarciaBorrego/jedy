@@ -65,15 +65,18 @@ class AppPublicExtension extends \Twig_Extension
     public function nav_locale($name, $locale)
     {
         $nav = $this->container->get('doctrine')->getRepository('AppBundle:Nav')->findOneBy(['name' => $name, 'locale' => $locale]);
-        $contentsNav = [];
+        if($nav){
 
-        $result = "<ul class='nav navbar-nav'>";
-        foreach ($nav->getContentsNav() as $item ) {
-            $contentsNav[] = $item;
-            $result .= "<li><a href='#'>".$item->getName()."</a></li>";
+            $contentsNav = [];
+            $result = "<ul class='nav navbar-nav'>";
+            foreach ($nav->getContentsNav() as $item ) {
+                $contentsNav[] = $item;
+                $result .= "<li><a href='#'>".$item->getName()."</a></li>";
+            }
+            $result .= "</ul>";
+
+            return $result;
         }
-        $result .= "</ul>";
-        return $result;
     }
 
     private function getTranslations(Content $content)
