@@ -16,6 +16,7 @@ class ContentsNavForm extends AbstractType
         $builder
             ->add('idElement', HiddenType::class)
             ->add('name', HiddenType::class)
+            ->add('slug', HiddenType::class)
             ->add('type', HiddenType::class)
             ->add('sort',
                 IntegerType::class, [

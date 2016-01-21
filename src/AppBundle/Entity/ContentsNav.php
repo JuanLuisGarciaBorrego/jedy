@@ -39,6 +39,13 @@ class ContentsNav
     /**
      * @var string
      *
+     * @ORM\Column(name="slug", type="string", length=120)
+     */
+    private $slug;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="type", type="string", length=20)
      */
     private $type;
@@ -119,6 +126,30 @@ class ContentsNav
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set slug
+     *
+     * @param string $slug
+     *
+     * @return ContentsNav
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**

@@ -142,6 +142,7 @@ class NavController extends Controller
             $contentsNavBD = [
                 'idElement' => $item->getIdElement(),
                 'name' => $item->getName(),
+                'slug' => $item->getSlug(),
                 'type' => $item->getType(),
                 'sort' => $item->getSort(),
                 'parent' => $item->getParent(),
@@ -317,6 +318,7 @@ class NavController extends Controller
         $contentsNav = new ContentsNav();
         $contentsNav->setIdElement($sessionContent['idElement']);
         $contentsNav->setName($sessionContent['name']);
+        $contentsNav->setSlug($sessionContent['slug']);
         $contentsNav->setType($sessionContent['type']);
         $contentsNav->setSort($sessionContent['sort']);
         $contentsNav->setParent($sessionContent['parent']);
@@ -331,6 +333,7 @@ class NavController extends Controller
         return [
             'idElement' => $item->getId(),
             'name' => ($type == 'page') ? $item->getTitle() : $item->getName(),
+            'slug' => $item->getSlug(),
             'type' => $type,
             'sort' => 0,
             'parent' => null,
@@ -368,6 +371,7 @@ class NavController extends Controller
                 $contentCategory = new ContentsNav();
                 $contentCategory->setIdElement($category->getId());
                 $contentCategory->setName($category->getName());
+                $contentCategory->setSlug($category->getSlug());
                 $contentCategory->setType('category');
                 $contentCategory->setSort($item->getSort());
 
@@ -385,6 +389,7 @@ class NavController extends Controller
                 $contentPage = new ContentsNav();
                 $contentPage->setIdElement($page->getId());
                 $contentPage->setName($page->getTitle());
+                $contentPage->setSlug($page->getSlug());
                 $contentPage->setType('page');
                 $contentPage->setSort($item->getSort());
 
