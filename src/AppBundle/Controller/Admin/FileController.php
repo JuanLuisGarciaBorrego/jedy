@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Form\FileForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -17,7 +18,13 @@ class FileController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('/admin/file/admin_file_index.html.twig');
+        $finder = new Finder();
+
+        $finder->files()->in($this->getParameter('uploads_directory'));
+
+        return $this->render('/admin/file/admin_file_index.html.twig', [
+            'files' => $finder
+        ]);
     }
 
     /**

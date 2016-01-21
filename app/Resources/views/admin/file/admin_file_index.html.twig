@@ -22,17 +22,19 @@
         <tr>
             <th>#</th>
             <th>Name</th>
-            <th>Parent</th>
+            <th>Date</th>
             <th>Actions</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>--</td>
-            <td>--</td>
-            <td>--</td>
-            <td>--</td>
-        </tr>
+        {% for item in files %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.filename }}</td>
+                <td><i class="fa fa-clock-o"></i> {{ item.cTime | date("d/m/Y H:I") }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
         </tbody>
     </table>
 {% endblock %}
