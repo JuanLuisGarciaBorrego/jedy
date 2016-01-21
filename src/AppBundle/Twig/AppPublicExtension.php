@@ -64,16 +64,13 @@ class AppPublicExtension extends \Twig_Extension
 
     public function nav_locale($name, $locale)
     {
-        $nav = $this->container->get('doctrine')->getRepository('AppBundle:Nav')->findOneBy(['name' => $name, 'locale' => $locale]);
-        if($nav){
+        $contentsNav = $this->container->get('session')->has($name.$locale) ? $this->container->get('session')->get($name.$locale) : $this->container->get('doctrine')->getRepository('AppBundle:Nav')->findOneBy(['name' => $name, 'locale' => $locale]);
 
-            $contentsNav = [];
-
+        if($contentsNav){
+            $data = $contentsNav->getContentsNav();
             $result = "<ul class='nav navbar-nav'>";
 
-            foreach ($nav->getContentsNav() as $item ) {
-                $contentsNav[] = $item;
-
+            foreach ($data as $item ) {
                 if($item->getType() == 'category') {
                     $route = $this->routingExtenxion->getPath('app_blog_category', ['slug' => $item->getSlug()]);
                     $result .= "<li><a href='".$route."'>".$item->getName()."</a></li>";
@@ -82,10 +79,12 @@ class AppPublicExtension extends \Twig_Extension
                     $route = $this->routingExtenxion->getPath('app_blog_page', ['slug' => $item->getSlug()]);
                     $result .= "<li><a href='".$route."'>".$item->getName()."</a></li>";
                 }
-
             }
             $result .= "</ul>";
 
+            if(!$this->container->get('session')->has($name.$locale)) {
+                $this->container->get('session')->set($name.$locale, $contentsNav);
+            }
             return $result;
         }
     }
