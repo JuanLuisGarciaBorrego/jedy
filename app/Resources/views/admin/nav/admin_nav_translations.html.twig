@@ -38,9 +38,9 @@
                         {% set nav_translation = is_nav_translation(nav.locale, translation.code, nav.id) %}
 
                         {% if nav_translation %}
-                            <a href="" class="btn btn-warning btn-xs">Edit translation</a>
+                            <a href="{{ path('admin_nav_translation_add', {'id': nav.id, 'localeNav': nav.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-warning btn-xs">Update translation</a>
                         {% else %}
-                            <a href="" class="btn btn-info btn-xs">Add translation</a>
+                            <a href="{{ path('admin_nav_translation_add', {'id': nav.id, 'localeNav': nav.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-info btn-xs">Generate translation</a>
                         {% endif %}
 
                     {% endif %}

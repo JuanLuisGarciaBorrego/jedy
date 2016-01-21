@@ -85,4 +85,16 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('type', 'page')
             ->setParameter('status', true);
     }
+
+    public function selectContentParent($parentMultilangue, $locale, $type)
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.parentMultilangue', 'cp')
+            ->where('cp.id = :id and c.locale = :locale and c.type = :type')
+            ->setParameter('id', $parentMultilangue)
+            ->setParameter('locale', $locale)
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

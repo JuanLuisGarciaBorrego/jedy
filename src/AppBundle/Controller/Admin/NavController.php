@@ -266,6 +266,68 @@ class NavController extends Controller
         );
     }
 
+    /**
+     * @Route("y/{id}/translations/add/{localeNav}/{localeTranslation}", name="admin_nav_translation_add")
+     * @Method({"GET", "POST"})
+     */
+    public function addTranslationAction(Nav $nav, $localeTranslation)
+    {
+        //TODO
+        //$this->getDoctrine()->getRepository('AppBundle:Nav')->removeTranslationNavByIdElement($nav, $localeTranslation);
+
+
+        $translationNav = new Nav($localeTranslation);
+        $translationNav->setName($nav->getName());
+        $translationNav->setLocale($localeTranslation);
+        $translationNav->setParentMultilangue($nav);
+        $translationNav->setParentMultilangue($nav);
+
+        foreach ($nav->getContentsNav() as $item) {
+
+            if($item->getType() == 'category') {
+                $category = $this->getDoctrine()->getRepository('AppBundle:Category')->selectCategoryParent($item->getIdElement() ,$localeTranslation);
+
+                $contentCategory = new ContentsNav();
+                $contentCategory->setIdElement($category->getId());
+                $contentCategory->setName($category->getName());
+                $contentCategory->setType('category');
+                $contentCategory->setSort($item->getSort());
+
+                $parentCategory = $this->getDoctrine()->getRepository('AppBundle:Category')->selectCategoryParent($item->getParent() ,$localeTranslation);
+
+                $contentCategory->setParent(($parentCategory) ? $parentCategory->getId(): null);
+                $contentCategory->setNav($translationNav);
+
+                $translationNav->addContentsNav($contentCategory);
+            }
+
+            if($item->getType() == 'page') {
+                $page = $this->getDoctrine()->getRepository('AppBundle:Content')->selectContentParent($item->getIdElement() ,$localeTranslation, 'page');
+
+                $contentPage = new ContentsNav();
+                $contentPage->setIdElement($page->getId());
+                $contentPage->setName($page->getName());
+                $contentPage->setType('page');
+                $contentPage->setSort($item->getSort());
+
+                $parentPage = $this->getDoctrine()->getRepository('AppBundle:Content')->selectContentParent($item->getParent() ,$localeTranslation, 'page');
+
+                $contentPage->setParent($parentPage->getId());
+                $contentPage->setNav($translationNav);
+                $translationNav->addContentsNav($contentPage);
+            }
+
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($translationNav);
+        $em->flush();
+
+        $this->addFlash('success', 'created_successfully');
+
+        return $this->redirectToRoute('admin_nav_translations', ['id' => $nav->getId()]);
+    }
+
     private function createContentsNav($sessionContent, Nav $nav)
     {
         $contentsNav = new ContentsNav();
