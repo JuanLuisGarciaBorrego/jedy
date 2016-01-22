@@ -19,6 +19,10 @@
                 <source>app.edit</source>
                 <target>Editar</target>
             </trans-unit>
+            <trans-unit id="app.delete">
+                <source>app.delete</source>
+                <target>Eliminar</target>
+            </trans-unit>
             <trans-unit id="app.actions">
                 <source>app.actions</source>
                 <target>Acciones</target>
@@ -35,6 +39,10 @@
             <trans-unit id="category.add">
                 <source>category.add</source>
                 <target>Añadir categoría</target>
+            </trans-unit>
+            <trans-unit id="category.edit">
+                <source>category.edit</source>
+                <target>Editar categoría</target>
             </trans-unit>
             <trans-unit id="category.translation.add">
                 <source>category.translation.add</source>

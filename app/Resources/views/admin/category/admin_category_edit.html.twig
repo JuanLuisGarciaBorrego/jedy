@@ -4,32 +4,32 @@
 
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
-        <li><a href="{{ path('admin_category_home') }}">Categories</a></li>
+        <li><a href="{{ path('admin_category_home') }}">{{ 'category.title.plural'|trans }}</a></li>
         {% if form.vars.value.parentMultilangue %}
             <li><a href="{{ path('admin_category_edit', {'id':form.vars.value.parentMultilangue.id }) }}">{{ form.vars.value.parentMultilangue.name }}</a></li>
-            <li><a href="{{ path('admin_category_translations', {'id':form.vars.value.parentMultilangue.id }) }}">Translations</a></li>
+            <li><a href="{{ path('admin_category_translations', {'id':form.vars.value.parentMultilangue.id }) }}">{{ 'app.translation'|trans }}</a></li>
         {% endif %}
-        <li class="active">Edit category {{ form.vars.value.name }}</li>
+        <li class="active">{{ 'category.edit'|trans }}</i></li>
     </ul>
 
     {% include 'admin/_flashbag.html.twig' %}
 
     <div class="row margin-vertical-md">
         <div class="col-xs-8">
-            <h1 class="h-btn-line">Edit category</h1>
+            <h1 class="h-btn-line">{{ 'category.edit'|trans }}</h1>
         </div>
 
         <div class="col-xs-4">
             {{ form_start(form_delete) }}
                 {{ form_widget(form_delete) }}
-                <button class="btn btn-block btn-danger" type="submit">Delete</button>
+                <button class="btn btn-block btn-danger" type="submit">{{ 'app.delete'|trans }}</button>
             {{ form_end(form_delete) }}
         </div>
     </div>
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn btn-primary">Edit category</button>
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">{{ 'category.edit'|trans }}</button>
     {{ form_end(form) }}
 
 {% endblock %}
