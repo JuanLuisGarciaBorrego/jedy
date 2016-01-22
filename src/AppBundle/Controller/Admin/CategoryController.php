@@ -49,7 +49,7 @@ class CategoryController extends Controller
             $em->persist($category);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'category.flash.created');
 
             return $this->redirectToRoute('admin_category_home');
         }
@@ -79,7 +79,7 @@ class CategoryController extends Controller
             $em->persist($category);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'category.flash.edited');
 
             return $this->redirectToRoute('admin_category_home');
         }
@@ -126,7 +126,7 @@ class CategoryController extends Controller
             $em->persist($newCategory);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'category.flash.translation.created');
 
             return $this->redirectToRoute('admin_category_translations', ['id' => $category->getId()]);
         }
@@ -157,7 +157,7 @@ class CategoryController extends Controller
             $em->persist($category);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'category.flash.translation.edited');
 
             return $this->redirectToRoute('admin_category_translations', ['id' => $idParent]);
         }
@@ -186,7 +186,7 @@ class CategoryController extends Controller
             $em->remove($category);
             $em->flush();
 
-            $this->addFlash('success', 'admin_category_home');
+            $this->addFlash('success', 'category.flash.deleted');
         }
 
         return $this->redirectToRoute('admin_category_home');

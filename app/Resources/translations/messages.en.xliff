@@ -80,6 +80,26 @@
                 <source>category.parent.select</source>
                 <target>Select a parent category</target>
             </trans-unit>
+            <trans-unit id="category.flash.created">
+                <source>category.flash.created</source>
+                <target>The category was created</target>
+            </trans-unit>
+            <trans-unit id="category.flash.edited">
+                <source>category.flash.edited</source>
+                <target>The category was edited</target>
+            </trans-unit>
+            <trans-unit id="category.flash.deleted">
+                <source>category.flash.deleted</source>
+                <target>The category was deleted</target>
+            </trans-unit>
+            <trans-unit id="category.flash.translation.created">
+                <source>category.flash.translation.created</source>
+                <target>Translation category was created</target>
+            </trans-unit>
+            <trans-unit id="category.flash.translation.edited">
+                <source>category.flash.translation.edited</source>
+                <target>Translation category was edited</target>
+            </trans-unit>
 
         </body>
     </file>

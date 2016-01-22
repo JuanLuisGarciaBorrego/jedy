@@ -80,6 +80,26 @@
                 <source>category.parent.select</source>
                 <target>Selecciona una categoría padre</target>
             </trans-unit>
+            <trans-unit id="category.flash.created">
+                <source>category.flash.created</source>
+                <target>La categoría fué creada</target>
+            </trans-unit>
+            <trans-unit id="category.flash.edited">
+                <source>category.flash.edited</source>
+                <target>La categoría fué editada</target>
+            </trans-unit>
+            <trans-unit id="category.flash.deleted">
+                <source>category.flash.deleted</source>
+                <target>La categoría fué eliminada</target>
+            </trans-unit>
+            <trans-unit id="category.flash.translation.created">
+                <source>category.flash.translation.created</source>
+                <target>La traducción de categoría fué creada</target>
+            </trans-unit>
+            <trans-unit id="category.flash.translation.edited">
+                <source>category.flash.translation.edited</source>
+                <target>La traducción de categoría fué editada</target>
+            </trans-unit>
 
         </body>
     </file>
