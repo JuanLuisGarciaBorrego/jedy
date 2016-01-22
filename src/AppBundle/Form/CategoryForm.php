@@ -47,14 +47,14 @@ class CategoryForm extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label' => 'name',
+                    'label' => 'category.name',
                 ]
             )
             ->add(
                 'description',
                 TextareaType::class,
                 [
-                    'label' => 'description'
+                    'label' => 'category.description'
                 ]
             )
         ;
@@ -67,8 +67,8 @@ class CategoryForm extends AbstractType
                     [
                         'class' => 'AppBundle\Entity\Category',
                         'query_builder' => $this->selectCategoryLocaleActive(),
-                        'label' => 'subcategory',
-                        'placeholder' => 'select parent',
+                        'label' => 'category.parent',
+                        'placeholder' => 'category.parent.select',
                         'required' => false,
                     ]
                 );

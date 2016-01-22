@@ -3,24 +3,21 @@
 {% block content %}
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
-        <li><a href="{{ path('admin_category_home') }}">Categories</a></li>
+        <li><a href="{{ path('admin_category_home') }}">{{ 'category.title.plural'|trans }}</a></li>
         {% if form.vars.data.locale != locales.getLocaleActive %}
             <li><a href="{{ path('admin_category_edit', {'id':form.vars.value.parentMultilangue.id }) }}">{{ form.vars.value.parentMultilangue.name }}</a></li>
-            <li><a href="{{ path('admin_category_translations', {'id':form.vars.value.parentMultilangue.id }) }}">Translations</a></li>
-            <li class="active">Add translation category</li>
-        {% else %}
-            <li class="active">Add category</li>
+            <li><a href="{{ path('admin_category_translations', {'id':form.vars.value.parentMultilangue.id }) }}">{{ 'app.translation'|trans }}</a></li>
         {% endif %}
-
+        <li class="active">{{ 'category.translation.add'|trans }}</li>
     </ul>
 
     <div class="row margin-vertical-md">
         <div class="col-md-12">
             <h1 class="h-btn-line">
                 {% if form.vars.data.locale != locales.getLocaleActive %}
-                    Add translation category
+                    {{ 'category.translation.add'|trans }}
                 {% else %}
-                    Add category
+                    {{ 'category.add'|trans }}
                 {% endif %}
             </h1>
         </div>
@@ -32,7 +29,7 @@
         {% if form.vars.data.locale != locales.getLocaleActive %}
             Add translation category
         {% else %}
-            Add category
+            Add {{ 'category.title.plural'|trans|lower }}
         {% endif %}
     </button>
     {{ form_end(form) }}

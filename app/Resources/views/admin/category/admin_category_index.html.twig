@@ -3,17 +3,17 @@
 {% block content %}
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
-        <li class="active">Categories</li>
+        <li class="active">{{ 'category.title.plural'|trans }}</li>
     </ul>
 
     {% include 'admin/_flashbag.html.twig' %}
 
     <div class="row margin-vertical-md">
         <div class="col-md-8">
-            <h1 class="h-btn-line">Categories</h1>
+            <h1 class="h-btn-line">{{ 'category.title.plural'|trans }}</h1>
         </div>
         <div class="col-md-4 text-right">
-            <a href="{{ path('admin_category_new') }}" class="btn btn-primary btn-sm">Add category</a>
+            <a href="{{ path('admin_category_new') }}" class="btn btn-primary btn-sm">{{ 'category.add'|trans }}</a>
         </div>
     </div>
 
@@ -21,9 +21,9 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Parent</th>
-            <th>Actions</th>
+            <th>{{ 'category.name'|trans }}</th>
+            <th>{{ 'category.parent'|trans }}</th>
+            <th>{{ 'app.actions'|trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -33,8 +33,8 @@
                 <td>{{ category.name}}</td>
                 <td>{{ category.parent.name |default('-')}}</td>
                 <td>
-                    <a href="{{ path('admin_category_edit', {'id': category.id}) }}" class="btn btn-warning btn-xs">Edit</a>
-                    <a href="{{ path('admin_category_translations', {'id': category.id}) }}" class="btn btn-info btn-xs">Translations</a>
+                    <a href="{{ path('admin_category_edit', {'id': category.id}) }}" class="btn btn-warning btn-xs">{{ 'app.edit'|trans }}</a>
+                    <a href="{{ path('admin_category_translations', {'id': category.id}) }}" class="btn btn-info btn-xs">{{ 'app.translation'|trans }}</a>
                 </td>
             </tr>
         {% endfor %}

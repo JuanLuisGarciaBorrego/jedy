@@ -3,13 +3,58 @@
     <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
         <body>
 
-            <trans-unit id="description">
-                <source>description</source>
+            <trans-unit id="app.description">
+                <source>app.description</source>
                 <target>A "small" CMS for multi-language Web sites created with Symfony3</target>
             </trans-unit>
-            <trans-unit id="view.project">
-                <source>view.project</source>
+            <trans-unit id="app.view.project">
+                <source>app.view.project</source>
                 <target>View the project</target>
+            </trans-unit>
+            <trans-unit id="app.translation">
+                <source>app.translation</source>
+                <target>Translation</target>
+            </trans-unit>
+            <trans-unit id="app.edit">
+                <source>app.edit</source>
+                <target>Edit</target>
+            </trans-unit>
+            <trans-unit id="app.actions">
+                <source>app.actions</source>
+                <target>Actions</target>
+            </trans-unit>
+
+            <trans-unit id="category.title.singular">
+                <source>category.title.singular</source>
+                <target>Category</target>
+            </trans-unit>
+            <trans-unit id="category.title.plural">
+                <source>category.title.plural</source>
+                <target>Categories</target>
+            </trans-unit>
+            <trans-unit id="category.add">
+                <source>category.add</source>
+                <target>Add category</target>
+            </trans-unit>
+            <trans-unit id="category.translation.add">
+                <source>category.translation.add</source>
+                <target>Add translation to category</target>
+            </trans-unit>
+            <trans-unit id="category.name">
+                <source>category.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="category.description">
+                <source>category.description</source>
+                <target>Description</target>
+            </trans-unit>
+            <trans-unit id="category.parent">
+                <source>category.parent</source>
+                <target>Does it have a parent category?</target>
+            </trans-unit>
+            <trans-unit id="category.parent.select">
+                <source>category.parent.select</source>
+                <target>Select a parent category</target>
             </trans-unit>
 
         </body>
