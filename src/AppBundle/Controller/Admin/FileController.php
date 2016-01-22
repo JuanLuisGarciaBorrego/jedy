@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @Route("/admin/file")
@@ -14,16 +15,33 @@ use Symfony\Component\HttpFoundation\Request;
 class FileController extends Controller
 {
     /**
-     * @Route("s/", name="admin_file_home")
+     * @Route("s/", name="admin_file_home", defaults={"page" = 1})
+     * @Route("s/page-{page}", name="admin_file_home_page", requirements={"page" : "\d+"})
      */
-    public function indexAction()
+    public function indexAction($page)
     {
-        $finder = new Finder();
+        $page = $page < 1 ? 1 : $page;
 
+        $itemsPerPage = 10;
+
+        $finder = new Finder();
         $finder->files()->in($this->getParameter('uploads_directory'));
 
+        $iterator = iterator_to_array($finder->getIterator());
+        $total = $finder->count();
+        $totalPages = ceil($total/$itemsPerPage);
+
+        if ($totalPages != 0 && ($page > $totalPages)) {
+            throw new NotFoundHttpException("There are only ".$totalPages." pages to show");
+        }
+
+        $start = ($page - 1) * $itemsPerPage;
+
         return $this->render('/admin/file/admin_file_index.html.twig', [
-            'files' => $finder
+            'files' => array_slice($iterator, $start, $itemsPerPage),
+            'total' => $total,
+            'totalPages' => $totalPages,
+            'page' => $page,
         ]);
     }
 
@@ -37,7 +55,7 @@ class FileController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form['file']->getData();
-            
+
             $newName = $this->get('cocur_slugify')->slugify($form['name']->getData()).".".$file->getClientOriginalExtension();
             $file->move($this->getParameter('uploads_directory'), $newName);
 
@@ -50,3 +68,4 @@ class FileController extends Controller
         ]);
     }
 }
+

@@ -37,4 +37,20 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <ul class="pager">
+        {% set prev = page -1  %}
+
+        {% if prev != 0 %}
+            <li class="previous"><a href="{{ path('admin_file_home_page', {'page': prev}) }}">&larr; Older</a></li>
+        {% else %}
+            <li class="previous disabled"><a href="">&larr; Older</a></li>
+        {% endif %}
+
+        {% if totalPages >= (page+1) %}
+            <li class="next"><a href="{{ path('admin_file_home_page', {'page': page+1}) }}">Newer &rarr;</a></li>
+        {% else %}
+            <li class="next disabled"><a href="">Newer &rarr;</a></li>
+        {% endif %}
+    </ul>
 {% endblock %}
