@@ -3,6 +3,7 @@
 namespace AppBundle\Twig;
 
 use Doctrine\ORM\EntityManager;
+use Symfony\Component\Asset\Packages;
 
 class AppAdminExtension extends \Twig_Extension
 {
@@ -11,9 +12,18 @@ class AppAdminExtension extends \Twig_Extension
      */
     private $em;
 
-    public function __construct(EntityManager $em)
+    /**
+     * @var Packages
+     */
+    private $packages;
+
+    private $uploads_directory_name;
+
+    public function __construct(EntityManager $em, Packages $packages, $uploads_directory_name)
     {
         $this->em = $em;
+        $this->packages = $packages;
+        $this->uploads_directory_name = $uploads_directory_name;
     }
 
     public function getFunctions()
@@ -22,6 +32,7 @@ class AppAdminExtension extends \Twig_Extension
             new \Twig_SimpleFunction('is_category_translation', array($this, 'isCategoryTranslation')),
             new \Twig_SimpleFunction('is_content_translation', array($this, 'isContentTranslation')),
             new \Twig_SimpleFunction('is_nav_translation', array($this, 'isNavTranslation')),
+            new \Twig_SimpleFunction('render_file', [$this, 'render_file'], ['is_safe' => ['html'] ] ),
         );
     }
 
@@ -59,6 +70,16 @@ class AppAdminExtension extends \Twig_Extension
             ->setParameter('parentMultilangue', $parentMultilangue)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function render_file($filename, $extension)
+    {
+         $img = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'pjpeg'];
+
+         if (in_array($extension, $img)) {
+             $path = $this->uploads_directory_name."/".$filename;
+             return '<img src="'.$this->packages->getUrl($path).'" height="42">';
+         }
     }
 
     public function getName()

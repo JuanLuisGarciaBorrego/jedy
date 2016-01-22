@@ -9,7 +9,8 @@ parameters:
     locale: en
     locale_active: es
     app_locales: es|en|fr
-    uploads_directory: %kernel.root_dir%/../web/uploads
+    uploads_directory_name: uploads
+    uploads_directory: %kernel.root_dir%/../web/%uploads_directory_name%
 
 framework:
     #esi:             ~

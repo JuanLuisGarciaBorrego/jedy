@@ -32,7 +32,7 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ item.filename }}</td>
                 <td><i class="fa fa-clock-o"></i> {{ item.cTime | date("d/m/Y H:I") }}</td>
-                <td></td>
+                <td>{{ render_file(item.filename, item.extension) }}</td>
             </tr>
         {% endfor %}
         </tbody>
