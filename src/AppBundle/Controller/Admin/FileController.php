@@ -35,8 +35,9 @@ class FileController extends Controller
         $form = $this->createForm(FileForm::class);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $file = $form['file']->getData();
+            
             $newName = $this->get('cocur_slugify')->slugify($form['name']->getData()).".".$file->getClientOriginalExtension();
             $file->move($this->getParameter('uploads_directory'), $newName);
 
