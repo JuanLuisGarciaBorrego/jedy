@@ -15,6 +15,18 @@
                 <source>app.translation</source>
                 <target>Translation</target>
             </trans-unit>
+            <trans-unit id="app.translations">
+                <source>app.translations</source>
+                <target>Translations</target>
+            </trans-unit>
+            <trans-unit id="app.translation.edit">
+                <source>app.translation.edit</source>
+                <target>Edit translation</target>
+            </trans-unit>
+            <trans-unit id="app.translation.add">
+                <source>app.translation.add</source>
+                <target>Add translation</target>
+            </trans-unit>
             <trans-unit id="app.edit">
                 <source>app.edit</source>
                 <target>Edit</target>
@@ -26,6 +38,10 @@
             <trans-unit id="app.actions">
                 <source>app.actions</source>
                 <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="app.language">
+                <source>app.language</source>
+                <target>Language</target>
             </trans-unit>
 
             <trans-unit id="category.title.singular">

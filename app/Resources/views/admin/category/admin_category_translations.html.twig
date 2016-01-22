@@ -4,16 +4,16 @@
 
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
-        <li><a href="{{ path('admin_category_home') }}">Categories</a></li>
+        <li><a href="{{ path('admin_category_home') }}">{{ 'category.title.plural'|trans }}</a></li>
         <li><a href="{{ path('admin_category_edit', {'id':category.id }) }}">{{ category.name }}</a></li>
-        <li class="active">Translations</li>
+        <li class="active">{{ 'app.translations'|trans }}</li>
     </ul>
 
     {% include 'admin/_flashbag.html.twig' %}
 
     <div class="row margin-vertical-md">
         <div class="col-md-12">
-            <h1 class="h-btn-line">Translations</h1>
+            <h1 class="h-btn-line">{{ 'app.translations'|trans }}</h1>
         </div>
     </div>
 
@@ -21,8 +21,8 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Language</th>
-            <th>Actions</th>
+            <th>{{ 'app.language'|trans }}</th>
+            <th>{{ 'app.actions'|trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -32,14 +32,14 @@
                 <td>{{ translation.name }}</td>
                 <td>
                     {% if category.locale == translation.code %}
-                        <a href="{{ path('admin_category_edit', {'id': category.id}) }}" class="btn btn-warning btn-xs">Edit category</a>
+                        <a href="{{ path('admin_category_edit', {'id': category.id}) }}" class="btn btn-warning btn-xs">{{ 'category.edit'|trans }}</a>
                     {% else %}
                         {% set category_translation = is_category_translation(category.locale, translation.code, category.id) %}
 
                         {% if category_translation %}
-                            <a href="{{ path('admin_category_translation_edit', {'idParent': category.id, 'id': category_translation.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-warning btn-xs">Edit translation</a>
+                            <a href="{{ path('admin_category_translation_edit', {'idParent': category.id, 'id': category_translation.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-warning btn-xs">{{ 'app.translation.edit'|trans }}</a>
                         {% else %}
-                            <a href="{{ path('admin_category_translation_add', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-info btn-xs">Add translation</a>
+                            <a href="{{ path('admin_category_translation_add', {'id': category.id, 'localeCategory': category.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-info btn-xs">{{ 'app.translation.add'|trans }}</a>
                         {% endif %}
                     {% endif %}
                 </td>
