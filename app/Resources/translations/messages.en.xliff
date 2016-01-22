@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+
+            <trans-unit id="description">
+                <source>description</source>
+                <target>A "small" CMS for multi-language Web sites created with Symfony3</target>
+            </trans-unit>
+            <trans-unit id="view.project">
+                <source>view.project</source>
+                <target>View the project</target>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>
