@@ -5,7 +5,7 @@
 
             <trans-unit id="app.description">
                 <source>app.description</source>
-                <target>Un "pequeño" CMS para sitios multi-idioma creado con Symfony3</target>
+                <target>Un "pequeño"<![CDATA[<i class="fa fa-hand-lizard-o"></i>]]> CMS para sitios multi-idioma creado con Symfony3</target>
             </trans-unit>
             <trans-unit id="app.view.project">
                 <source>app.view.project</source>
