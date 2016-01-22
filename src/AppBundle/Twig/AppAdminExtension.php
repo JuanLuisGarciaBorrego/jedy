@@ -32,7 +32,7 @@ class AppAdminExtension extends \Twig_Extension
             new \Twig_SimpleFunction('is_category_translation', array($this, 'isCategoryTranslation')),
             new \Twig_SimpleFunction('is_content_translation', array($this, 'isContentTranslation')),
             new \Twig_SimpleFunction('is_nav_translation', array($this, 'isNavTranslation')),
-            new \Twig_SimpleFunction('render_file', [$this, 'render_file'], ['is_safe' => ['html'] ] ),
+            new \Twig_SimpleFunction('render_file', [$this, 'render_file'], ['is_safe' => ['html']]),
         );
     }
 
@@ -74,12 +74,15 @@ class AppAdminExtension extends \Twig_Extension
 
     public function render_file($filename, $extension)
     {
-         $img = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'pjpeg'];
+        $img = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'pjpeg'];
 
-         if (in_array($extension, $img)) {
-             $path = $this->uploads_directory_name."/".$filename;
-             return '<img src="'.$this->packages->getUrl($path).'" height="42">';
-         }
+        $path = $this->uploads_directory_name."/".$filename;
+
+        if (in_array($extension, $img)) {
+            return '<img src="'.$this->packages->getUrl($path).'" height="42">';
+        }
+
+        return '<a href="'.$this->packages->getUrl($path).'" download><i class="fa fa-download"></i></a>';
     }
 
     public function getName()
