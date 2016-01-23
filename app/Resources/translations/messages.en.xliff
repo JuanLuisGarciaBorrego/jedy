@@ -202,6 +202,10 @@
                 <source>nav.add</source>
                 <target>Add nav</target>
             </trans-unit>
+            <trans-unit id="nav.there.not">
+                <source>nav.there.not</source>
+                <target>There are not contents</target>
+            </trans-unit>
             <trans-unit id="nav.edit">
                 <source>nav.edit</source>
                 <target>Edit nav</target>
@@ -210,13 +214,13 @@
                 <source>nav.translation.add</source>
                 <target>Add translation to nav</target>
             </trans-unit>
+            <trans-unit id="nav.id">
+                <source>nav.id</source>
+                <target>Id navigation</target>
+            </trans-unit>
             <trans-unit id="nav.name">
                 <source>nav.name</source>
                 <target>Name</target>
-            </trans-unit>
-            <trans-unit id="nav.description">
-                <source>nav.description</source>
-                <target>Description</target>
             </trans-unit>
             <trans-unit id="nav.parent">
                 <source>nav.parent</source>
@@ -225,6 +229,10 @@
             <trans-unit id="nav.parent.select">
                 <source>nav.parent.select</source>
                 <target>Select a parent nav</target>
+            </trans-unit>
+            <trans-unit id="nav.sort">
+                <source>nav.sort</source>
+                <target>Sort</target>
             </trans-unit>
             <trans-unit id="nav.flash.created">
                 <source>nav.flash.created</source>

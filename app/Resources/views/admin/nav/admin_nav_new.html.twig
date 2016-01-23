@@ -3,14 +3,14 @@
 {% block content %}
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
-        <li><a href="{{ path('admin_nav_home') }}">Navs</a></li>
-        <li class="active">Add nav</li>
+        <li><a href="{{ path('admin_nav_home') }}">{{ 'nav.title.plural'|trans }}</a></li>
+        <li class="active">{{ 'nav.add'|trans }}</li>
     </ul>
 
     <div class="row margin-vertical-md">
         <div class="col-md-12">
             <h1 class="h-btn-line">
-                Add nav
+                {{ 'nav.add'|trans }}
             </h1>
         </div>
     </div>
@@ -22,13 +22,13 @@
                 <div class="panel-body">
 
                     {{ form_start(form_category) }}
-                    {{ form_widget(form_category) }}
-                    <button type="submit" class="btn btn-primary btn-xs btn-block"> Add category</button>
+                        {{ form_widget(form_category) }}
+                        <button type="submit" class="btn btn-primary btn-xs btn-block"> {{ 'category.add'|trans }}</button>
                     {{ form_end(form_category) }}
 
                     {{ form_start(form_page) }}
-                    {{ form_widget(form_page) }}
-                    <button type="submit" class="btn btn-primary btn-xs btn-block"> Add page</button>
+                        {{ form_widget(form_page) }}
+                        <button type="submit" class="btn btn-primary btn-xs btn-block"> {{ 'content.add'|trans }}</button>
                     {{ form_end(form_page) }}
 
                 </div>
@@ -45,46 +45,50 @@
             {% endfor %}
 
             {{ form_start(formNavContents) }}
-            <table class="table table-striped table-hover ">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Parent</th>
-                    <th>Sort</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td colspan="5">{{ form_row(formNavContents.name) }}</td>
-                </tr>
-                <tr class="success">
-                    <td colspan="5">Contents</td>
-                </tr>
-                {% for content in formNavContents.contentsNav %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ content.vars.value.name }}</td>
-                        <td>{{ form_row(content.parent) }}</td>
-                        <td>{{ form_row(content.sort) }}</td>
-                        <td><a href="{{ path('admin_nav_new_remove_element', {'idRemove': content.vars.value.idElement}) }}"
-                               class="btn btn-danger btn-md btn-block"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr class="active">
-                        <td colspan="5">There are not contents</td>
-                    </tr>
-                {% endfor %}
-                <tr class="active">
-                    <td colspan="5">
-                        <button type="submit" class="btn btn-primary btn-xs btn-block"> Add nav</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <th colspan="5" class="success">{{ 'nav.id'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="5">{{ form_row(formNavContents.name) }}</td>
+                        </tr>
+                        <tr class="success">
+                            <td colspan="5">{{ 'content.title.plural'|trans }}</td>
+                        </tr>
+                        <tr>
+                            <th>#</th>
+                            <th>{{ 'nav.name'|trans }}</th>
+                            <th>{{ 'nav.parent'|trans }}</th>
+                            <th>{{ 'nav.sort'|trans }}</th>
+                            <th>{{ 'app.actions'|trans }}</th>
+                        </tr>
+                        {% for content in formNavContents.contentsNav %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ content.vars.value.name }}</td>
+                                <td>{{ form_row(content.parent) }}</td>
+                                <td>{{ form_row(content.sort) }}</td>
+                                <td><a href="{{ path('admin_nav_new_remove_element', {'idRemove': content.vars.value.idElement}) }}"
+                                       class="btn btn-danger btn-md btn-block"><i class="fa fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr class="active">
+                                <td colspan="5">{{ 'nav.there.not'|trans }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr class="active">
+                            <td colspan="5">
+                                <button type="submit" class="btn btn-primary btn-xs btn-block"> {{ 'nav.add'|trans }}</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             {{ form_end(formNavContents) }}
+            
         </div>
     </div>
 
