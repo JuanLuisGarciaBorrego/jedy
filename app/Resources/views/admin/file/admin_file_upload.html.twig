@@ -3,21 +3,21 @@
 {% block content %}
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
-        <li><a href="{{ path('admin_file_upload') }}">Files</a></li>
-        <li class="active">Add file</li>
+        <li><a href="{{ path('admin_file_home') }}">Files</a></li>
+        <li class="active">{{ 'file.add'|trans }}</li>
     </ul>
 
     <div class="row margin-vertical-md">
         <div class="col-md-12">
             <h1 class="h-btn-line">
-                Add file
+                {{ 'file.add'|trans }}
             </h1>
         </div>
     </div>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary"> Add file</button>
+        <button type="submit" class="btn btn-primary">{{ 'file.add'|trans }}</button>
     {{ form_end(form) }}
 
 {% endblock %}

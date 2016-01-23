@@ -3,17 +3,17 @@
 {% block content %}
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
-        <li class="active">Files</li>
+        <li class="active">{{ 'file.title.plural'|trans }}</li>
     </ul>
 
     {% include 'admin/_flashbag.html.twig' %}
 
     <div class="row margin-vertical-md">
         <div class="col-md-8">
-            <h1 class="h-btn-line">Files</h1>
+            <h1 class="h-btn-line">{{ 'file.title.plural'|trans }}</h1>
         </div>
         <div class="col-md-4 text-right">
-            <a href="{{ path('admin_file_upload') }}" class="btn btn-primary btn-sm">Add File</a>
+            <a href="{{ path('admin_file_upload') }}" class="btn btn-primary btn-sm">{{ 'file.add'|trans }}</a>
         </div>
     </div>
 
@@ -21,9 +21,9 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Actions</th>
+            <th>{{ 'file.name'|trans }}</th>
+            <th>{{ 'file.details'|trans }}</th>
+            <th>{{ 'app.actions'|trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -42,15 +42,15 @@
         {% set prev = page -1  %}
 
         {% if prev != 0 %}
-            <li class="previous"><a href="{{ path('admin_file_home_page', {'page': prev}) }}">&larr; Older</a></li>
+            <li class="previous"><a href="{{ path('admin_file_home_page', {'page': prev}) }}">&larr; {{ 'app.pagination.older'|trans }}</a></li>
         {% else %}
-            <li class="previous disabled"><a href="">&larr; Older</a></li>
+            <li class="previous disabled"><a href="">&larr; {{ 'app.pagination.older'|trans }}</a></li>
         {% endif %}
 
         {% if totalPages >= (page+1) %}
-            <li class="next"><a href="{{ path('admin_file_home_page', {'page': page+1}) }}">Newer &rarr;</a></li>
+            <li class="next"><a href="{{ path('admin_file_home_page', {'page': page+1}) }}">{{ 'app.pagination.newer'|trans }} &rarr;</a></li>
         {% else %}
-            <li class="next disabled"><a href="">Newer &rarr;</a></li>
+            <li class="next disabled"><a href="">{{ 'app.pagination.newer'|trans }} &rarr;</a></li>
         {% endif %}
     </ul>
 {% endblock %}

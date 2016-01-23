@@ -283,6 +283,39 @@
                 <target>Selecciona una página para añadir</target>
             </trans-unit>
 
+            <trans-unit id="file.title.singular">
+                <source>file.title.singular</source>
+                <target>Archivo</target>
+            </trans-unit>
+            <trans-unit id="file.title.plural">
+                <source>file.title.plural</source>
+                <target>Archivos</target>
+            </trans-unit>
+            <trans-unit id="file.add">
+                <source>file.add</source>
+                <target>Añadir archivo</target>
+            </trans-unit>
+            <trans-unit id="file.name">
+                <source>file.name</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="file.details">
+                <source>file.details</source>
+                <target>Detalles</target>
+            </trans-unit>
+            <trans-unit id="file.upload">
+                <source>file.upload</source>
+                <target>Subir archivo</target>
+            </trans-unit>
+            <trans-unit id="file.flash.created">
+                <source>file.flash.created</source>
+                <target>El archivo fue subido</target>
+            </trans-unit>
+            <trans-unit id="file.flash.deleted">
+                <source>file.flash.deleted</source>
+                <target>El archivo fue eliminado</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>

@@ -17,7 +17,7 @@ class FileForm extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label' => 'title',
+                    'label' => 'file.name',
                     'mapped' => false,
                     'required' => true,
                     'constraints' => new Assert\NotBlank(),
@@ -27,7 +27,7 @@ class FileForm extends AbstractType
                 'file',
                 FileType::class,
                 [
-                    'label' => 'Upload file',
+                    'label' => 'file.upload',
                     'mapped' => false,
                     'required' => true,
                     'constraints' => new Assert\File(

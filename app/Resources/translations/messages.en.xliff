@@ -282,6 +282,39 @@
                 <source>nav.page.select</source>
                 <target>Select a page for add</target>
             </trans-unit>
+            
+            <trans-unit id="file.title.singular">
+                <source>file.title.singular</source>
+                <target>File</target>
+            </trans-unit>
+            <trans-unit id="file.title.plural">
+                <source>file.title.plural</source>
+                <target>Files</target>
+            </trans-unit>
+            <trans-unit id="file.add">
+                <source>file.add</source>
+                <target>Add file</target>
+            </trans-unit>
+            <trans-unit id="file.name">
+                <source>file.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="file.details">
+                <source>file.details</source>
+                <target>Details</target>
+            </trans-unit>
+            <trans-unit id="file.upload">
+                <source>file.upload</source>
+                <target>Upload file</target>
+            </trans-unit>
+            <trans-unit id="file.flash.created">
+                <source>file.flash.created</source>
+                <target>The file was uploaded</target>
+            </trans-unit>
+            <trans-unit id="file.flash.deleted">
+                <source>file.flash.deleted</source>
+                <target>The file was deleted</target>
+            </trans-unit>
 
         </body>
     </file>
