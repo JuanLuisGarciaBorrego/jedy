@@ -20,7 +20,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/en/admin/categories/');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Categories', $crawler->filter('h1.h-btn-line')->text());
+        $this->assertContains('category.title.plural', $crawler->filter('h1.h-btn-line')->text());
     }
 
     /**
@@ -33,7 +33,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/en/admin/category/new/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('Add category')->form();
+        $buttonCrawler = $crawler->selectButton('category.add')->form();
 
         //Error validation
         $client->submit($buttonCrawler);
@@ -53,7 +53,7 @@ class CategoryControllerTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertContains(
-            'created_successfully',
+            'category.flash.created',
             $client->getResponse()->getContent()
         );
     }
@@ -68,7 +68,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/en/admin/category/new/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('Add category')->form();
+        $buttonCrawler = $crawler->selectButton('category.add')->form();
 
         $idSelect = $crawler->filter('#category_form_parent option')->last()->attr('value');
 
@@ -107,7 +107,7 @@ class CategoryControllerTest extends WebTestCase
         //English
         $crawler = $client->request('GET', $routeEn);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $buttonCrawler = $crawler->selectButton('Add translation category')->form();
+        $buttonCrawler = $crawler->selectButton('category.translation.add')->form();
 
         $buttonCrawler['category_form[name]'] = $this->name."En";
 
@@ -117,7 +117,7 @@ class CategoryControllerTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertContains(
-            'created_successfully',
+            'category.flash.translation.created',
             $client->getResponse()->getContent()
         );
     }
@@ -133,7 +133,7 @@ class CategoryControllerTest extends WebTestCase
         //French
         $crawler = $client->request('GET', $routeFr);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $buttonCrawler = $crawler->selectButton('Add translation category')->form();
+        $buttonCrawler = $crawler->selectButton('category.translation.add')->form();
 
         $buttonCrawler['category_form[name]'] = $this->name."Fr";
 
@@ -143,7 +143,7 @@ class CategoryControllerTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertContains(
-            'created_successfully',
+            'category.flash.translation.created',
             $client->getResponse()->getContent()
         );
     }
@@ -158,7 +158,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/en/admin/category/new/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('Add category')->form();
+        $buttonCrawler = $crawler->selectButton('category.add')->form();
 
         $idSelect = $crawler->filter('#category_form_parent option')->last()->attr('value');
 
@@ -171,7 +171,7 @@ class CategoryControllerTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertContains(
-            'created_successfully',
+            'category.flash.created',
             $client->getResponse()->getContent()
         );
     }
@@ -188,7 +188,7 @@ class CategoryControllerTest extends WebTestCase
         $crawler = $client->request('GET', $route);
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('Edit category')->form();
+        $buttonCrawler = $crawler->selectButton('category.edit')->form();
 
         $buttonCrawler['category_form[name]'] = "Edit En";
         $client->submit($buttonCrawler);
@@ -197,7 +197,7 @@ class CategoryControllerTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertContains(
-            'created_successfully',
+            'category.flash.translation.edited',
             $client->getResponse()->getContent()
         );
     }
@@ -213,7 +213,7 @@ class CategoryControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('Edit category')->form();
+        $buttonCrawler = $crawler->selectButton('category.edit')->form();
         $buttonCrawler['category_form[name]'] = $this->name."A";
 
         $client->submit($buttonCrawler);
@@ -222,7 +222,7 @@ class CategoryControllerTest extends WebTestCase
         $client->followRedirect();
 
         $this->assertContains(
-            'created_successfully',
+            'category.flash.edited',
             $client->getResponse()->getContent()
         );
     }
@@ -235,14 +235,14 @@ class CategoryControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $buttonCrawler = $crawler->selectButton('app.delete')->form();
         $client->submit($buttonCrawler);
 
         $this->assertEquals(200, $client->getResponse()->isRedirect());
         $client->followRedirect();
 
         $this->assertContains(
-            'admin_category_home.',
+            'category.flash.deleted',
             $client->getResponse()->getContent()
         );
     }

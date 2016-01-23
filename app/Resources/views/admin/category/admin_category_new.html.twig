@@ -24,14 +24,14 @@
     </div>
 
     {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit" class="btn btn-primary">
-        {% if form.vars.data.locale != locales.getLocaleActive %}
-            Add translation category
-        {% else %}
-            Add {{ 'category.title.plural'|trans|lower }}
-        {% endif %}
-    </button>
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">
+            {% if form.vars.data.locale != locales.getLocaleActive %}
+                {{ 'category.translation.add'|trans }}
+            {% else %}
+                {{ 'category.add'|trans }}
+            {% endif %}
+        </button>
     {{ form_end(form) }}
 
 {% endblock %}
