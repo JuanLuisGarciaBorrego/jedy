@@ -4,10 +4,10 @@
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
         {% if type %}
-            <li><a href="{{ path('admin_content_home') }}">Content</a></li>
-            <li class="active">Contents {{ type }}</li>
+            <li><a href="{{ path('admin_content_home') }}">{{ 'content.title.plural'|trans }}</a></li>
+            <li class="active">{{ 'content.title.singular'|trans }} {{ ('content.type.' ~ type)|trans }}</li>
         {% else %}
-            <li class="active">Contents</li>
+            <li class="active">{{ 'content.title.plural'|trans }}</li>
         {% endif %}
 
     </ul>
@@ -16,15 +16,15 @@
 
     <div class="row margin-vertical-md">
         <div class="col-md-8">
-            <h1 class="h-btn-line">Contents {{ type }}</h1>
+            <h1 class="h-btn-line">{{ 'content.title.plural'|trans }} {{ ('content.type.' ~ type|default('all'))|trans }}</h1>
         </div>
         <div class="col-md-4 text-right">
             <div class="btn-group">
-                <a href="#" class="btn btn-primary btn-sm">Add content</a>
+                <a href="#" class="btn btn-primary btn-sm">{{ 'content.add'|trans }}</a>
                 <a href="#" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ path('admin_content_new', {'type': 'page'}) }}">Page</a></li>
-                    <li><a href="{{ path('admin_content_new', {'type': 'post'}) }}">Post</a></li>
+                    <li><a href="{{ path('admin_content_new', {'type': 'page'}) }}">{{ 'content.type.page'|trans }}</a></li>
+                    <li><a href="{{ path('admin_content_new', {'type': 'post'}) }}">{{ 'content.type.post'|trans }}</a></li>
                 </ul>
             </div>
         </div>
@@ -35,9 +35,9 @@
         <tr>
             <th>#</th>
             <th>Title</th>
-            <th>Category</th>
-            <th>Type</th>
-            <th>Actions</th>
+            <th>{{ 'category.title.singular'|trans }}</th>
+            <th>{{ 'content.type'|trans }}</th>
+            <th>{{ 'app.actions'|trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -46,10 +46,10 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ content.title}}</td>
                 <td>{{ content.category.name |default("-")}}</td>
-                <td><span class="label label-default">{{ content.type}}</span></td>
+                <td><span class="label label-default">{{ ('content.type.' ~ content.type)|trans }}</span></td>
                 <td>
-                    <a href="{{ path('admin_content_edit', {'id': content.id}) }}" class="btn btn-warning btn-xs">Edit</a>
-                    <a href="{{ path('admin_content_translations', {'id': content.id}) }}" class="btn btn-info btn-xs">Translations</a>
+                    <a href="{{ path('admin_content_edit', {'id': content.id}) }}" class="btn btn-warning btn-xs">{{ 'app.edit'|trans }}</a>
+                    <a href="{{ path('admin_content_translations', {'id': content.id}) }}" class="btn btn-info btn-xs">{{ 'app.translations'|trans }}</a>
                 </td>
             </tr>
         {% endfor %}
@@ -60,15 +60,15 @@
         {% set prev = page -1  %}
 
         {% if prev != 0 %}
-            <li class="previous"><a href="{{ path('admin_content_home', {'page': prev}) }}">&larr; Older</a></li>
+            <li class="previous"><a href="{{ path('admin_content_home', {'page': prev}) }}">&larr; {{ 'app.pagination.older'|trans }}</a></li>
         {% else %}
-            <li class="previous disabled"><a href="">&larr; Older</a></li>
+            <li class="previous disabled"><a href="">&larr; {{ 'app.pagination.older'|trans }}</a></li>
         {% endif %}
 
         {% if totalPages >= (page+1) %}
-            <li class="next"><a href="{{ path('admin_content_home', {'page': page+1}) }}">Newer &rarr;</a></li>
+            <li class="next"><a href="{{ path('admin_content_home', {'page': page+1}) }}">{{ 'app.pagination.newer'|trans }} &rarr;</a></li>
         {% else %}
-            <li class="next disabled"><a href="">Newer &rarr;</a></li>
+            <li class="next disabled"><a href="">{{ 'app.pagination.newer'|trans }} &rarr;</a></li>
         {% endif %}
     </ul>
 

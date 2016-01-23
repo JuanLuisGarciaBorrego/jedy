@@ -4,26 +4,26 @@
 
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
-        <li><a href="{{ path('admin_content_home') }}">Contents</a></li>
-        <li class="active">Edit content - {{ type }}</li>
+        <li><a href="{{ path('admin_content_home') }}">{{ 'content.title.plural'|trans }}</a></li>
+        <li class="active">{{ 'content.edit'|trans }} - {{ ('content.type.' ~ type)|trans }}</li>
     </ul>
 
     <div class="row margin-vertical-md">
         <div class="col-xs-8">
-            <h1 class="h-btn-line">Edit content - {{ type }}</h1>
+            <h1 class="h-btn-line">{{ 'content.edit'|trans }} - {{ ('content.type.' ~ type)|trans }}</h1>
         </div>
 
         <div class="col-xs-4">
             {{ form_start(form_delete) }}
                 {{ form_widget(form_delete) }}
-                <button class="btn btn-block btn-danger" type="submit">Delete</button>
+                <button class="btn btn-block btn-danger" type="submit">{{ 'app.delete'|trans }}</button>
             {{ form_end(form_delete) }}
         </div>
     </div>
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary">Edit content - {{ type }}</button>
+        <button type="submit" class="btn btn-primary">{{ 'content.edit'|trans }} - {{ ('content.type.' ~ type)|trans }}</button>
     {{ form_end(form) }}
 
 {% endblock %}

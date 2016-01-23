@@ -43,6 +43,14 @@
                 <source>app.language</source>
                 <target>Language</target>
             </trans-unit>
+            <trans-unit id="app.pagination.older">
+                <source>app.pagination.older</source>
+                <target>Older</target>
+            </trans-unit>
+            <trans-unit id="app.pagination.newer">
+                <source>app.pagination.newer</source>
+                <target>Newer</target>
+            </trans-unit>
 
             <trans-unit id="category.title.singular">
                 <source>category.title.singular</source>
@@ -99,6 +107,87 @@
             <trans-unit id="category.flash.translation.edited">
                 <source>category.flash.translation.edited</source>
                 <target>Translation category was edited</target>
+            </trans-unit>
+            
+            <trans-unit id="content.title.singular">
+                <source>content.title.singular</source>
+                <target>Content</target>
+            </trans-unit>
+            <trans-unit id="content.title.plural">
+                <source>content.title.plural</source>
+                <target>Contents</target>
+            </trans-unit>
+            <trans-unit id="content.type">
+                <source>content.type</source>
+                <target>Type</target>
+            </trans-unit>
+            <trans-unit id="content.type.page">
+                <source>content.type.page</source>
+                <target>Page</target>
+            </trans-unit>
+            <trans-unit id="content.type.post">
+                <source>content.type.post</source>
+                <target>Post</target>
+            </trans-unit>
+            <trans-unit id="content.type.all">
+                <source>content.type.all</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="content.add">
+                <source>content.add</source>
+                <target>Add content</target>
+            </trans-unit>
+            <trans-unit id="content.edit">
+                <source>content.edit</source>
+                <target>Edit content</target>
+            </trans-unit>
+            <trans-unit id="content.translation.add">
+                <source>content.translation.add</source>
+                <target>Add translation to content</target>
+            </trans-unit>
+            <trans-unit id="content.title">
+                <source>content.title</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="content.summary">
+                <source>content.summary</source>
+                <target>Summary</target>
+            </trans-unit>
+            <trans-unit id="content.content">
+                <source>content.content</source>
+                <target>Content</target>
+            </trans-unit>
+            <trans-unit id="content.published">
+                <source>content.published</source>
+                <target>Do you want to publish it?</target>
+            </trans-unit>
+            <trans-unit id="content.category">
+                <source>content.category</source>
+                <target>Does it have a category?</target>
+            </trans-unit>
+            <trans-unit id="content.category.select">
+                <source>content.category.select</source>
+                <target>Select a category for content</target>
+            </trans-unit>
+            <trans-unit id="content.flash.created">
+                <source>content.flash.created</source>
+                <target>The content was created</target>
+            </trans-unit>
+            <trans-unit id="content.flash.edited">
+                <source>content.flash.edited</source>
+                <target>The content was edited</target>
+            </trans-unit>
+            <trans-unit id="content.flash.deleted">
+                <source>content.flash.deleted</source>
+                <target>The content was deleted</target>
+            </trans-unit>
+            <trans-unit id="content.flash.translation.created">
+                <source>content.flash.translation.created</source>
+                <target>Translation content was created</target>
+            </trans-unit>
+            <trans-unit id="content.flash.translation.edited">
+                <source>content.flash.translation.edited</source>
+                <target>Translation content was edited</target>
             </trans-unit>
 
         </body>

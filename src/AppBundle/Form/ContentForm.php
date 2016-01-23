@@ -56,21 +56,21 @@ class ContentForm extends AbstractType
                 'title',
                 TextType::class,
                 [
-                    'label' => 'Title',
+                    'label' => 'content.title',
                 ]
             )
             ->add(
                 'summary',
                 TextareaType::class,
                 [
-                    'label' => 'Summary',
+                    'label' => 'content.summary',
                 ]
             )
             ->add(
                 'content',
                 TextareaType::class,
                 [
-                    'label' => 'Content',
+                    'label' => 'content.content',
                 ]
             )
             ->add(
@@ -84,7 +84,7 @@ class ContentForm extends AbstractType
                 'status',
                 CheckboxType::class,
                 [
-                    'label' => 'Published',
+                    'label' => 'content.published',
                     'required' => false,
                 ]
             );
@@ -97,8 +97,8 @@ class ContentForm extends AbstractType
                     [
                         'class' => 'AppBundle\Entity\Category',
                         'query_builder' => $this->selectCategoryLocaleActive(),
-                        'label' => 'subcategory',
-                        'placeholder' => 'select parent',
+                        'label' => 'content.category',
+                        'placeholder' => 'content.category.select',
                         'required' => false,
                     ]
                 );
