@@ -190,6 +190,63 @@
                 <target>Translation content was edited</target>
             </trans-unit>
 
+            <trans-unit id="nav.title.singular">
+                <source>nav.title.singular</source>
+                <target>Navigation</target>
+            </trans-unit>
+            <trans-unit id="nav.title.plural">
+                <source>nav.title.plural</source>
+                <target>Navigations</target>
+            </trans-unit>
+            <trans-unit id="nav.add">
+                <source>nav.add</source>
+                <target>Add nav</target>
+            </trans-unit>
+            <trans-unit id="nav.edit">
+                <source>nav.edit</source>
+                <target>Edit nav</target>
+            </trans-unit>
+            <trans-unit id="nav.translation.add">
+                <source>nav.translation.add</source>
+                <target>Add translation to nav</target>
+            </trans-unit>
+            <trans-unit id="nav.name">
+                <source>nav.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="nav.description">
+                <source>nav.description</source>
+                <target>Description</target>
+            </trans-unit>
+            <trans-unit id="nav.parent">
+                <source>nav.parent</source>
+                <target>Does it have a parent nav?</target>
+            </trans-unit>
+            <trans-unit id="nav.parent.select">
+                <source>nav.parent.select</source>
+                <target>Select a parent nav</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.created">
+                <source>nav.flash.created</source>
+                <target>The nav was created</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.edited">
+                <source>nav.flash.edited</source>
+                <target>The nav was edited</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.deleted">
+                <source>nav.flash.deleted</source>
+                <target>The nav was deleted</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.translation.created">
+                <source>nav.flash.translation.created</source>
+                <target>Translation nav was created</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.translation.edited">
+                <source>nav.flash.translation.edited</source>
+                <target>Translation nav was edited</target>
+            </trans-unit>
+
         </body>
     </file>
 </xliff>
