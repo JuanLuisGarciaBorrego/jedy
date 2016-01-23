@@ -43,6 +43,14 @@
                 <source>app.language</source>
                 <target>Idioma</target>
             </trans-unit>
+            <trans-unit id="app.pagination.older">
+                <source>app.pagination.older</source>
+                <target>Antiguas</target>
+            </trans-unit>
+            <trans-unit id="app.pagination.newer">
+                <source>app.pagination.newer</source>
+                <target>Nuevas</target>
+            </trans-unit>
 
             <trans-unit id="category.title.singular">
                 <source>category.title.singular</source>
@@ -99,6 +107,87 @@
             <trans-unit id="category.flash.translation.edited">
                 <source>category.flash.translation.edited</source>
                 <target>La traducción de categoría fué editada</target>
+            </trans-unit>
+
+            <trans-unit id="content.title.singular">
+                <source>content.title.singular</source>
+                <target>Contenido</target>
+            </trans-unit>
+            <trans-unit id="content.title.plural">
+                <source>content.title.plural</source>
+                <target>Contenidos</target>
+            </trans-unit>
+            <trans-unit id="content.type">
+                <source>content.type</source>
+                <target>Tipo</target>
+            </trans-unit>
+            <trans-unit id="content.type.page">
+                <source>content.type.page</source>
+                <target>Pagina</target>
+            </trans-unit>
+            <trans-unit id="content.type.post">
+                <source>content.type.post</source>
+                <target>Entrada</target>
+            </trans-unit>
+            <trans-unit id="content.type.all">
+                <source>content.type.all</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="content.add">
+                <source>content.add</source>
+                <target>Add contenido</target>
+            </trans-unit>
+            <trans-unit id="content.edit">
+                <source>content.edit</source>
+                <target>Edit contenido</target>
+            </trans-unit>
+            <trans-unit id="content.translation.add">
+                <source>content.translation.add</source>
+                <target>Añadir traducción a contenido</target>
+            </trans-unit>
+            <trans-unit id="content.title">
+                <source>content.title</source>
+                <target>Título</target>
+            </trans-unit>
+            <trans-unit id="content.summary">
+                <source>content.summary</source>
+                <target>Resumen</target>
+            </trans-unit>
+            <trans-unit id="content.content">
+                <source>content.content</source>
+                <target>Contenido</target>
+            </trans-unit>
+            <trans-unit id="content.published">
+                <source>content.published</source>
+                <target>¿Quieres publicar esto?</target>
+            </trans-unit>
+            <trans-unit id="content.category">
+                <source>content.category</source>
+                <target>¿Tiene una categoria?</target>
+            </trans-unit>
+            <trans-unit id="content.category.select">
+                <source>content.category.select</source>
+                <target>Selecciona una categoria para este contenido</target>
+            </trans-unit>
+            <trans-unit id="content.flash.created">
+                <source>content.flash.created</source>
+                <target>El contenido fué creado</target>
+            </trans-unit>
+            <trans-unit id="content.flash.edited">
+                <source>content.flash.edited</source>
+                <target>El contenido fué editado</target>
+            </trans-unit>
+            <trans-unit id="content.flash.deleted">
+                <source>content.flash.deleted</source>
+                <target>El contenido fué eliminiado</target>
+            </trans-unit>
+            <trans-unit id="content.flash.translation.created">
+                <source>content.flash.translation.created</source>
+                <target>La traducción del contenido fué creada</target>
+            </trans-unit>
+            <trans-unit id="content.flash.translation.edited">
+                <source>content.flash.translation.edited</source>
+                <target>La traducción del contenido fué editada</target>
             </trans-unit>
 
         </body>
