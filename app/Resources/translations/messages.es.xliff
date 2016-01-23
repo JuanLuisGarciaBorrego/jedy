@@ -90,23 +90,23 @@
             </trans-unit>
             <trans-unit id="category.flash.created">
                 <source>category.flash.created</source>
-                <target>La categoría fué creada</target>
+                <target>La categoría fue creada</target>
             </trans-unit>
             <trans-unit id="category.flash.edited">
                 <source>category.flash.edited</source>
-                <target>La categoría fué editada</target>
+                <target>La categoría fue editada</target>
             </trans-unit>
             <trans-unit id="category.flash.deleted">
                 <source>category.flash.deleted</source>
-                <target>La categoría fué eliminada</target>
+                <target>La categoría fue eliminada</target>
             </trans-unit>
             <trans-unit id="category.flash.translation.created">
                 <source>category.flash.translation.created</source>
-                <target>La traducción de categoría fué creada</target>
+                <target>La traducción de categoría fue creada</target>
             </trans-unit>
             <trans-unit id="category.flash.translation.edited">
                 <source>category.flash.translation.edited</source>
-                <target>La traducción de categoría fué editada</target>
+                <target>La traducción de categoría fue editada</target>
             </trans-unit>
 
             <trans-unit id="content.title.singular">
@@ -171,23 +171,116 @@
             </trans-unit>
             <trans-unit id="content.flash.created">
                 <source>content.flash.created</source>
-                <target>El contenido fué creado</target>
+                <target>El contenido fue creado</target>
             </trans-unit>
             <trans-unit id="content.flash.edited">
                 <source>content.flash.edited</source>
-                <target>El contenido fué editado</target>
+                <target>El contenido fue editado</target>
             </trans-unit>
             <trans-unit id="content.flash.deleted">
                 <source>content.flash.deleted</source>
-                <target>El contenido fué eliminiado</target>
+                <target>El contenido fue eliminiado</target>
             </trans-unit>
             <trans-unit id="content.flash.translation.created">
                 <source>content.flash.translation.created</source>
-                <target>La traducción del contenido fué creada</target>
+                <target>La traducción del contenido fue creada</target>
             </trans-unit>
             <trans-unit id="content.flash.translation.edited">
                 <source>content.flash.translation.edited</source>
-                <target>La traducción del contenido fué editada</target>
+                <target>La traducción del contenido fue editada</target>
+            </trans-unit>
+
+            <trans-unit id="nav.title.singular">
+                <source>nav.title.singular</source>
+                <target>Menú</target>
+            </trans-unit>
+            <trans-unit id="nav.title.plural">
+                <source>nav.title.plural</source>
+                <target>Menús</target>
+            </trans-unit>
+            <trans-unit id="nav.add">
+                <source>nav.add</source>
+                <target>Añadir menú</target>
+            </trans-unit>
+            <trans-unit id="nav.there.not">
+                <source>nav.there.not</source>
+                <target>No tiene contenido</target>
+            </trans-unit>
+            <trans-unit id="nav.edit">
+                <source>nav.edit</source>
+                <target>Editar menú</target>
+            </trans-unit>
+            <trans-unit id="nav.translation.add">
+                <source>nav.translation.add</source>
+                <target>Añadir traducción a menú</target>
+            </trans-unit>
+            <trans-unit id="nav.id">
+                <source>nav.id</source>
+                <target>Id menú</target>
+            </trans-unit>
+            <trans-unit id="nav.name">
+                <source>nav.name</source>
+                <target>Nombre</target>
+            </trans-unit>
+            <trans-unit id="nav.parent">
+                <source>nav.parent</source>
+                <target>¿Tiene un menú padre?</target>
+            </trans-unit>
+            <trans-unit id="nav.parent.select">
+                <source>nav.parent.select</source>
+                <target>Selecciona un menú padre</target>
+            </trans-unit>
+            <trans-unit id="nav.sort">
+                <source>nav.sort</source>
+                <target>Orden</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.created">
+                <source>nav.flash.created</source>
+                <target>El menú fue creado</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.edited">
+                <source>nav.flash.edited</source>
+                <target>El menú fue editado</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.deleted">
+                <source>nav.flash.deleted</source>
+                <target>El menú fue eliminado</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.translation.generated">
+                <source>nav.flash.translation.generated</source>
+                <target>La traducción del menú fue generado</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.translation.updated">
+                <source>nav.flash.translation.updated</source>
+                <target>La traducción del menú fue actualizada</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.exists">
+                <source>nav.flash.exists</source>
+                <target>Este elemento existe</target>
+            </trans-unit>
+            <trans-unit id="nav.translation.update">
+                <source>nav.translation.update</source>
+                <target>Actualizar traducción</target>
+            </trans-unit>
+            <trans-unit id="nav.translation.generate">
+                <source>nav.translation.generate</source>
+                <target>Generar traducción</target>
+            </trans-unit>
+            <trans-unit id="nav.category.add">
+                <source>nav.category.add</source>
+                <target>Añadir categorías al menú</target>
+            </trans-unit>
+            <trans-unit id="nav.category.select">
+                <source>nav.category.select</source>
+                <target>Selecciona una categoria para añadir</target>
+            </trans-unit>
+            <trans-unit id="nav.page.add">
+                <source>nav.page.add</source>
+                <target>Añadir paginas al menú</target>
+            </trans-unit>
+            <trans-unit id="nav.page.select">
+                <source>nav.page.select</source>
+                <target>Selecciona una página para añadir</target>
             </trans-unit>
 
         </body>
