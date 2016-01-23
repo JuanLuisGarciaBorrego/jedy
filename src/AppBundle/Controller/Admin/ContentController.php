@@ -55,7 +55,7 @@ class ContentController extends Controller
             $em->persist($content);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'content.flash.created');
 
             return $this->redirectToRoute('admin_content_home');
         }
@@ -86,7 +86,7 @@ class ContentController extends Controller
             $em->persist($content);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'content.flash.edited');
 
             return $this->redirectToRoute('admin_content_home');
         }
@@ -138,7 +138,7 @@ class ContentController extends Controller
             $em->persist($newContent);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'content.flash.translation.created');
 
             return $this->redirectToRoute('admin_content_translations', ['id' => $content->getId()]);
         }
@@ -170,7 +170,7 @@ class ContentController extends Controller
             $em->persist($content);
             $em->flush();
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'content.flash.translation.edited');
 
             return $this->redirectToRoute('admin_content_translations', ['id' => $idParent]);
         }
@@ -200,7 +200,7 @@ class ContentController extends Controller
             $em->remove($content);
             $em->flush();
 
-            $this->addFlash('success', 'admin_content_home');
+            $this->addFlash('success', 'content.flash.deleted');
         }
 
         return $this->redirectToRoute('admin_content_home');
