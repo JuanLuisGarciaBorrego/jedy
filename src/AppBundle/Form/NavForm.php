@@ -17,7 +17,7 @@ class NavForm extends AbstractType
                 'name',
                 TextType::class,
                 [
-                    'label' => 'Id nav',
+                    'label' => 'nav.id',
                 ]
             );
         $builder->add('contentsNav', CollectionType::class, array(

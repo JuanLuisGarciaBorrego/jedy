@@ -254,6 +254,10 @@
                 <source>nav.flash.translation.updated</source>
                 <target>Translation navigation was updated</target>
             </trans-unit>
+            <trans-unit id="nav.flash.exists">
+                <source>nav.flash.exists</source>
+                <target>This element exists</target>
+            </trans-unit>
             <trans-unit id="nav.translation.update">
                 <source>nav.translation.update</source>
                 <target>Update translation</target>
@@ -261,6 +265,22 @@
             <trans-unit id="nav.translation.generate">
                 <source>nav.translation.generate</source>
                 <target>Generate translation</target>
+            </trans-unit>
+            <trans-unit id="nav.category.add">
+                <source>nav.category.add</source>
+                <target>Add category to the navitation</target>
+            </trans-unit>
+            <trans-unit id="nav.category.select">
+                <source>nav.category.select</source>
+                <target>Select a category for add</target>
+            </trans-unit>
+            <trans-unit id="nav.page.add">
+                <source>nav.page.add</source>
+                <target>Add page to the navitation</target>
+            </trans-unit>
+            <trans-unit id="nav.page.select">
+                <source>nav.page.select</source>
+                <target>Select a page for add</target>
             </trans-unit>
 
         </body>

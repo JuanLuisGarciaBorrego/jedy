@@ -32,8 +32,8 @@ class NavCategoryForm extends AbstractType
                 [
                     'class' => 'AppBundle\Entity\Category',
                     'query_builder' => $this->selectCategoryLocaleActive(),
-                    'label' => 'Add category',
-                    'placeholder' => 'Add category',
+                    'label' => 'nav.category.add',
+                    'placeholder' => 'nav.category.select',
                     'required' => true,
                 ]
             );

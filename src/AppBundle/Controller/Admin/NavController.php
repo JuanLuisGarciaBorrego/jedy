@@ -87,7 +87,7 @@ class NavController extends Controller
                 $this->createContentsNav($sessionContent, $nav);
 
             } else {
-                $this->addFlash('error', 'exits');
+                $this->addFlash('error', 'nav.flash.exists');
             }
         }
 
@@ -188,7 +188,7 @@ class NavController extends Controller
                 $em->flush();
 
             } else {
-                $this->addFlash('error', 'exits');
+                $this->addFlash('error', 'nav.flash.exists');
             }
         }
 

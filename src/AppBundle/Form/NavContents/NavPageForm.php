@@ -32,8 +32,8 @@ class NavPageForm extends AbstractType
                 [
                     'class' => 'AppBundle\Entity\Content',
                     'query_builder' => $this->selectPagesLocaleActive(),
-                    'label' => 'Page',
-                    'placeholder' => 'Add page',
+                    'label' => 'nav.page.add',
+                    'placeholder' => 'nav.page.select',
                     'required' => true,
                 ]
             );
