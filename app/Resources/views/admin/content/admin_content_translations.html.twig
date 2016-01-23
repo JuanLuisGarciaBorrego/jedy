@@ -6,7 +6,7 @@
         <li><a href="{{ path('admin_home') }}">Home</a></li>
         <li><a href="{{ path('admin_content_home') }}">Contents</a></li>
         <li><a href="{{ path('admin_content_edit', {'id':content.id }) }}">{{ content.title }}</a></li>
-        <li class="active">Translations</li>
+        <li class="active">{{ 'app.translations'|trans }}</li>
     </ul>
 
     {% include 'admin/_flashbag.html.twig' %}

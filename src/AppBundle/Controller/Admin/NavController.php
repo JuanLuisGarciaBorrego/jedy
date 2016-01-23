@@ -103,7 +103,7 @@ class NavController extends Controller
             $request->getSession()->remove('contents');
             $request->getSession()->remove('flagNav');
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'nav.flash.created');
 
             return $this->redirectToRoute('admin_nav_home');
         }
@@ -203,7 +203,7 @@ class NavController extends Controller
 
             $request->getSession()->remove('contents');
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'nav.flash.edited');
 
             return $this->redirectToRoute('admin_nav_home');
         }
@@ -234,7 +234,7 @@ class NavController extends Controller
             $em->remove($nav);
             $em->flush();
 
-            $this->addFlash('success', 'admin_nav');
+            $this->addFlash('success', 'nav.flash.deleted');
         }
 
         return $this->redirectToRoute('admin_nav_home');
@@ -280,7 +280,7 @@ class NavController extends Controller
         $em->persist($translationNav);
         $em->flush();
 
-        $this->addFlash('success', 'created_successfully');
+        $this->addFlash('success', 'nav.flash.translation.generated');
 
         return $this->redirectToRoute('admin_nav_translations', ['id' => $nav->getId()]);
     }
@@ -308,7 +308,7 @@ class NavController extends Controller
         $em->persist($translationNav);
         $em->flush();
 
-        $this->addFlash('success', 'update_sucessfully');
+        $this->addFlash('success', 'nav.flash.translation.updated');
         return $this->redirectToRoute('admin_nav_translations', ['id' => $newNav->getId()]);
 
     }

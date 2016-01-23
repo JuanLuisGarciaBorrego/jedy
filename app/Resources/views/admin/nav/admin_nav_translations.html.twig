@@ -4,16 +4,16 @@
 
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
-        <li><a href="{{ path('admin_nav_home') }}">Navs</a></li>
+        <li><a href="{{ path('admin_nav_home') }}">{{ 'nav.title.plural'|trans }}</a></li>
         <li><a href="{{ path('admin_nav_edit', {'id': nav.id }) }}">{{ nav.name }}</a></li>
-        <li class="active">Translation</li>
+        <li class="active">{{ 'app.translations'|trans }}</li>
     </ul>
 
     {% include 'admin/_flashbag.html.twig' %}
 
     <div class="row margin-vertical-md">
         <div class="col-md-12">
-            <h1 class="h-btn-line">Translations</h1>
+            <h1 class="h-btn-line">{{ 'app.translations'|trans }}</h1>
         </div>
     </div>
 
@@ -21,8 +21,8 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>Language</th>
-            <th>Actions</th>
+            <th>{{ 'app.translation'|trans }}</th>
+            <th>{{ 'app.actions'|trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -32,15 +32,15 @@
                 <td>{{ translation.name }}</td>
                 <td>
                     {% if nav.locale == translation.code %}
-                        <a href="{{ path('admin_nav_edit', {'id': nav.id }) }}" class="btn btn-warning btn-xs">Edit nav</a>
+                        <a href="{{ path('admin_nav_edit', {'id': nav.id }) }}" class="btn btn-warning btn-xs">{{ 'nav.edit'|trans }}</a>
                     {% else %}
 
                         {% set nav_translation = is_nav_translation(nav.locale, translation.code, nav.id) %}
 
                         {% if nav_translation %}
-                            <a href="{{ path('admin_nav_translation_update', {'id': nav.id, 'localeNav': nav.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-warning btn-xs">Update translation</a>
+                            <a href="{{ path('admin_nav_translation_update', {'id': nav.id, 'localeNav': nav.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-warning btn-xs">{{ 'nav.translation.update'|trans }}</a>
                         {% else %}
-                            <a href="{{ path('admin_nav_translation_generate', {'id': nav.id, 'localeNav': nav.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-info btn-xs">Generate translation</a>
+                            <a href="{{ path('admin_nav_translation_generate', {'id': nav.id, 'localeNav': nav.locale, 'localeTranslation': translation.code} ) }}" class="btn btn-info btn-xs">{{ 'nav.translation.generate'|trans }}n</a>
                         {% endif %}
 
                     {% endif %}

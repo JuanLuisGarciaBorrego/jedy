@@ -236,23 +236,31 @@
             </trans-unit>
             <trans-unit id="nav.flash.created">
                 <source>nav.flash.created</source>
-                <target>The nav was created</target>
+                <target>The navigation was created</target>
             </trans-unit>
             <trans-unit id="nav.flash.edited">
                 <source>nav.flash.edited</source>
-                <target>The nav was edited</target>
+                <target>The navigation was edited</target>
             </trans-unit>
             <trans-unit id="nav.flash.deleted">
                 <source>nav.flash.deleted</source>
-                <target>The nav was deleted</target>
+                <target>The navigation was deleted</target>
             </trans-unit>
-            <trans-unit id="nav.flash.translation.created">
-                <source>nav.flash.translation.created</source>
-                <target>Translation nav was created</target>
+            <trans-unit id="nav.flash.translation.generated">
+                <source>nav.flash.translation.generated</source>
+                <target>Translation navigation was generated</target>
             </trans-unit>
-            <trans-unit id="nav.flash.translation.edited">
-                <source>nav.flash.translation.edited</source>
-                <target>Translation nav was edited</target>
+            <trans-unit id="nav.flash.translation.updated">
+                <source>nav.flash.translation.updated</source>
+                <target>Translation navigation was updated</target>
+            </trans-unit>
+            <trans-unit id="nav.translation.update">
+                <source>nav.translation.update</source>
+                <target>Update translation</target>
+            </trans-unit>
+            <trans-unit id="nav.translation.generate">
+                <source>nav.translation.generate</source>
+                <target>Generate translation</target>
             </trans-unit>
 
         </body>
