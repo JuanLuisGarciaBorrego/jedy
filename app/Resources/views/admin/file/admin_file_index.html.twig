@@ -22,6 +22,7 @@
         <tr>
             <th>#</th>
             <th>{{ 'file.name'|trans }}</th>
+            <th>{{ 'file.view'|trans }}</th>
             <th>{{ 'file.details'|trans }}</th>
             <th>{{ 'app.actions'|trans }}</th>
         </tr>
@@ -30,9 +31,14 @@
         {% for item in files %}
             <tr>
                 <td>{{ loop.index }}</td>
-                <td>{{ item.filename }}</td>
+                <td><span class="label label-info">{{ item.filename }}</span></td>
+                <td>
+                    {{ render_file(item.filename, item.extension) }}
+                </td>
                 <td><i class="fa fa-clock-o"></i> {{ item.cTime | date("d/m/Y H:I") }}</td>
-                <td>{{ render_file(item.filename, item.extension) }}</td>
+                <td class="text-right">
+                    <a class="btn btn-danger btn-md" href="{{ path('admin_file_delete', {'filename': item.filename }) }}"> <i class="fa fa-trash"></i> </a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

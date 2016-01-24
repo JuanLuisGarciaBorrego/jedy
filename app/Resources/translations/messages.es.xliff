@@ -299,6 +299,10 @@
                 <source>file.name</source>
                 <target>Nombre</target>
             </trans-unit>
+            <trans-unit id="file.view">
+                <source>file.view</source>
+                <target>Ver</target>
+            </trans-unit>
             <trans-unit id="file.details">
                 <source>file.details</source>
                 <target>Detalles</target>

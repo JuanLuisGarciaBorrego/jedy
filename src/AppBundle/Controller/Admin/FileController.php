@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Form\FileForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -41,7 +42,7 @@ class FileController extends Controller
             'files' => array_slice($iterator, $start, $itemsPerPage),
             'total' => $total,
             'totalPages' => $totalPages,
-            'page' => $page,
+            'page' => $page
         ]);
     }
 
@@ -59,13 +60,29 @@ class FileController extends Controller
             $newName = $this->get('cocur_slugify')->slugify($form['name']->getData()).".".$file->getClientOriginalExtension();
             $file->move($this->getParameter('uploads_directory'), $newName);
 
-            $this->addFlash('success', 'created_successfully');
+            $this->addFlash('success', 'file.flash.created');
             return $this->redirectToRoute('admin_file_home');
         }
 
         return $this->render('admin/file/admin_file_upload.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/{filename}/delete/", name="admin_file_delete")
+     */
+    public function deleteAction($filename)
+    {
+        $file = $this->getParameter('uploads_directory')."/".$filename;
+
+        if(file_exists($file)){
+            unlink($file);
+            $this->addFlash('success', 'file.flash.deleted');
+        }
+
+        return $this->redirectToRoute('admin_file_home');
+
     }
 }
 
