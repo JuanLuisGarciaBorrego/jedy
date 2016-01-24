@@ -51,6 +51,22 @@
                 <source>app.pagination.newer</source>
                 <target>Nuevas</target>
             </trans-unit>
+            <trans-unit id="app.administration">
+                <source>app.administration</source>
+                <target>Administración</target>
+            </trans-unit>
+            <trans-unit id="app.profile">
+                <source>app.profile</source>
+                <target>Perfil</target>
+            </trans-unit>
+            <trans-unit id="app.visit.website">
+                <source>app.visit.website</source>
+                <target>Visitar sitio</target>
+            </trans-unit>
+            <trans-unit id="app.close.session">
+                <source>app.close.session</source>
+                <target>Cerrar sesión</target>
+            </trans-unit>
 
             <trans-unit id="category.title.singular">
                 <source>category.title.singular</source>
@@ -132,6 +148,10 @@
             <trans-unit id="content.type.all">
                 <source>content.type.all</source>
                 <target></target>
+            </trans-unit>
+            <trans-unit id="content.see.all">
+                <source>content.see.all</source>
+                <target>Ver todo</target>
             </trans-unit>
             <trans-unit id="content.add">
                 <source>content.add</source>

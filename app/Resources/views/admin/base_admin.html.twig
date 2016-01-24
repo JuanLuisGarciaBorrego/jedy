@@ -25,22 +25,22 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="{{ path('admin_home') }}">Home<span class="sr-only">(current)</span></a></li>
-                                <li><a href="{{ path('admin_category_home') }}">Categories</a></li>
+                                <li><a href="{{ path('admin_category_home') }}">{{ 'category.title.plural'|trans }}</a></li>
                                 <li class="dropdown">
-                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Contents <span class="caret"></span></a>
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ 'content.title.plural'|trans }} <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{ path('admin_content_home') }}">All contents</a></li>
+                                        <li><a href="{{ path('admin_content_home') }}">{{ 'content.see.all'|trans }}</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="{{ path('admin_content_home', {'type': 'post'}) }}">Posts</a></li>
-                                        <li><a href="{{ path('admin_content_home', {'type': 'page'}) }}">Pages</a></li>
+                                        <li><a href="{{ path('admin_content_home', {'type': 'post'}) }}">{{ 'content.type.post'|trans }}</a></li>
+                                        <li><a href="{{ path('admin_content_home', {'type': 'page'}) }}">{{ 'content.type.page'|trans }}</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{{ path('admin_nav_home') }}">Navs</a></li>
-                                <li><a href="{{ path('admin_file_home') }}">Files</a></li>
+                                <li><a href="{{ path('admin_nav_home') }}">{{ 'nav.title.plural'|trans }}</a></li>
+                                <li><a href="{{ path('admin_file_home') }}">{{ 'file.title.plural'|trans }}</a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 <li class="dropdown">
-                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Languages <span class="caret"></span></a>
+                                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ 'app.language'|trans }} <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         {% for locale in locales.getLocales() %}
                                             <li><a href="{{ path('admin_home', {'_locale': locale.code}) }}">
@@ -53,13 +53,13 @@
                                     </ul>
                                 </li>
                                 <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <b class="caret"></b></a>
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'app.administration'|trans }} <b class="caret"></b></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">Profile</a></li>
+                                        <li><a href="#">{{ 'app.profile'|trans }}</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="{{ path('app_index') }}">Public Homepage</a></li>
+                                        <li><a href="{{ path('app_index') }}">{{ 'app.visit.website'|trans }}</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="#">Exit</a></li>
+                                        <li><a href="#">{{ 'app.close.session'|trans }}</a></li>
                                     </ul>
                                 </li>
                             </ul>
