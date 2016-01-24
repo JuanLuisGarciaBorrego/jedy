@@ -124,6 +124,10 @@
                 <source>category.flash.translation.edited</source>
                 <target>La traducción de categoría fue editada</target>
             </trans-unit>
+            <trans-unit id="category.definition">
+                <source>category.definition</source>
+                <target>Cada entrada se clasifica bajo una categoría. Esto permite organizar la información según su contenido.</target>
+            </trans-unit>
 
             <trans-unit id="content.title.singular">
                 <source>content.title.singular</source>
@@ -208,6 +212,14 @@
             <trans-unit id="content.flash.translation.edited">
                 <source>content.flash.translation.edited</source>
                 <target>La traducción del contenido fue editada</target>
+            </trans-unit>
+            <trans-unit id="content.definition.page">
+                <source>content.definition.page</source>
+                <target>Contenidos "estáticos" que normalmente se utilizan para mostrar información genérica sobre tu sitio.</target>
+            </trans-unit>
+            <trans-unit id="content.definition.post">
+                <source>content.definition.post</source>
+                <target>Artículos que van apareciendo a los visitantes en orden cronológico inverso.</target>
             </trans-unit>
 
             <trans-unit id="nav.title.singular">

@@ -124,6 +124,10 @@
                 <source>category.flash.translation.edited</source>
                 <target>Translation category was edited</target>
             </trans-unit>
+            <trans-unit id="category.definition">
+                <source>category.definition</source>
+                <target>Each entry is classified under a category. this allows organizing the information as contents</target>
+            </trans-unit>
             
             <trans-unit id="content.title.singular">
                 <source>content.title.singular</source>
@@ -208,6 +212,14 @@
             <trans-unit id="content.flash.translation.edited">
                 <source>content.flash.translation.edited</source>
                 <target>Translation content was edited</target>
+            </trans-unit>
+            <trans-unit id="content.definition.page">
+                <source>content.definition.page</source>
+                <target>"Static" contents normally used to display general information about your site.</target>
+            </trans-unit>
+            <trans-unit id="content.definition.post">
+                <source>content.definition.post</source>
+                <target>Articles that appear to visitors in reverse chronological order.</target>
             </trans-unit>
 
             <trans-unit id="nav.title.singular">
