@@ -39,4 +39,14 @@ class CategoryRepository extends \Doctrine\ORM\EntityRepository
             ->where('c.locale = :localeActive')
             ->setParameter('localeActive', $localeActive);
     }
+
+    public function getTotalCategories($locale)
+    {
+           return $this->createQueryBuilder('c')
+            ->select('COUNT(c) AS TOTAL')
+            ->andWhere('c.locale = :locale')
+            ->setParameter('locale', $locale)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

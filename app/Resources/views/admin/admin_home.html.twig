@@ -7,5 +7,37 @@
         <p>{{ 'app.description'|trans()|raw }}</p>
         <p><a href="https://github.com/JuanLuisGarciaBorrego/jedy" target="_new" class="btn btn-primary btn-lg"><i class="fa fa-github"></i> {{ 'app.view.project'|trans() }}</a></p>
     </div>
-    {{ app.request.attributes.get('_route') }}
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ 'content.type.page'|trans }} <span class="badge"><i class="fa fa-eye"></i> {{ count.page }}</span></h3>
+                </div>
+                <div class="panel-body">
+                    Contenidos "estáticos" que normalmente se utilizan para mostrar información genérica sobre tu sitio.
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ 'content.type.post'|trans }} <span class="badge"><i class="fa fa-eye"></i> {{ count.post }}</span></h3>
+                </div>
+                <div class="panel-body">
+                    Artículos que van apareciendo a los visitantes en orden cronológico inverso.
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ 'category.title.singular'|trans }} <span class="badge"><i class="fa fa-eye"></i> {{ count.category }}</span></h3>
+                </div>
+                <div class="panel-body">
+                    Cada entrada se clasifica bajo una categoría. Esto permite organizar la información según su contenido.
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

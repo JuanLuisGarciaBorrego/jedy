@@ -15,6 +15,12 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('admin/admin_home.html.twig');
+        return $this->render('admin/admin_home.html.twig', [
+            'count' => [
+                'category' => $this->getDoctrine()->getRepository('AppBundle:Category')->getTotalCategories($this->getParameter('locale_active')),
+                'post' => $this->getDoctrine()->getRepository('AppBundle:Content')->getTotalRegisters($this->getParameter('locale_active') ,'post', true),
+                'page' => $this->getDoctrine()->getRepository('AppBundle:Content')->getTotalRegisters($this->getParameter('locale_active') ,'page', true),
+            ]
+        ]);
     }
 }
