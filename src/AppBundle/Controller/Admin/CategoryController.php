@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Category;
 use AppBundle\Form\CategoryForm;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -184,7 +185,13 @@ class CategoryController extends Controller
 
             $em = $this->getDoctrine()->getManager();
             $em->remove($category);
-            $em->flush();
+            try {
+                $em->flush();
+            } catch (DBALException $e) {
+                //TODO
+                //move contents to default category and remove this category
+                return $this->redirectToRoute('admin_category_home');
+            }
 
             $this->addFlash('success', 'category.flash.deleted');
         }
