@@ -4,7 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Category;
 use AppBundle\Form\CategoryForm;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -187,7 +187,7 @@ class CategoryController extends Controller
             $em->remove($category);
             try {
                 $em->flush();
-            } catch (DBALException $e) {
+            } catch (ForeignKeyConstraintViolationException $e) {
                 $this->addFlash('success', 'category.flash.deleted.children');
                 
                 return $this->redirectToRoute('admin_category_home');
