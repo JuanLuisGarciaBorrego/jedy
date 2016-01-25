@@ -2,9 +2,10 @@
 
 {% block content %}
 
-    <!-- Main component for a primary marketing message or call to action -->
-    <div class="jumbotron">
-        <h1>Welcome to Jedy CMS</h1>
+    <div class="jumbotron text-center">
+        <h1>Welcome to Jedy</h1>
+        <p>{{ 'app.description'|trans()|raw }}</p>
+        <p><a href="https://github.com/JuanLuisGarciaBorrego/jedy" target="_new" class="btn btn-primary btn-lg"><i class="fa fa-github"></i> {{ 'app.view.project'|trans() }}</a></p>
     </div>
 
     <div class="row">
