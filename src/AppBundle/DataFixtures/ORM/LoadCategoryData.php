@@ -33,6 +33,8 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
 
         $manager->persist($category);
 
+        $this->addReference('category', $category);
+
         foreach ($locales->getLocales() as $locale) {
 
             if (!$locale['active']) {
@@ -44,6 +46,9 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
                 $translationCategory->setParentMultilangue($category);
 
                 $manager->persist($translationCategory);
+
+                $reference = 'translationcategory-'.$locale['code'];
+                $this->addReference($reference, $translationCategory);
             }
         }
 
