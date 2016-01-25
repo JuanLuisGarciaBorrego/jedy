@@ -2,9 +2,10 @@
 
 {% block content %}
 
-    <h1>{{ category.name }}</h1>
-
-    <p>{{ category.description }}.</p>
+    <div class="jumbotron">
+        <h1>{{ category.name }}</h1>
+        <p>{{ category.description }}.</p>
+    </div>
 
     <div class="row">
         {% for post in posts %}
@@ -12,7 +13,7 @@
                 <h2>{{ post.title }}</h2>
                 <p>{{ post.summary }}</p>
                 <span>{{ post.publishedAt|localizeddate('medium', 'short') }}</span>
-                <p><a class="btn btn-default" href="{{ path('app_blog_post', {'_locale': post.locale, 'slugcategory': post.category.slug ,'slug': post.slug}) }}" role="button">View details &raquo;</a></p>
+                <p><a class="btn btn-default" href="{{ path('app_blog_post', {'_locale': post.locale, 'slugcategory': post.category.slug ,'slug': post.slug}) }}" role="button">{{ 'app.read.more'|trans }} &raquo;</a></p>
             </div>
         {% endfor %}
     </div>

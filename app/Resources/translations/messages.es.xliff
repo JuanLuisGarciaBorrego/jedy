@@ -83,6 +83,10 @@
                 <source>app.github</source>
                 <target>Proyecto en Github</target>
             </trans-unit>
+            <trans-unit id="app.read.more">
+                <source>app.read.more</source>
+                <target>Leer más</target>
+            </trans-unit>
 
             <trans-unit id="category.title.singular">
                 <source>category.title.singular</source>
