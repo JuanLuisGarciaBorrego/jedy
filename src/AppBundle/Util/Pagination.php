@@ -26,14 +26,16 @@ class Pagination
      * @param $page
      * @param $locale
      * @param null $status
+     * @param null $category
      * @return array
      */
-    public function pagination($type, $page, $locale, $status = null)
+    public function pagination($type, $page, $locale, $status = null, $category = null)
     {
         $total = $this->em->getRepository('AppBundle:Content')->getTotalRegisters(
             $locale,
             $type,
-            $status
+            $status,
+            $category
         );
 
         $totalPages = ceil($total / Content::NUM_ITEMS);
@@ -48,7 +50,8 @@ class Pagination
             Content::NUM_ITEMS,
             $locale,
             $type,
-            $status
+            $status,
+            $category
         );
 
         return [

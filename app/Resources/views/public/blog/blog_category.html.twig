@@ -6,4 +6,31 @@
 
     <p>{{ category.description }}.</p>
 
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-xs-12">
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.summary }}</p>
+                <span>{{ post.publishedAt|localizeddate('medium', 'short') }}</span>
+                <p><a class="btn btn-default" href="{{ path('app_blog_post', {'_locale': post.locale, 'slugcategory': post.category.slug ,'slug': post.slug}) }}" role="button">View details &raquo;</a></p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <ul class="pager">
+        {% set prev = page -1  %}
+
+        {% if prev != 0 %}
+            <li class="previous"><a href="{{ path('app_blog_category_paginated', {'slug': category.slug, 'page': prev}) }}">&larr; Older</a></li>
+        {% else %}
+            <li class="previous disabled"><a href="">&larr; Older</a></li>
+        {% endif %}
+
+        {% if totalPages >= (page+1) %}
+            <li class="next"><a href="{{ path('app_blog_category_paginated', {'slug': category.slug, 'page': page+1}) }}">Newer &rarr;</a></li>
+        {% else %}
+            <li class="next disabled"><a href="">Newer &rarr;</a></li>
+        {% endif %}
+    </ul>
+
 {% endblock %}

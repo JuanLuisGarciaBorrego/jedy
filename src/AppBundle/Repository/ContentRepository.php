@@ -14,9 +14,10 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
      * @param $locale
      * @param null $type
      * @param null $status
-     * @return integer
+     * @param null $category
+     * @return mixed
      */
-    public function getTotalRegisters($locale, $type = null, $status = null)
+    public function getTotalRegisters($locale, $type = null, $status = null, $category = null)
     {
         $post = ($type) ? $type : 'post';
         $page = ($type) ? $type : 'page';
@@ -24,7 +25,7 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
         $published = ($status) ? $status : true;
         $unpublished = ($status) ? $status : false;
 
-        return $this->createQueryBuilder('c')
+        $qb = $this->createQueryBuilder('c')
             ->select('COUNT(c) AS TOTAL')
             ->where('(c.type = :post or c.type = :page) and (c.status = :published or c.status = :unpublished)')
             ->andWhere('c.locale = :locale')
@@ -33,7 +34,15 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('published', $published)
             ->setParameter('unpublished', $unpublished)
             ->setParameter('locale', $locale)
-            ->getQuery()
+        ;
+
+        if($category){
+            $qb->andWhere('c.category = :category')
+                ->setParameter('category', $category)
+            ;
+        }
+
+        return $qb->getQuery()
             ->getSingleScalarResult();
     }
 
@@ -43,9 +52,10 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
      * @param $locale
      * @param null $type
      * @param null $status
-     * @return array Content
+     * @param null $category
+     * @return mixed
      */
-    public function getResultsPaginated($offset, $sizePage, $locale, $type = null, $status = null)
+    public function getResultsPaginated($offset, $sizePage, $locale, $type = null, $status = null, $category = null)
     {
         $post = ($type) ? $type : 'post';
         $page = ($type) ? $type : 'page';
@@ -53,7 +63,7 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
         $published = ($status) ? $status : true;
         $unpublished = ($status) ? $status : false;
 
-        return $this->createQueryBuilder('c')
+        $qb = $this->createQueryBuilder('c')
             ->where('(c.type = :post or c.type = :page) and (c.status = :published or c.status = :unpublished)')
             ->andWhere('c.locale = :locale')
             ->setParameter('post', $post)
@@ -63,7 +73,15 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('locale', $locale)
             ->setFirstResult($offset)
             ->setMaxResults($sizePage)
-            ->getQuery()
+        ;
+
+        if($category){
+            $qb->andWhere('c.category = :category')
+                ->setParameter('category', $category)
+            ;
+        }
+
+        return $qb->getQuery()
             ->execute();
     }
 

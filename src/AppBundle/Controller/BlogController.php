@@ -39,11 +39,30 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/{slug}", name="app_blog_category")
+     * @Route("/{slug}", name="app_blog_category", defaults={"page" = 1})
+     * @Route("/{slug}/{page}", name="app_blog_category_paginated", requirements={"page" : "\d+"})
      */
-    public function categoryAction(Category $category)
+    public function categoryAction(Category $category, $page)
     {
-        return $this->render('public/blog/blog_category.html.twig', ['category' => $category]);
+        $postPagination = $this->get('pagination')->pagination(
+            'post',
+            $page,
+            $this->get('request_stack')->getMasterRequest()->get('_locale'),
+            true,
+            $category
+        );
+
+        return $this->render(
+            'public/blog/blog_category.html.twig',
+            [
+                'category' => $category,
+                'posts' => $postPagination['contents'],
+                'type' => $postPagination['type'],
+                'total' => $postPagination['total'],
+                'totalPages' => $postPagination['totalPages'],
+                'page' => $page,
+            ]
+        );
     }
 
     /**
