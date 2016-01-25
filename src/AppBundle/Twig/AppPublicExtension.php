@@ -53,10 +53,7 @@ class AppPublicExtension extends \Twig_Extension
 
         $result = "<ul class='".$class."'>";
         foreach ($this->getTranslations($content) as $item) {
-            dump($item);
-
             if($item['type'] == 'post') {
-
                 $route = $this->routingExtenxion->getPath('app_blog_post',
                     [
                         '_locale' => $item['locale'],
