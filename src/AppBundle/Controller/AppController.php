@@ -13,6 +13,14 @@ class AppController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('app/app_index.html.twig');
+        return $this->render('public/app/app_index.html.twig');
+    }
+
+    /**
+     * @Route("/{slug}", name="app_blog_page")
+     */
+    public function pageAction(Content $content)
+    {
+        return $this->render('public/app/app_page.html.twig', ['page' => $content]);
     }
 }

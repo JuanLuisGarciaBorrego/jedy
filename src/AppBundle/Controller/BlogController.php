@@ -15,7 +15,7 @@ class BlogController extends Controller
 {
     /**
      * @Route("/", name="app_blog_index", defaults={"page" = 1})
-     * @Route("/page/{page}", name="app_blog_index_paginated", requirements={"page" : "\d+"})
+     * @Route("/{page}", name="app_blog_index_paginated", requirements={"page" : "\d+"})
      */
     public function indexAction($page)
     {
@@ -27,7 +27,7 @@ class BlogController extends Controller
         );
 
         return $this->render(
-            'blog/blog_index.html.twig',
+            'public/blog/blog_index.html.twig',
             [
                 'posts' => $postPagination['contents'],
                 'type' => $postPagination['type'],
@@ -39,27 +39,22 @@ class BlogController extends Controller
     }
 
     /**
-     * @Route("/post/{slug}", name="app_blog_post")
-     * @ParamConverter("post", class="AppBundle:Content", options={"repository_method" = "findBySlugIfContentIsPublished"})
-     */
-    public function postShowAction(Content $post)
-    {
-        return $this->render('blog/blog_post.html.twig', ['post' => $post]);
-    }
-
-    /**
-     * @Route("/category/{slug}", name="app_blog_category")
+     * @Route("/{slug}", name="app_blog_category")
      */
     public function categoryAction(Category $category)
     {
-        return $this->render('blog/blog_category.html.twig', ['category' => $category]);
+        return $this->render('public/blog/blog_category.html.twig', ['category' => $category]);
     }
 
     /**
-     * @Route("/page/{slug}", name="app_blog_page")
+     * @Route("/{slugcategory}/{slug}", name="app_blog_post")
+     * @ParamConverter("post", class="AppBundle:Content", options={
+     *      "repository_method" : "findBySlugIfContentIsPublished" ,
+     *      "exclude": {"slugcategory"}
+     * })
      */
-    public function pageAction(Content $content)
+    public function postShowAction(Content $post)
     {
-        return $this->render('blog/blog_page.html.twig', ['page' => $content]);
+        return $this->render('public/blog/blog_post.html.twig', ['post' => $post]);
     }
 }

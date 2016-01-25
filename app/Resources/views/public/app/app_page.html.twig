@@ -1,4 +1,4 @@
-{% extends '::base_public.html.twig' %}
+{% extends 'public/base_public.html.twig' %}
 
 {% block content %}
 
@@ -7,5 +7,5 @@
     <span>{{ page.publishedAt|date("m/d/Y") }}</span>
     <p>{{ page.content }}.</p>
     <hr>
-    {{ translation_content(page) }}
+    {# translation_content(page) #}
 {% endblock %}

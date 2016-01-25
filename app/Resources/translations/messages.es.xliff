@@ -67,6 +67,22 @@
                 <source>app.close.session</source>
                 <target>Cerrar sesión</target>
             </trans-unit>
+            <trans-unit id="app.private">
+                <source>app.private</source>
+                <target>Privado</target>
+            </trans-unit>
+            <trans-unit id="app.website">
+                <source>app.website</source>
+                <target>Web del autor</target>
+            </trans-unit>
+            <trans-unit id="app.about">
+                <source>app.about</source>
+                <target>Acerca de</target>
+            </trans-unit>
+            <trans-unit id="app.github">
+                <source>app.github</source>
+                <target>Proyecto en Github</target>
+            </trans-unit>
 
             <trans-unit id="category.title.singular">
                 <source>category.title.singular</source>

@@ -24,25 +24,23 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{{ path('app_index') }}">Home</a></li>
                     <li><a href="{{ path('app_blog_index') }}">Blog</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
                 </ul>
 
                 {{ nav_locale('principal', app.request.locale)  }}
 
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Languages <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.about'|trans }} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="https://github.com/JuanLuisGarciaBorrego/jedy" target="_new"><i class="fa fa-github"></i> {{ 'app.github'|trans }}</a></li>
+                            <li><a href="http://juanluisgarciaborrego.com/" target="_new"><i class="fa fa-user"></i> {{ 'app.website'|trans }}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header"><i class="fa fa-key"></i> {{ 'app.private'|trans }}</li>
+                            <li><a href="{{ path('admin_home') }}">{{ 'app.administration'|trans }}</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ 'app.language'|trans }} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             {% for locale in locales.getLocales(true) %}
                                 <li><a href="{{ path('app_index', {'_locale': locale.code}) }}">
