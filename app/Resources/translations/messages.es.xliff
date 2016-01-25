@@ -116,6 +116,10 @@
                 <source>category.flash.deleted</source>
                 <target>La categoría fue eliminada</target>
             </trans-unit>
+            <trans-unit id="category.flash.deleted.children">
+                <source>category.flash.deleted.children</source>
+                <target>No puedes borrar esta categoría porque tiene asociado contenido</target>
+            </trans-unit>
             <trans-unit id="category.flash.translation.created">
                 <source>category.flash.translation.created</source>
                 <target>La traducción de categoría fue creada</target>

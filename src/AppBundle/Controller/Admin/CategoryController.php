@@ -188,8 +188,8 @@ class CategoryController extends Controller
             try {
                 $em->flush();
             } catch (DBALException $e) {
-                //TODO
-                //move contents to default category and remove this category
+                $this->addFlash('success', 'category.flash.deleted.children');
+                
                 return $this->redirectToRoute('admin_category_home');
             }
 

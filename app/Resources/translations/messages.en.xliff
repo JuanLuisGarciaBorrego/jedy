@@ -116,6 +116,10 @@
                 <source>category.flash.deleted</source>
                 <target>The category was deleted</target>
             </trans-unit>
+            <trans-unit id="category.flash.deleted.children">
+                <source>category.flash.deleted.children</source>
+                <target>I can not delete this category because it has associated content</target>
+            </trans-unit>
             <trans-unit id="category.flash.translation.created">
                 <source>category.flash.translation.created</source>
                 <target>Translation category was created</target>
