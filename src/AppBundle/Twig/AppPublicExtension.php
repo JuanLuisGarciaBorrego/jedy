@@ -50,12 +50,31 @@ class AppPublicExtension extends \Twig_Extension
      */
     public function translation_content(Content $content, $class = 'translation_content')
     {
+
         $result = "<ul class='".$class."'>";
         foreach ($this->getTranslations($content) as $item) {
-            $result .= "<li><a href='".$this->routingExtenxion->getPath(
-                    'app_blog_post',
-                    ['_locale' => $item['locale'], 'slug' => $item['slug']]
-                )."' title='".$item['title']."'>".$item['language']."</a> </li>";
+            dump($item);
+
+            if($item['type'] == 'post') {
+
+                $route = $this->routingExtenxion->getPath('app_blog_post',
+                    [
+                        '_locale' => $item['locale'],
+                        'slugcategory' => $item['slugcategory'],
+                        'slug' => $item['slug'],
+                    ]
+                );
+
+            }else{
+                $route = $this->routingExtenxion->getPath('app_page',
+                    [
+                        '_locale' => $item['locale'],
+                        'slug' => $item['slug'],
+                    ]
+                );
+            }
+
+            $result .= "<li><a href='".$route."' title='".$item['title']."'>".$item['language']."</a> </li>";
         }
         $result .= "</ul>";
 
@@ -76,7 +95,7 @@ class AppPublicExtension extends \Twig_Extension
                     $result .= "<li><a href='".$route."'>".$item->getName()."</a></li>";
                 }
                 if($item->getType() == 'page'){
-                    $route = $this->routingExtenxion->getPath('app_blog_page', ['slug' => $item->getSlug()]);
+                    $route = $this->routingExtenxion->getPath('app_page', ['slug' => $item->getSlug()]);
                     $result .= "<li><a href='".$route."'>".$item->getName()."</a></li>";
                 }
             }
@@ -99,6 +118,8 @@ class AppPublicExtension extends \Twig_Extension
                 'language' => $this->locales->getLanguage($content->getParentMultilangue()->getLocale()),
                 'slug' => $content->getParentMultilangue()->getSlug(),
                 'title' => $content->getParentMultilangue()->getTitle(),
+                'slugcategory' => ($content->getType() == 'post') ? $content->getParentMultilangue()->getCategory()->getSlug() : null,
+                'type' => $content->getType(),
             ];
 
             foreach ($content->getParentMultilangue()->getChildrenMultilangue() as $item) {
@@ -109,6 +130,8 @@ class AppPublicExtension extends \Twig_Extension
                         'language' => $this->locales->getLanguage($item->getLocale()),
                         'slug' => $item->getSlug(),
                         'title' => $item->getTitle(),
+                        'slugcategory' => ($content->getType() == 'post') ? $item->getCategory()->getSlug() : null,
+                        'type' => $item->getType(),
                     ];
                 }
             }
@@ -123,6 +146,8 @@ class AppPublicExtension extends \Twig_Extension
                         'language' => $this->locales->getLanguage($item->getLocale()),
                         'slug' => $item->getSlug(),
                         'title' => $item->getTitle(),
+                        'slugcategory' => ($content->getType() == 'post') ? $item->getCategory()->getSlug() : null,
+                        'type' => $item->getType(),
                     ];
                 }
             }

@@ -17,7 +17,7 @@ class AppController extends Controller
     }
 
     /**
-     * @Route("/{slug}", name="app_blog_page")
+     * @Route("/{slug}", name="app_page")
      */
     public function pageAction(Content $content)
     {
