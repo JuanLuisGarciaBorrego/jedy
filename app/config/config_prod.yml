@@ -25,3 +25,5 @@ monolog:
             level: debug
         console:
             type:  console
+parameters:
+    enable_google_analytics: true

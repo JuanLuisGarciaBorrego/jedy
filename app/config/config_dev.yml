@@ -33,3 +33,6 @@ monolog:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+parameters:
+    enable_google_analytics: false
