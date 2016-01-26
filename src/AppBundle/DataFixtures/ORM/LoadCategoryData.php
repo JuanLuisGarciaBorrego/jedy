@@ -36,7 +36,6 @@ class LoadCategoryData extends AbstractFixture implements OrderedFixtureInterfac
         $this->addReference('category', $category);
 
         foreach ($locales->getLocales() as $locale) {
-
             if (!$locale['active']) {
                 $translationCategory = new Category($locale['code']);
                 $translationCategory->setName($locale['code'].' Light side of the Force');

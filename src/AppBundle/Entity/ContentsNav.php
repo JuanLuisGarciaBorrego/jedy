@@ -2,11 +2,10 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * ContentsNav
+ * ContentsNav.
  *
  * @ORM\Table(name="contents_nav")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentsNavRepository")
@@ -49,7 +48,7 @@ class ContentsNav
      * @ORM\Column(name="type", type="string", length=20)
      */
     private $type;
-    
+
     /**
      * @var int
      *
@@ -71,7 +70,7 @@ class ContentsNav
     private $nav;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -81,9 +80,9 @@ class ContentsNav
     }
 
     /**
-     * Set idElement
+     * Set idElement.
      *
-     * @param integer $idElement
+     * @param int $idElement
      *
      * @return ContentsNav
      */
@@ -95,7 +94,7 @@ class ContentsNav
     }
 
     /**
-     * Get idElement
+     * Get idElement.
      *
      * @return int
      */
@@ -105,7 +104,7 @@ class ContentsNav
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -119,7 +118,7 @@ class ContentsNav
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -129,7 +128,7 @@ class ContentsNav
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -143,7 +142,7 @@ class ContentsNav
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -153,7 +152,7 @@ class ContentsNav
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
      *
@@ -167,7 +166,7 @@ class ContentsNav
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -177,9 +176,9 @@ class ContentsNav
     }
 
     /**
-     * Set sort
+     * Set sort.
      *
-     * @param integer $sort
+     * @param int $sort
      *
      * @return ContentsNav
      */
@@ -191,7 +190,7 @@ class ContentsNav
     }
 
     /**
-     * Get sort
+     * Get sort.
      *
      * @return int
      */
@@ -201,9 +200,9 @@ class ContentsNav
     }
 
     /**
-     * Set parent
+     * Set parent.
      *
-     * @param integer $parent
+     * @param int $parent
      *
      * @return ContentsNav
      */
@@ -215,9 +214,9 @@ class ContentsNav
     }
 
     /**
-     * Get parent
+     * Get parent.
      *
-     * @return integer
+     * @return int
      */
     public function getParent()
     {
@@ -225,7 +224,7 @@ class ContentsNav
     }
 
     /**
-     * Set nav
+     * Set nav.
      *
      * @param Nav $nav
      *
@@ -239,7 +238,7 @@ class ContentsNav
     }
 
     /**
-     * Get nav
+     * Get nav.
      *
      * @return Nav
      */
@@ -248,8 +247,8 @@ class ContentsNav
         return $this->nav;
     }
 
-    function __toString()
+    public function __toString()
     {
-        return $this->getIdElement()." [".$this->getId()."]";
+        return $this->getIdElement().' ['.$this->getId().']';
     }
 }

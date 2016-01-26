@@ -54,7 +54,7 @@ class CategoryForm extends AbstractType
                 'description',
                 TextareaType::class,
                 [
-                    'label' => 'category.description'
+                    'label' => 'category.description',
                 ]
             )
         ;

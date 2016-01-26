@@ -15,5 +15,4 @@ class HasTranslationParent extends Constraint
     {
         return 'has_translation_parent';
     }
-
 }

@@ -27,6 +27,7 @@ class Pagination
      * @param $locale
      * @param null $status
      * @param null $category
+     *
      * @return array
      */
     public function pagination($type, $page, $locale, $status = null, $category = null)
@@ -41,7 +42,7 @@ class Pagination
         $totalPages = ceil($total / Content::NUM_ITEMS);
 
         if ($totalPages != 0 && ($page > $totalPages || $page <= 0)) {
-            throw new NotFoundHttpException("There are only ".$totalPages." pages to show");
+            throw new NotFoundHttpException('There are only '.$totalPages.' pages to show');
         }
 
         $offset = Content::NUM_ITEMS * ($page - 1);

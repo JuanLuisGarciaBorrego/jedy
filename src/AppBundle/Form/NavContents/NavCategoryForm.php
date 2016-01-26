@@ -44,7 +44,7 @@ class NavCategoryForm extends AbstractType
         $resolver->setDefaults(
             array(
                 'em' => null,
-                'locale_active' => null
+                'locale_active' => null,
             )
         );
     }

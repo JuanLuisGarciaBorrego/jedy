@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Nav
+ * Nav.
  *
  * @ORM\Table(name="nav")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\NavRepository")
@@ -61,7 +61,7 @@ class Nav
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -71,7 +71,7 @@ class Nav
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -85,7 +85,7 @@ class Nav
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -95,7 +95,7 @@ class Nav
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param string $locale
      *
@@ -109,7 +109,7 @@ class Nav
     }
 
     /**
-     * Get locale
+     * Get locale.
      *
      * @return string
      */
@@ -119,7 +119,7 @@ class Nav
     }
 
     /**
-     * Add childrenMultilangue
+     * Add childrenMultilangue.
      *
      * @param \AppBundle\Entity\Nav $childrenMultilangue
      *
@@ -133,7 +133,7 @@ class Nav
     }
 
     /**
-     * Remove childrenMultilangue
+     * Remove childrenMultilangue.
      *
      * @param \AppBundle\Entity\Nav $childrenMultilangue
      */
@@ -143,7 +143,7 @@ class Nav
     }
 
     /**
-     * Get childrenMultilangue
+     * Get childrenMultilangue.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -153,7 +153,7 @@ class Nav
     }
 
     /**
-     * Set parentMultilangue
+     * Set parentMultilangue.
      *
      * @param \AppBundle\Entity\Nav $parentMultilangue
      *
@@ -167,7 +167,7 @@ class Nav
     }
 
     /**
-     * Get parentMultilangue
+     * Get parentMultilangue.
      *
      * @return \AppBundle\Entity\Nav
      */
@@ -177,7 +177,7 @@ class Nav
     }
 
     /**
-     * Add contentsNav
+     * Add contentsNav.
      *
      * @param \AppBundle\Entity\ContentsNav $contentsNav
      *
@@ -191,7 +191,7 @@ class Nav
     }
 
     /**
-     * Remove contentsNav
+     * Remove contentsNav.
      *
      * @param \AppBundle\Entity\ContentsNav $contentsNav
      */
@@ -201,7 +201,7 @@ class Nav
     }
 
     /**
-     * Get contentsNav
+     * Get contentsNav.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -210,8 +210,8 @@ class Nav
         return $this->contentsNav;
     }
 
-    function __toString()
+    public function __toString()
     {
-        return $this->getName()." [".$this->getLocale()."]";
+        return $this->getName().' ['.$this->getLocale().']';
     }
 }

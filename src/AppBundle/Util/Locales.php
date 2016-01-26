@@ -31,6 +31,7 @@ class Locales
 
     /**
      * @param bool|false $translation
+     *
      * @return array
      */
     public function getLocales($translation = false)
@@ -64,6 +65,7 @@ class Locales
 
     /**
      * @param $locale
+     *
      * @return string
      */
     public function getLanguage($locale)

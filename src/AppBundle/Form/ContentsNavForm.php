@@ -25,15 +25,15 @@ class ContentsNavForm extends AbstractType
                     'attr' => [
                         'min' => 0,
                         'max' => count($options['contentsNav']),
-                    ]
+                    ],
                 ]
             )
             ->add('parent',
                 ChoiceType::class, [
                     'choices' => $options['contentsNav'],
-                    'placeholder' => "Subcategory",
+                    'placeholder' => 'Subcategory',
                     'label' => false,
-                    'required' => false
+                    'required' => false,
                 ]
             );
     }
@@ -43,7 +43,7 @@ class ContentsNavForm extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'AppBundle\Entity\ContentsNav',
-                'contentsNav' => null
+                'contentsNav' => null,
             )
         );
     }

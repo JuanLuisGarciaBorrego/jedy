@@ -10,7 +10,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class HasTranslationParentValidator extends ConstraintValidator
 {
-
     /**
      * @var EntityManager
      */
@@ -23,7 +22,7 @@ class HasTranslationParentValidator extends ConstraintValidator
 
     /**
      * @param EntityManager $em
-     * @param Locales $locales
+     * @param Locales       $locales
      */
     public function __construct(EntityManager $em, Locales $locales)
     {

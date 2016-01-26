@@ -34,7 +34,7 @@ class NavForm extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => 'AppBundle\Entity\Nav',
-                'contentsNav' => null
+                'contentsNav' => null,
             )
         );
     }

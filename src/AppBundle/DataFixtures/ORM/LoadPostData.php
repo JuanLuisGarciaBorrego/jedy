@@ -67,11 +67,10 @@ class LoadPostData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($post);
 
         foreach ($locales->getLocales() as $locale) {
-
             if (!$locale['active']) {
                 $translationPost = new Content($locale['code']);
                 $translationPost->setTitle($locale['code'].' '.$title);
-                $translationPost->setSummary( $locale['code'].' '.$summary);
+                $translationPost->setSummary($locale['code'].' '.$summary);
                 $translationPost->setContent($locale['code'].' '.$content);
                 $translationPost->setType('post');
                 $translationPost->setStatus(true);

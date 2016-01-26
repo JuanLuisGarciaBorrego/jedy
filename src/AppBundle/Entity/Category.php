@@ -8,9 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Validator\Constraints as AppAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-
 /**
- * Category
+ * Category.
  *
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
@@ -97,11 +96,10 @@ class Category
         $this->contents = new ArrayCollection();
 
         $this->setLocale($locale);
-
     }
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -111,7 +109,7 @@ class Category
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
@@ -125,7 +123,7 @@ class Category
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -135,7 +133,7 @@ class Category
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -149,7 +147,7 @@ class Category
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
@@ -159,7 +157,7 @@ class Category
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param string $locale
      *
@@ -173,7 +171,7 @@ class Category
     }
 
     /**
-     * Get locale
+     * Get locale.
      *
      * @return string
      */
@@ -183,7 +181,7 @@ class Category
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -197,7 +195,7 @@ class Category
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -207,7 +205,7 @@ class Category
     }
 
     /**
-     * Add child
+     * Add child.
      *
      * @param \AppBundle\Entity\Category $child
      *
@@ -221,7 +219,7 @@ class Category
     }
 
     /**
-     * Remove child
+     * Remove child.
      *
      * @param \AppBundle\Entity\Category $child
      */
@@ -231,7 +229,7 @@ class Category
     }
 
     /**
-     * Get children
+     * Get children.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -241,7 +239,7 @@ class Category
     }
 
     /**
-     * Set parent
+     * Set parent.
      *
      * @param \AppBundle\Entity\Category $parent
      *
@@ -255,7 +253,7 @@ class Category
     }
 
     /**
-     * Get parent
+     * Get parent.
      *
      * @return \AppBundle\Entity\Category
      */
@@ -265,7 +263,7 @@ class Category
     }
 
     /**
-     * Add content
+     * Add content.
      *
      * @param \AppBundle\Entity\Content $content
      *
@@ -279,7 +277,7 @@ class Category
     }
 
     /**
-     * Remove content
+     * Remove content.
      *
      * @param \AppBundle\Entity\Content $content
      */
@@ -289,7 +287,7 @@ class Category
     }
 
     /**
-     * Get contents
+     * Get contents.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -299,7 +297,7 @@ class Category
     }
 
     /**
-     * Add childrenMultilangue
+     * Add childrenMultilangue.
      *
      * @param \AppBundle\Entity\Category $childrenMultilangue
      *
@@ -313,7 +311,7 @@ class Category
     }
 
     /**
-     * Remove childrenMultilangue
+     * Remove childrenMultilangue.
      *
      * @param \AppBundle\Entity\Category $childrenMultilangue
      */
@@ -323,7 +321,7 @@ class Category
     }
 
     /**
-     * Get childrenMultilangue
+     * Get childrenMultilangue.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -333,7 +331,7 @@ class Category
     }
 
     /**
-     * Set parentMultilangue
+     * Set parentMultilangue.
      *
      * @param \AppBundle\Entity\Category $parentMultilangue
      *
@@ -347,7 +345,7 @@ class Category
     }
 
     /**
-     * Get parentMultilangue
+     * Get parentMultilangue.
      *
      * @return \AppBundle\Entity\Category
      */
@@ -356,8 +354,8 @@ class Category
         return $this->parentMultilangue;
     }
 
-    function __toString()
+    public function __toString()
     {
-        return $this->getName()." [".$this->getLocale()."]";
+        return $this->getName().' ['.$this->getLocale().']';
     }
 }

@@ -76,7 +76,7 @@ class AppAdminExtension extends \Twig_Extension
     {
         $img = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'pjpeg'];
 
-        $path = $this->uploads_directory_name."/".$filename;
+        $path = $this->uploads_directory_name.'/'.$filename;
 
         if (in_array($extension, $img)) {
             return '<img src="'.$this->packages->getUrl($path).'" height="42">';

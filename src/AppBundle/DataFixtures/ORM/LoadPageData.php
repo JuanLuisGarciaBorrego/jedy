@@ -35,7 +35,6 @@ class LoadPageData extends AbstractFixture implements OrderedFixtureInterface, C
         $manager->persist($page);
 
         foreach ($locales->getLocales() as $locale) {
-
             if (!$locale['active']) {
                 $translationPage = new Content($locale['code']);
                 $translationPage->setTitle($locale['code'].' What is a Jedy?');

@@ -5,7 +5,6 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Form\FileForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -30,10 +29,10 @@ class FileController extends Controller
 
         $iterator = iterator_to_array($finder->getIterator());
         $total = $finder->count();
-        $totalPages = ceil($total/$itemsPerPage);
+        $totalPages = ceil($total / $itemsPerPage);
 
         if ($totalPages != 0 && ($page > $totalPages)) {
-            throw new NotFoundHttpException("There are only ".$totalPages." pages to show");
+            throw new NotFoundHttpException('There are only '.$totalPages.' pages to show');
         }
 
         $start = ($page - 1) * $itemsPerPage;
@@ -42,7 +41,7 @@ class FileController extends Controller
             'files' => array_slice($iterator, $start, $itemsPerPage),
             'total' => $total,
             'totalPages' => $totalPages,
-            'page' => $page
+            'page' => $page,
         ]);
     }
 
@@ -57,15 +56,16 @@ class FileController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form['file']->getData();
 
-            $newName = $this->get('cocur_slugify')->slugify($form['name']->getData()).".".$file->getClientOriginalExtension();
+            $newName = $this->get('cocur_slugify')->slugify($form['name']->getData()).'.'.$file->getClientOriginalExtension();
             $file->move($this->getParameter('uploads_directory'), $newName);
 
             $this->addFlash('success', 'file.flash.created');
+
             return $this->redirectToRoute('admin_file_home');
         }
 
         return $this->render('admin/file/admin_file_upload.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -74,15 +74,13 @@ class FileController extends Controller
      */
     public function deleteAction($filename)
     {
-        $file = $this->getParameter('uploads_directory')."/".$filename;
+        $file = $this->getParameter('uploads_directory').'/'.$filename;
 
-        if(file_exists($file)){
+        if (file_exists($file)) {
             unlink($file);
             $this->addFlash('success', 'file.flash.deleted');
         }
 
         return $this->redirectToRoute('admin_file_home');
-
     }
 }
-

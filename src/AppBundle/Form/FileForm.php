@@ -34,8 +34,7 @@ class FileForm extends AbstractType
                         [
                             'maxSize' => '8M',
                         ]
-                    )
-                    ,
+                    ),
                 ]
             );
     }

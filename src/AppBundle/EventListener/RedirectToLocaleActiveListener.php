@@ -39,7 +39,6 @@ class RedirectToLocaleActiveListener implements EventSubscriberInterface
             $response = new RedirectResponse($route);
             $event->setResponse($response);
         }
-
     }
 
     public static function getSubscribedEvents()
@@ -48,5 +47,4 @@ class RedirectToLocaleActiveListener implements EventSubscriberInterface
             KernelEvents::REQUEST => 'onKernelRequest',
         ];
     }
-
 }

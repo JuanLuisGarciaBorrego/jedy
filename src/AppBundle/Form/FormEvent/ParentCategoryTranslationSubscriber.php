@@ -35,7 +35,6 @@ class ParentCategoryTranslationSubscriber implements EventSubscriberInterface
 
         $category->setParentMultilangue($this->parentCategory);
         $category->setParent($this->selectCategoryParent($this->parentCategory->getParent(), $category->getLocale()));
-
     }
 
     public static function getSubscribedEvents()

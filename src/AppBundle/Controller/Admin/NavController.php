@@ -27,7 +27,7 @@ class NavController extends Controller
         $this->get('session')->remove('contents');
 
         return $this->render('admin/nav/admin_nav_index.html.twig', [
-            'navs' => $this->getDoctrine()->getRepository('AppBundle:Nav')->findBy(['locale' => $this->get('locales')->getLocaleActive()])
+            'navs' => $this->getDoctrine()->getRepository('AppBundle:Nav')->findBy(['locale' => $this->get('locales')->getLocaleActive()]),
         ]);
     }
 
@@ -62,7 +62,6 @@ class NavController extends Controller
         $formPage->handleRequest($request);
 
         if (($formCategory->isSubmitted() && $formCategory->isValid()) || ($formPage->isSubmitted() && $formPage->isValid())) {
-
             $category = $formCategory->getData();
             $page = $formPage->getData();
 
@@ -78,6 +77,7 @@ class NavController extends Controller
                         return false;
                     }
                 }
+
                 return true;
             };
 
@@ -85,7 +85,6 @@ class NavController extends Controller
                 $sessionContents->add($sessionContent);
                 $request->getSession()->set('contents', $sessionContents);
                 $this->createContentsNav($sessionContent, $nav);
-
             } else {
                 $this->addFlash('error', 'nav.flash.exists');
             }
@@ -95,7 +94,6 @@ class NavController extends Controller
         $formNavContents->handleRequest($request);
 
         if ($formNavContents->isSubmitted() && $formNavContents->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($nav);
             $em->flush();
@@ -133,6 +131,7 @@ class NavController extends Controller
                 if ($item['idElement'] == $idRemove) {
                     $sessionContents->removeElement($item);
                     $this->getDoctrine()->getRepository('AppBundle:ContentsNav')->removeNavContentByIdElement($idRemove, $nav);
+
                     return $this->redirectToRoute('admin_nav_edit', ['id' => $nav->getId()]);
                 }
             }
@@ -159,7 +158,6 @@ class NavController extends Controller
         $formPage->handleRequest($request);
 
         if (($formCategory->isSubmitted() && $formCategory->isValid()) || ($formPage->isSubmitted() && $formPage->isValid())) {
-
             $category = $formCategory->getData();
             $page = $formPage->getData();
 
@@ -175,6 +173,7 @@ class NavController extends Controller
                         return false;
                     }
                 }
+
                 return true;
             };
 
@@ -186,7 +185,6 @@ class NavController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($contentsNavOb);
                 $em->flush();
-
             } else {
                 $this->addFlash('error', 'nav.flash.exists');
             }
@@ -196,7 +194,6 @@ class NavController extends Controller
         $formNavContents->handleRequest($request);
 
         if ($formNavContents->isSubmitted() && $formNavContents->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($nav);
             $em->flush();
@@ -214,7 +211,7 @@ class NavController extends Controller
                 'formNavContents' => $formNavContents->createView(),
                 'form_category' => $formCategory->createView(),
                 'form_page' => $formPage->createView(),
-                'form_delete' => $form_delete->createView()
+                'form_delete' => $form_delete->createView(),
             ]
         );
     }
@@ -229,7 +226,6 @@ class NavController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->remove($nav);
             $em->flush();
@@ -242,6 +238,7 @@ class NavController extends Controller
 
     /**
      * @param Nav $nav
+     *
      * @return \Symfony\Component\Form\Form
      */
     private function formDelete(Nav $nav)
@@ -309,8 +306,8 @@ class NavController extends Controller
         $em->flush();
 
         $this->addFlash('success', 'nav.flash.translation.updated');
-        return $this->redirectToRoute('admin_nav_translations', ['id' => $newNav->getId()]);
 
+        return $this->redirectToRoute('admin_nav_translations', ['id' => $newNav->getId()]);
     }
 
     private function createContentsNav($sessionContent, Nav $nav)
@@ -351,7 +348,7 @@ class NavController extends Controller
 
             return $arrayContent;
         } else {
-            return null;
+            return;
         }
     }
 
@@ -364,9 +361,8 @@ class NavController extends Controller
         $translationNav->setParentMultilangue($nav);
 
         foreach ($nav->getContentsNav() as $item) {
-
-            if($item->getType() == 'category') {
-                $category = $this->getDoctrine()->getRepository('AppBundle:Category')->selectCategoryParent($item->getIdElement() ,$localeTranslation);
+            if ($item->getType() == 'category') {
+                $category = $this->getDoctrine()->getRepository('AppBundle:Category')->selectCategoryParent($item->getIdElement(), $localeTranslation);
 
                 $contentCategory = new ContentsNav();
                 $contentCategory->setIdElement($category->getId());
@@ -375,16 +371,16 @@ class NavController extends Controller
                 $contentCategory->setType('category');
                 $contentCategory->setSort($item->getSort());
 
-                $parentCategory = $this->getDoctrine()->getRepository('AppBundle:Category')->selectCategoryParent($item->getParent() ,$localeTranslation);
+                $parentCategory = $this->getDoctrine()->getRepository('AppBundle:Category')->selectCategoryParent($item->getParent(), $localeTranslation);
 
-                $contentCategory->setParent(($parentCategory) ? $parentCategory->getId(): null);
+                $contentCategory->setParent(($parentCategory) ? $parentCategory->getId() : null);
                 $contentCategory->setNav($translationNav);
 
                 $translationNav->addContentsNav($contentCategory);
             }
 
-            if($item->getType() == 'page') {
-                $page = $this->getDoctrine()->getRepository('AppBundle:Content')->selectContentParent($item->getIdElement() ,$localeTranslation, 'page');
+            if ($item->getType() == 'page') {
+                $page = $this->getDoctrine()->getRepository('AppBundle:Content')->selectContentParent($item->getIdElement(), $localeTranslation, 'page');
 
                 $contentPage = new ContentsNav();
                 $contentPage->setIdElement($page->getId());
@@ -393,9 +389,9 @@ class NavController extends Controller
                 $contentPage->setType('page');
                 $contentPage->setSort($item->getSort());
 
-                $parentPage = $this->getDoctrine()->getRepository('AppBundle:Content')->selectContentParent($item->getParent() ,$localeTranslation, 'page');
+                $parentPage = $this->getDoctrine()->getRepository('AppBundle:Content')->selectContentParent($item->getParent(), $localeTranslation, 'page');
 
-                $contentPage->setParent(($parentPage) ? $parentPage->getId(): null);
+                $contentPage->setParent(($parentPage) ? $parentPage->getId() : null);
                 $contentPage->setNav($translationNav);
                 $translationNav->addContentsNav($contentPage);
             }

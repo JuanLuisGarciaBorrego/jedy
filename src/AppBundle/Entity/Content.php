@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use AppBundle\Validator\Constraints as AppAssert;
 
 /**
- * Content
+ * Content.
  *
  * @ORM\Table(name="content")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentRepository")
@@ -16,7 +16,7 @@ use AppBundle\Validator\Constraints as AppAssert;
 class Content
 {
     /**
-     * Pagination post
+     * Pagination post.
      */
     const NUM_ITEMS = 10;
 
@@ -107,7 +107,7 @@ class Content
     private $parentMultilangue;
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -116,14 +116,15 @@ class Content
         return $this->id;
     }
 
-    public function __construct($locale = null) {
+    public function __construct($locale = null)
+    {
         $this->childrenMultilangue = new ArrayCollection();
 
         $this->setLocale($locale);
     }
 
     /**
-     * Set title
+     * Set title.
      *
      * @param string $title
      *
@@ -137,7 +138,7 @@ class Content
     }
 
     /**
-     * Get title
+     * Get title.
      *
      * @return string
      */
@@ -147,7 +148,7 @@ class Content
     }
 
     /**
-     * Get slug
+     * Get slug.
      *
      * @return string
      */
@@ -157,7 +158,7 @@ class Content
     }
 
     /**
-     * Set slug
+     * Set slug.
      *
      * @param string $slug
      *
@@ -171,7 +172,7 @@ class Content
     }
 
     /**
-     * Set summary
+     * Set summary.
      *
      * @param string $summary
      *
@@ -185,7 +186,7 @@ class Content
     }
 
     /**
-     * Get summary
+     * Get summary.
      *
      * @return string
      */
@@ -195,7 +196,7 @@ class Content
     }
 
     /**
-     * Set content
+     * Set content.
      *
      * @param string $content
      *
@@ -209,7 +210,7 @@ class Content
     }
 
     /**
-     * Get content
+     * Get content.
      *
      * @return string
      */
@@ -219,7 +220,7 @@ class Content
     }
 
     /**
-     * Set locale
+     * Set locale.
      *
      * @param string $locale
      *
@@ -233,7 +234,7 @@ class Content
     }
 
     /**
-     * Get locale
+     * Get locale.
      *
      * @return string
      */
@@ -243,7 +244,7 @@ class Content
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
      *
@@ -257,7 +258,7 @@ class Content
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -267,9 +268,10 @@ class Content
     }
 
     /**
-     * Set category
+     * Set category.
      *
      * @param Category|\DateTime $publishedAt
+     *
      * @return Content
      */
     public function setPublishedAt(\DateTime $publishedAt)
@@ -280,7 +282,7 @@ class Content
     }
 
     /**
-     * Get publishedAt
+     * Get publishedAt.
      *
      * @return string
      */
@@ -290,9 +292,10 @@ class Content
     }
 
     /**
-     * Set category
+     * Set category.
      *
-     * @param Category|Boolean $status
+     * @param Category|bool $status
+     *
      * @return Content
      */
     public function setStatus($status)
@@ -303,9 +306,9 @@ class Content
     }
 
     /**
-     * Get status
+     * Get status.
      *
-     * @return boolean
+     * @return bool
      */
     public function getStatus()
     {
@@ -313,7 +316,7 @@ class Content
     }
 
     /**
-     * Set category
+     * Set category.
      *
      * @param \AppBundle\Entity\Category $category
      *
@@ -327,7 +330,7 @@ class Content
     }
 
     /**
-     * Get category
+     * Get category.
      *
      * @return \AppBundle\Entity\Category
      */
@@ -337,7 +340,7 @@ class Content
     }
 
     /**
-     * Add childrenMultilangue
+     * Add childrenMultilangue.
      *
      * @param \AppBundle\Entity\Content $childrenMultilangue
      *
@@ -351,7 +354,7 @@ class Content
     }
 
     /**
-     * Remove childrenMultilangue
+     * Remove childrenMultilangue.
      *
      * @param \AppBundle\Entity\Content $childrenMultilangue
      */
@@ -361,7 +364,7 @@ class Content
     }
 
     /**
-     * Get childrenMultilangue
+     * Get childrenMultilangue.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
@@ -371,7 +374,7 @@ class Content
     }
 
     /**
-     * Set parentMultilangue
+     * Set parentMultilangue.
      *
      * @param \AppBundle\Entity\Content $parentMultilangue
      *
@@ -385,7 +388,7 @@ class Content
     }
 
     /**
-     * Get parentMultilangue
+     * Get parentMultilangue.
      *
      * @return \AppBundle\Entity\Content
      */
@@ -394,8 +397,8 @@ class Content
         return $this->parentMultilangue;
     }
 
-    function __toString()
+    public function __toString()
     {
-        return $this->getTitle()." [".$this->getLocale()."]";
+        return $this->getTitle().' ['.$this->getLocale().']';
     }
 }

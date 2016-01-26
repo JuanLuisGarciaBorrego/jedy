@@ -25,7 +25,7 @@ class AppPublicExtension extends \Twig_Extension
     private $container;
 
     /**
-     * @param Locales $locales
+     * @param Locales          $locales
      * @param RoutingExtension $routingExtenxion
      */
     public function __construct(Locales $locales, RoutingExtension $routingExtenxion, Container $container)
@@ -39,21 +39,21 @@ class AppPublicExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFunction('translation_content', [$this, 'translation_content'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('nav_locale', [$this, 'nav_locale'], ['is_safe' => ['html'] ] ),
+            new \Twig_SimpleFunction('nav_locale', [$this, 'nav_locale'], ['is_safe' => ['html']]),
         );
     }
 
     /**
      * @param Content $content
-     * @param string $class
+     * @param string  $class
+     *
      * @return string
      */
     public function translation_content(Content $content, $class = 'translation_content')
     {
-
         $result = "<ul class='".$class."'>";
         foreach ($this->getTranslations($content) as $item) {
-            if($item['type'] == 'post') {
+            if ($item['type'] == 'post') {
                 $route = $this->routingExtenxion->getPath('app_blog_post',
                     [
                         '_locale' => $item['locale'],
@@ -61,8 +61,7 @@ class AppPublicExtension extends \Twig_Extension
                         'slug' => $item['slug'],
                     ]
                 );
-
-            }else{
+            } else {
                 $route = $this->routingExtenxion->getPath('app_page',
                     [
                         '_locale' => $item['locale'],
@@ -71,9 +70,9 @@ class AppPublicExtension extends \Twig_Extension
                 );
             }
 
-            $result .= "<li><a href='".$route."' title='".$item['title']."'>".$item['language']."</a> </li>";
+            $result .= "<li><a href='".$route."' title='".$item['title']."'>".$item['language'].'</a> </li>';
         }
-        $result .= "</ul>";
+        $result .= '</ul>';
 
         return $result;
     }
@@ -82,25 +81,26 @@ class AppPublicExtension extends \Twig_Extension
     {
         $contentsNav = $this->container->get('session')->has($name.$locale) ? $this->container->get('session')->get($name.$locale) : $this->container->get('doctrine')->getRepository('AppBundle:Nav')->findOneBy(['name' => $name, 'locale' => $locale]);
 
-        if($contentsNav){
+        if ($contentsNav) {
             $data = $contentsNav->getContentsNav();
             $result = "<ul class='nav navbar-nav'>";
 
-            foreach ($data as $item ) {
-                if($item->getType() == 'category') {
+            foreach ($data as $item) {
+                if ($item->getType() == 'category') {
                     $route = $this->routingExtenxion->getPath('app_blog_category', ['slug' => $item->getSlug()]);
-                    $result .= "<li><a href='".$route."'>".$item->getName()."</a></li>";
+                    $result .= "<li><a href='".$route."'>".$item->getName().'</a></li>';
                 }
-                if($item->getType() == 'page'){
+                if ($item->getType() == 'page') {
                     $route = $this->routingExtenxion->getPath('app_page', ['slug' => $item->getSlug()]);
-                    $result .= "<li><a href='".$route."'>".$item->getName()."</a></li>";
+                    $result .= "<li><a href='".$route."'>".$item->getName().'</a></li>';
                 }
             }
-            $result .= "</ul>";
+            $result .= '</ul>';
 
-            if(!$this->container->get('session')->has($name.$locale)) {
+            if (!$this->container->get('session')->has($name.$locale)) {
                 $this->container->get('session')->set($name.$locale, $contentsNav);
             }
+
             return $result;
         }
     }
@@ -120,7 +120,6 @@ class AppPublicExtension extends \Twig_Extension
             ];
 
             foreach ($content->getParentMultilangue()->getChildrenMultilangue() as $item) {
-
                 if (($item->getLocale() != $content->getLocale()) && $item->getStatus()) {
                     $contents[] = [
                         'locale' => $item->getLocale(),
@@ -135,7 +134,6 @@ class AppPublicExtension extends \Twig_Extension
         }
 
         if ($content->getChildrenMultilangue()) {
-
             foreach ($content->getChildrenMultilangue() as $item) {
                 if ($item->getStatus()) {
                     $contents[] = [
@@ -148,7 +146,6 @@ class AppPublicExtension extends \Twig_Extension
                     ];
                 }
             }
-
         }
 
         return $contents;

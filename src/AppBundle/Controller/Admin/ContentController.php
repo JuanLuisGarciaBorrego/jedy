@@ -50,7 +50,6 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($content);
             $em->flush();
@@ -81,7 +80,6 @@ class ContentController extends Controller
         $form_delete = $this->formDelete($content);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($content);
             $em->flush();
@@ -133,7 +131,6 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($newContent);
             $em->flush();
@@ -165,7 +162,6 @@ class ContentController extends Controller
         $form_delete = $this->formDelete($content);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($content);
             $em->flush();
@@ -195,7 +191,6 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->remove($content);
             $em->flush();
@@ -208,6 +203,7 @@ class ContentController extends Controller
 
     /**
      * @param Content $content
+     *
      * @return \Symfony\Component\Form\Form
      */
     private function formDelete(Content $content)

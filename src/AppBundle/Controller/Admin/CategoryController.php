@@ -45,7 +45,6 @@ class CategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
@@ -75,7 +74,6 @@ class CategoryController extends Controller
         $form_delete = $this->formDelete($category);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
@@ -122,7 +120,6 @@ class CategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($newCategory);
             $em->flush();
@@ -153,7 +150,6 @@ class CategoryController extends Controller
         $form_delete = $this->formDelete($category);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
@@ -182,14 +178,13 @@ class CategoryController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
             $em->remove($category);
             try {
                 $em->flush();
             } catch (ForeignKeyConstraintViolationException $e) {
                 $this->addFlash('success', 'category.flash.deleted.children');
-                
+
                 return $this->redirectToRoute('admin_category_home');
             }
 
@@ -201,6 +196,7 @@ class CategoryController extends Controller
 
     /**
      * @param Category $category
+     *
      * @return \Symfony\Component\Form\Form
      */
     private function formDelete(Category $category)
