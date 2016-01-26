@@ -183,11 +183,11 @@
             </trans-unit>
             <trans-unit id="content.add">
                 <source>content.add</source>
-                <target>Add contenido</target>
+                <target>Añadir contenido</target>
             </trans-unit>
             <trans-unit id="content.edit">
                 <source>content.edit</source>
-                <target>Edit contenido</target>
+                <target>Editar contenido</target>
             </trans-unit>
             <trans-unit id="content.translation.add">
                 <source>content.translation.add</source>
