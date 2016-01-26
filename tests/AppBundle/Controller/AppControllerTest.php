@@ -30,4 +30,12 @@ class AppControllerTest extends WebTestCase
         $this->assertEquals(404, $client->getResponse()->getStatusCode());
     }
 
+    public function testTryIntoAdminZone()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/en/admin');
+
+        $this->assertEquals(401, $client->getResponse()->getStatusCode());
+    }
 }
