@@ -13,14 +13,22 @@ class CategoryControllerTest extends WebTestCase
 
     private $name = 'TestCategory';
 
+    private $client;
+
+    protected function setUp()
+    {
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'jedy',
+            'PHP_AUTH_PW'   => '1234',
+        ));
+    }
+
     public function testIndexAction()
     {
-        $client = static::createClient();
+        $crawler = $this->client->request('GET', '/en/admin/categories/');
 
-        $crawler = $client->request('GET', '/en/admin/categories/');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('category.title.plural', $crawler->filter('h1.h-btn-line')->text());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('Categories', $crawler->filter('h1.h-btn-line')->text());
     }
 
     /**
@@ -28,33 +36,31 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testNewAction()
     {
-        $client = static::createClient();
+        $crawler = $this->client->request('GET', '/en/admin/category/new/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $crawler = $client->request('GET', '/en/admin/category/new/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $buttonCrawler = $crawler->selectButton('category.add')->form();
+        $buttonCrawler = $crawler->selectButton('Add category')->form();
 
         //Error validation
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertRegExp(
             '/This value should not be blank./',
-            $client->getResponse()->getContent()
+            $this->client->getResponse()->getContent()
         );
 
         //Good
         $buttonCrawler['category_form[name]'] = $this->name;
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'category.flash.created',
-            $client->getResponse()->getContent()
+            'The category was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -63,23 +69,21 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testNewParentErrorAction()
     {
-        $client = static::createClient();
+        $crawler = $this->client->request('GET', '/en/admin/category/new/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $crawler = $client->request('GET', '/en/admin/category/new/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $buttonCrawler = $crawler->selectButton('category.add')->form();
+        $buttonCrawler = $crawler->selectButton('Add category')->form();
 
         $idSelect = $crawler->filter('#category_form_parent option')->last()->attr('value');
 
         $buttonCrawler['category_form[name]'] = 'SubCategory of '.$this->name;
         $buttonCrawler['category_form[parent]'] = $idSelect;
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
         $this->assertRegExp(
             '/You must create the translations of the parent category/',
-            $client->getResponse()->getContent()
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -88,11 +92,9 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testTranslationsAction()
     {
-        $client = static::createClient();
-
         $route = "/en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/translations/";
-        $client->request('GET', $route);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->client->request('GET', $route);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
     }
 
@@ -101,24 +103,23 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testAddTranslationEnAction()
     {
-        $client = static::createClient();
         $routeEn = "en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/translations/add/es/en";
 
         //English
-        $crawler = $client->request('GET', $routeEn);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $buttonCrawler = $crawler->selectButton('category.translation.add')->form();
+        $crawler = $this->client->request('GET', $routeEn);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $buttonCrawler = $crawler->selectButton('Add translation to category')->form();
 
         $buttonCrawler['category_form[name]'] = $this->name."En";
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'category.flash.translation.created',
-            $client->getResponse()->getContent()
+            'Translation category was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -127,24 +128,23 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testAddTranslationFrAction()
     {
-        $client = static::createClient();
         $routeFr = "en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/translations/add/es/fr";
 
         //French
-        $crawler = $client->request('GET', $routeFr);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $buttonCrawler = $crawler->selectButton('category.translation.add')->form();
+        $crawler = $this->client->request('GET', $routeFr);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $buttonCrawler = $crawler->selectButton('Add translation to category')->form();
 
         $buttonCrawler['category_form[name]'] = $this->name."Fr";
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'category.flash.translation.created',
-            $client->getResponse()->getContent()
+            'Translation category was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -153,26 +153,24 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testNewParentOkAction()
     {
-        $client = static::createClient();
+        $crawler = $this->client->request('GET', '/en/admin/category/new/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $crawler = $client->request('GET', '/en/admin/category/new/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $buttonCrawler = $crawler->selectButton('category.add')->form();
+        $buttonCrawler = $crawler->selectButton('Add category')->form();
 
         $idSelect = $crawler->filter('#category_form_parent option')->last()->attr('value');
 
         $buttonCrawler['category_form[name]'] = 'SubCategory of '.$this->name;
         $buttonCrawler['category_form[parent]'] = $idSelect;
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'category.flash.created',
-            $client->getResponse()->getContent()
+            'The category was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -181,24 +179,23 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testEditTranslationAction()
     {
-        $client = static::createClient();
         $route = "/en/admin/category/".$this->selectCategoryByName($this->name)->getId(
             )."/translations/".$this->selectCategoryByName($this->name."En")->getId()."/edit/es/en";
 
-        $crawler = $client->request('GET', $route);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', $route);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('category.edit')->form();
+        $buttonCrawler = $crawler->selectButton('Edit category')->form();
 
         $buttonCrawler['category_form[name]'] = "Edit En";
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'category.flash.translation.edited',
-            $client->getResponse()->getContent()
+            'Translation category was edited',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -207,43 +204,41 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testEditAction()
     {
-        $client = static::createClient();
         $route = "/en/admin/category/".$this->selectCategoryByName($this->name)->getId()."/edit/";
-        $crawler = $client->request('GET', $route);
+        $crawler = $this->client->request('GET', $route);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('category.edit')->form();
+        $buttonCrawler = $crawler->selectButton('Edit category')->form();
         $buttonCrawler['category_form[name]'] = $this->name."A";
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'category.flash.edited',
-            $client->getResponse()->getContent()
+            'The category was edited',
+            $this->client->getResponse()->getContent()
         );
     }
 
     public function testDeleteSubCategory()
     {
-        $client = static::createClient();
         $route = "/en/admin/category/".$this->selectCategoryByName("SubCategory of ".$this->name)->getId()."/edit/";
-        $crawler = $client->request('GET', $route);
+        $crawler = $this->client->request('GET', $route);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('app.delete')->form();
-        $client->submit($buttonCrawler);
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'category.flash.deleted',
-            $client->getResponse()->getContent()
+            'The category was deleted',
+            $this->client->getResponse()->getContent()
         );
     }
 

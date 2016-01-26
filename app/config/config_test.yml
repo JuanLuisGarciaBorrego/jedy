@@ -23,3 +23,8 @@ swiftmailer:
 doctrine:
     dbal:
         dbname:   "%database_name%_test"
+
+security:
+    firewalls:
+        secured_area:
+            http_basic: ~
