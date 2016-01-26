@@ -1,5 +1,7 @@
 {% extends ':admin:base_admin.html.twig' %}
 
+{% block title %} {{ 'category.title.plural'|trans }} {% endblock %}
+
 {% block content %}
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
