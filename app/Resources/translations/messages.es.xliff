@@ -87,6 +87,18 @@
                 <source>app.read.more</source>
                 <target>Leer más</target>
             </trans-unit>
+            <trans-unit id="app.404.title">
+                <source>app.404.title</source>
+                <target>Página no encontrada</target>
+            </trans-unit>
+            <trans-unit id="app.404.message">
+                <source>app.404.message</source>
+                <target>La página solicitada no pudo ser localizada</target>
+            </trans-unit>
+            <trans-unit id="app.error.home">
+                <source>app.error.home</source>
+                <target>Volver a inicio</target>
+            </trans-unit>
 
             <trans-unit id="category.title.singular">
                 <source>category.title.singular</source>

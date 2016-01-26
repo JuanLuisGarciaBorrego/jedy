@@ -1,0 +1,13 @@
+{% extends 'public/base_public.html.twig' %}
+
+{% block title %} {{ 'app.404.title'|trans }} {% endblock %}
+
+{% block content %}
+    <h1><i class="fa fa-bomb"></i> {{ 'app.404.title'|trans }}</h1>
+
+    <p>
+        {{ 'app.404.message'|trans }}.<br>
+        <a href="{{ path('app_index') }}">{{ 'app.error.home'|trans }}</a>
+    </p>
+
+{% endblock %}

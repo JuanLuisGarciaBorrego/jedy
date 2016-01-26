@@ -87,6 +87,18 @@
                 <source>app.read.more</source>
                 <target>Read more</target>
             </trans-unit>
+            <trans-unit id="app.404.title">
+                <source>app.404.title</source>
+                <target>Page not found</target>
+            </trans-unit>
+            <trans-unit id="app.404.message">
+                <source>app.404.message</source>
+                <target>The requested page couldn't be located</target>
+            </trans-unit>
+            <trans-unit id="app.error.home">
+                <source>app.error.home</source>
+                <target>Return to home</target>
+            </trans-unit>
 
             <trans-unit id="category.title.singular">
                 <source>category.title.singular</source>
