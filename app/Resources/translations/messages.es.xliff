@@ -3,6 +3,10 @@
     <file source-language="es" target-language="en" datatype="plaintext" original="file.ext">
         <body>
 
+            <trans-unit id="app.welcome">
+                <source>app.welcome</source>
+                <target>Bienvenido to Jedy</target>
+            </trans-unit>
             <trans-unit id="app.description">
                 <source>app.description</source>
                 <target>Un "pequeño"<![CDATA[<i class="fa fa-hand-lizard-o"></i>]]> CMS para sitios multi-idioma creado con Symfony3</target>
