@@ -18,14 +18,22 @@ class ContentControllerTest extends WebTestCase
 
     private $content = 'Lo ren Impsun Loren Impsun Loren Impsun Loren';
 
+    private $client;
+
+    protected function setUp()
+    {
+        $this->client = static::createClient(array(), array(
+            'PHP_AUTH_USER' => 'jedy',
+            'PHP_AUTH_PW'   => '1234',
+        ));
+    }
+
     public function testIndexAction()
     {
-        $client = static::createClient();
+        $crawler = $this->client->request('GET', '/en/admin/contents');
 
-        $crawler = $client->request('GET', '/en/admin/contents');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('content.title.plural', $crawler->filter('h1.h-btn-line')->text());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('Contents', $crawler->filter('h1.h-btn-line')->text());
     }
 
     /**
@@ -33,34 +41,32 @@ class ContentControllerTest extends WebTestCase
      */
     public function testNewPageAction()
     {
-        $client = static::createClient();
+        $crawler = $this->client->request('GET', '/en/admin/content/page/new/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $crawler = $client->request('GET', '/en/admin/content/page/new/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $buttonCrawler = $crawler->selectButton('content.add - content.type.page')->form();
+        $buttonCrawler = $crawler->selectButton('Add content - Page')->form();
 
         //Error validation
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertRegExp(
             '/This value should not be blank./',
-            $client->getResponse()->getContent()
+            $this->client->getResponse()->getContent()
         );
 
         //Good
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Page";
         $buttonCrawler['content_form[content]'] = $this->content;
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.created',
-            $client->getResponse()->getContent()
+            'The content was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -69,25 +75,23 @@ class ContentControllerTest extends WebTestCase
      */
     public function testTranslationPageEnAction()
     {
-        $client = static::createClient();
-
         $routeEn = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId(
             )."/translations/add/es/en";
-        $crawler = $client->request('GET', $routeEn);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', $routeEn);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('content.add - content.type.page')->form();
+        $buttonCrawler = $crawler->selectButton('Add content - Page')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Page En";
         $buttonCrawler['content_form[content]'] = "En-".$this->content;
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.translation.created',
-            $client->getResponse()->getContent()
+            'Translation content was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -96,25 +100,23 @@ class ContentControllerTest extends WebTestCase
      */
     public function testTranslationPageFrAction()
     {
-        $client = static::createClient();
-
         $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId(
             )."/translations/add/es/fr";
-        $crawler = $client->request('GET', $routeFr);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', $routeFr);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('content.add - content.type.page')->form();
+        $buttonCrawler = $crawler->selectButton('Add content - Page')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Page Fr";
         $buttonCrawler['content_form[content]'] = "Fr-".$this->content;
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.translation.created',
-            $client->getResponse()->getContent()
+            'Translation content was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -123,24 +125,22 @@ class ContentControllerTest extends WebTestCase
      */
     public function testEditTranslationPageFrAction()
     {
-        $client = static::createClient();
-
         $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId(
             )."/translations/".$this->selectContentByTitle($this->nameTitle."Page Fr")->getId()."/edit/es/fr";
-        $crawler = $client->request('GET', $routeFr);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', $routeFr);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('content.edit - content.type.page')->form();
+        $buttonCrawler = $crawler->selectButton('Edit content - Page')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Page Fr Edit";
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.translation.edited',
-            $client->getResponse()->getContent()
+            'Translation content was edited',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -149,22 +149,21 @@ class ContentControllerTest extends WebTestCase
      */
     public function testDeleteTranslationPage()
     {
-        $client = static::createClient();
         $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId(
             )."/translations/".$this->selectContentByTitle($this->nameTitle."Page Fr Edit")->getId()."/edit/es/fr";
-        $crawler = $client->request('GET', $routeFr);
+        $crawler = $this->client->request('GET', $routeFr);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('app.delete')->form();
-        $client->submit($buttonCrawler);
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.deleted',
-            $client->getResponse()->getContent()
+            'The content was deleted',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -173,21 +172,20 @@ class ContentControllerTest extends WebTestCase
      */
     public function testDeletePage()
     {
-        $client = static::createClient();
         $route = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Page")->getId()."/edit/";
-        $crawler = $client->request('GET', $route);
+        $crawler = $this->client->request('GET', $route);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('app.delete')->form();
-        $client->submit($buttonCrawler);
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.deleted',
-            $client->getResponse()->getContent()
+            'The content was deleted',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -196,12 +194,10 @@ class ContentControllerTest extends WebTestCase
      */
     public function testNewPostAction()
     {
-        $client = static::createClient();
+        $crawler = $this->client->request('GET', 'en/admin/content/post/new/');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $crawler = $client->request('GET', 'en/admin/content/post/new/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-
-        $buttonCrawler = $crawler->selectButton('content.add - content.type.post')->form();
+        $buttonCrawler = $crawler->selectButton('Add content - Post')->form();
 
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Post";
         $buttonCrawler['content_form[content]'] = $this->content;
@@ -209,14 +205,14 @@ class ContentControllerTest extends WebTestCase
         $idSelect = $crawler->filter('#content_form_category option')->last()->attr('value');
         $buttonCrawler['content_form[category]'] = $idSelect;
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.created',
-            $client->getResponse()->getContent()
+            'The content was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -225,25 +221,23 @@ class ContentControllerTest extends WebTestCase
      */
     public function testTranslationPostEnAction()
     {
-        $client = static::createClient();
-
         $routeEn = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId(
             )."/translations/add/es/en";
-        $crawler = $client->request('GET', $routeEn);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', $routeEn);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('content.add - content.type.post')->form();
+        $buttonCrawler = $crawler->selectButton('Add content - Post')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Post En";
         $buttonCrawler['content_form[content]'] = $this->content;
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.translation.created',
-            $client->getResponse()->getContent()
+            'Translation content was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -252,25 +246,23 @@ class ContentControllerTest extends WebTestCase
      */
     public function testTranslationPostFrAction()
     {
-        $client = static::createClient();
-
         $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId(
             )."/translations/add/es/fr";
-        $crawler = $client->request('GET', $routeFr);
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $crawler = $this->client->request('GET', $routeFr);
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('content.add - content.type.post')->form();
+        $buttonCrawler = $crawler->selectButton('Add content - Post')->form();
         $buttonCrawler['content_form[title]'] = $this->nameTitle."Post Fr";
         $buttonCrawler['content_form[content]'] = $this->content;
 
-        $client->submit($buttonCrawler);
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.translation.created',
-            $client->getResponse()->getContent()
+            'Translation content was created',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -279,22 +271,21 @@ class ContentControllerTest extends WebTestCase
      */
     public function testDeleteTranslationPost()
     {
-        $client = static::createClient();
         $routeFr = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId(
             )."/translations/".$this->selectContentByTitle($this->nameTitle."Post Fr")->getId()."/edit/es/fr";
-        $crawler = $client->request('GET', $routeFr);
+        $crawler = $this->client->request('GET', $routeFr);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('app.delete')->form();
-        $client->submit($buttonCrawler);
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.deleted',
-            $client->getResponse()->getContent()
+            'The content was deleted',
+            $this->client->getResponse()->getContent()
         );
     }
 
@@ -303,41 +294,39 @@ class ContentControllerTest extends WebTestCase
      */
     public function testDeletePost()
     {
-        $client = static::createClient();
         $route = "en/admin/content/".$this->selectContentByTitle($this->nameTitle."Post")->getId()."/edit/";
-        $crawler = $client->request('GET', $route);
+        $crawler = $this->client->request('GET', $route);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('app.delete')->form();
-        $client->submit($buttonCrawler);
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'content.flash.deleted',
-            $client->getResponse()->getContent()
+            'The content was deleted',
+            $this->client->getResponse()->getContent()
         );
     }
 
     public function testDestructInitialCategory()
     {
-        $client = static::createClient();
         $route = "/en/admin/category/".$this->selectCategoryByName($this->nameCategory)->getId()."/edit/";
-        $crawler = $client->request('GET', $route);
+        $crawler = $this->client->request('GET', $route);
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
-        $buttonCrawler = $crawler->selectButton('app.delete')->form();
-        $client->submit($buttonCrawler);
+        $buttonCrawler = $crawler->selectButton('Delete')->form();
+        $this->client->submit($buttonCrawler);
 
-        $this->assertEquals(200, $client->getResponse()->isRedirect());
-        $client->followRedirect();
+        $this->assertEquals(200, $this->client->getResponse()->isRedirect());
+        $this->client->followRedirect();
 
         $this->assertContains(
-            'category.flash.deleted',
-            $client->getResponse()->getContent()
+            'The category was deleted',
+            $this->client->getResponse()->getContent()
         );
     }
 
