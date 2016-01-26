@@ -1,5 +1,7 @@
 {% extends ':admin:base_admin.html.twig' %}
 
+{% block title %} {{ 'nav.title.plural'|trans }} {% endblock %}
+
 {% block content %}
     <ul class="breadcrumb">
         <li><a href="{{ path('admin_home') }}">Home</a></li>
@@ -31,7 +33,6 @@
                 <td>{{ loop.index }}</td>
                 <td>{{ nav.name}}</td>
                 <td>
-                    <a href="" class="btn btn-primary btn-xs">{{ 'nav.add'|trans }}</a>
                     <a href="{{ path('admin_nav_edit', {'id': nav.id}) }}" class="btn btn-warning btn-xs">{{ 'app.edit'|trans }}</a>
                     <a href="{{ path('admin_nav_translations', {'id':nav.id}) }}" class="btn btn-info btn-xs">{{ 'app.translations'|trans }}</a>
                 </td>
