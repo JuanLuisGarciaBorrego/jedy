@@ -21,4 +21,13 @@ class AppControllerTest extends WebTestCase
         );
     }
 
+    public function testPageNotFound()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/en/page-not-found');
+
+        $this->assertEquals(404, $client->getResponse()->getStatusCode());
+    }
+
 }
