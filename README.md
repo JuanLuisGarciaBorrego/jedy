@@ -72,6 +72,10 @@ Admin:
 http://127.0.0.1:8000/{locale}/admin 
 ```
 
+**User**: jedy
+
+**Password**: 1234
+
 <img src="https://raw.githubusercontent.com/JuanLuisGarciaBorrego/jedy/develop/Resources/doc/images/admin-contents.png" alt="Jedy CMS Multi-language Admin contents" align="right" />
 
 
