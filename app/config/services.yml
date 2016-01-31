@@ -46,7 +46,7 @@ services:
 
    app.setter_content_category:
        class: AppBundle\EventListener\SetterSubscriber
-       arguments: ["@slugify"]
+       arguments: ["@cocur_slugify"]
        tags:
            - { name: doctrine.event_subscriber }
 

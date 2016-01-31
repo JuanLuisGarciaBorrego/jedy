@@ -8,8 +8,19 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use AppBundle\Entity\Category;
 use Cocur\Slugify\Slugify;
 
+/**
+ * Class SetterSubscriber
+ * Set properties of the Content and Category class
+ * - slug
+ * - publishAt
+ *
+ * @package AppBundle\EventListener
+ */
 class SetterSubscriber implements EventSubscriber
 {
+    /**
+     * @var Slugify
+     */
     private $slugify;
 
     /**
