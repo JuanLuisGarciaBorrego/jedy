@@ -14,6 +14,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\Content;
 
+/**
+ * Class ContentForm
+ * @package AppBundle\Form
+ */
 class ContentForm extends AbstractType
 {
     /**
@@ -121,6 +125,9 @@ class ContentForm extends AbstractType
         );
     }
 
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function selectCategoryLocaleActive()
     {
         return $this->em->getRepository('AppBundle:Category')

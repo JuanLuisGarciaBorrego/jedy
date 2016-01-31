@@ -34,7 +34,7 @@ services:
 
    app.form.content:
        class: AppBundle\Form\ContentForm
-       arguments: ["@doctrine.orm.entity_manager", %locale_active%]
+       arguments: ["@doctrine.orm.default_entity_manager", %locale_active%]
        tags:
            - { name: form.type }
 
