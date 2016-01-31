@@ -28,7 +28,7 @@ services:
 
    app.form.category:
        class: AppBundle\Form\CategoryForm
-       arguments: ["@doctrine.orm.entity_manager", %locale_active%]
+       arguments: ["@doctrine.orm.default_entity_manager", %locale_active%]
        tags:
            - { name: form.type }
 

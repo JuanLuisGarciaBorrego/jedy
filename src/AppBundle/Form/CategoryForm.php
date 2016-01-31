@@ -12,6 +12,10 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Entity\Category;
 
+/**
+ * Class CategoryForm
+ * @package AppBundle\Form
+ */
 class CategoryForm extends AbstractType
 {
     /**
@@ -20,17 +24,18 @@ class CategoryForm extends AbstractType
     private $em;
 
     /**
-     * @var Category
-     */
-    private $parent;
-
-    /**
      * @var string
      */
     private $localeActive;
 
     /**
+     * @var Category
+     */
+    private $parent;
+
+    /**
      * @param EntityManager $em
+     * @param $localeActive
      */
     public function __construct(EntityManager $em, $localeActive)
     {
@@ -87,6 +92,9 @@ class CategoryForm extends AbstractType
         );
     }
 
+    /**
+     * @return \Doctrine\ORM\QueryBuilder
+     */
     public function selectCategoryLocaleActive()
     {
         return $this->em->getRepository('AppBundle:Category')
