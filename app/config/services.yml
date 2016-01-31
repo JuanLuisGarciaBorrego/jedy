@@ -9,8 +9,8 @@ services:
            - { name: kernel.event_subscriber }
 
    app.redirect_to_locale_active:
-       class: AppBundle\EventListener\RedirectToLocaleActiveListener
-       arguments: ["@service_container", "%locale_active%"]
+       class: AppBundle\EventListener\RedirectToLocaleActiveSubscriber
+       arguments: ["@router", "%locale_active%"]
        tags:
            - { name: kernel.event_subscriber }
 
