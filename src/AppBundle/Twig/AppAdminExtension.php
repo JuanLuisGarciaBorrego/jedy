@@ -5,6 +5,17 @@ namespace AppBundle\Twig;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Asset\Packages;
 
+/**
+ * Class AppAdminExtension
+ *
+ * All the twig functions enabled in the administration
+ * - Check if a category has a translation
+ * - Check if a content has a translation
+ * - Check if a navigation has a translation
+ * - Rendering a file
+ *
+ * @package AppBundle\Twig
+ */
 class AppAdminExtension extends \Twig_Extension
 {
     /**
@@ -17,8 +28,16 @@ class AppAdminExtension extends \Twig_Extension
      */
     private $packages;
 
+    /**
+     * @var string
+     */
     private $uploads_directory_name;
 
+    /**
+     * @param EntityManager $em
+     * @param Packages $packages
+     * @param $uploads_directory_name
+     */
     public function __construct(EntityManager $em, Packages $packages, $uploads_directory_name)
     {
         $this->em = $em;
@@ -36,6 +55,15 @@ class AppAdminExtension extends \Twig_Extension
         );
     }
 
+    /**
+     * Check if a category has a translation
+     *
+     * @param $localeDefault
+     * @param $localeCategory
+     * @param $parentMultilangue
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function isCategoryTranslation($localeDefault, $localeCategory, $parentMultilangue)
     {
         return $this->em->getRepository('AppBundle:Category')->createQueryBuilder('c')
@@ -48,6 +76,15 @@ class AppAdminExtension extends \Twig_Extension
             ->getOneOrNullResult();
     }
 
+    /**
+     * Check if a content has a translation
+     *
+     * @param $localeDefault
+     * @param $localeContent
+     * @param $parentMultilangue
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function isContentTranslation($localeDefault, $localeContent, $parentMultilangue)
     {
         return $this->em->getRepository('AppBundle:Content')->createQueryBuilder('c')
@@ -60,6 +97,15 @@ class AppAdminExtension extends \Twig_Extension
             ->getOneOrNullResult();
     }
 
+    /**
+     * Check if a navigation has a translation
+     *
+     * @param $localeDefault
+     * @param $localeContent
+     * @param $parentMultilangue
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
     public function isNavTranslation($localeDefault, $localeContent, $parentMultilangue)
     {
         return $this->em->getRepository('AppBundle:Nav')->createQueryBuilder('n')
@@ -72,17 +118,24 @@ class AppAdminExtension extends \Twig_Extension
             ->getOneOrNullResult();
     }
 
+    /**
+     * Rendering a file
+     *
+     * @param $filename
+     * @param $extension
+     * @return string
+     */
     public function render_file($filename, $extension)
     {
         $img = ['png', 'jpg', 'jpeg', 'gif', 'svg', 'pjpeg'];
 
-        $path = $this->uploads_directory_name.'/'.$filename;
+        $path = $this->uploads_directory_name . '/' . $filename;
 
         if (in_array($extension, $img)) {
-            return '<img src="'.$this->packages->getUrl($path).'" height="42">';
+            return '<img src="' . $this->packages->getUrl($path) . '" height="42">';
         }
 
-        return '<a href="'.$this->packages->getUrl($path).'" download><i class="fa fa-download"></i></a>';
+        return '<a href="' . $this->packages->getUrl($path) . '" download><i class="fa fa-download"></i></a>';
     }
 
     public function getName()

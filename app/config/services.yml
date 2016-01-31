@@ -16,7 +16,7 @@ services:
 
    app_admin.twig.extension:
        class: AppBundle\Twig\AppAdminExtension
-       arguments: ["@doctrine.orm.entity_manager", "@assets.packages", "%uploads_directory_name%"]
+       arguments: ["@doctrine.orm.default_entity_manager", "@assets.packages", "%uploads_directory_name%"]
        tags:
            - { name: twig.extension }
 
