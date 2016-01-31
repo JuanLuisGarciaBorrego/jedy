@@ -73,6 +73,7 @@ class ContentRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('published', $published)
             ->setParameter('unpublished', $unpublished)
             ->setParameter('locale', $locale)
+            ->orderBy('c.publishedAt', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults($sizePage)
         ;
