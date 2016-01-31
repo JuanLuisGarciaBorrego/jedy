@@ -22,7 +22,7 @@ services:
 
    app_public.twig.extension:
           class: AppBundle\Twig\AppPublicExtension
-          arguments: ["@locales", "@twig.extension.routing", "@service_container"]
+          arguments: ["@locales", "@router", "@session", "@doctrine.orm.default_entity_manager"]
           tags:
               - { name: twig.extension }
 

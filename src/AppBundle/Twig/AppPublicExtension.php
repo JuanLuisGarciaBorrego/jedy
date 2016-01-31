@@ -4,9 +4,19 @@ namespace AppBundle\Twig;
 
 use AppBundle\Entity\Content;
 use AppBundle\Util\Locales;
-use Symfony\Bridge\Twig\Extension\RoutingExtension;
-use Symfony\Component\DependencyInjection\Container;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+/**
+ * Class AppPublicExtension
+ *
+ * All the twig functions enabled in the administration
+ * - Show translations available of the content
+ * - Show the navigation menu (this method has not all functionality, for now! )
+ *
+ * @package AppBundle\Twig
+ */
 class AppPublicExtension extends \Twig_Extension
 {
     /**
@@ -15,24 +25,32 @@ class AppPublicExtension extends \Twig_Extension
     private $locales;
 
     /**
-     * @var RoutingExtension
+     * @var UrlGeneratorInterface
      */
-    private $routingExtenxion;
+    private $urlGenerator;
 
     /**
-     * @var Container
+     * @var Session
      */
-    private $container;
+    private $session;
 
     /**
-     * @param Locales          $locales
-     * @param RoutingExtension $routingExtenxion
+     * @var EntityManager
      */
-    public function __construct(Locales $locales, RoutingExtension $routingExtenxion, Container $container)
+    private $em;
+
+    /**
+     * @param Locales $locales
+     * @param UrlGeneratorInterface $urlGenerator
+     * @param Session $session
+     * @param EntityManager $em
+     */
+    public function __construct(Locales $locales, UrlGeneratorInterface $urlGenerator, Session $session, EntityManager $em)
     {
         $this->locales = $locales;
-        $this->routingExtenxion = $routingExtenxion;
-        $this->container = $container;
+        $this->urlGenerator = $urlGenerator;
+        $this->session = $session;
+        $this->em = $em;
     }
 
     public function getFunctions()
@@ -44,6 +62,8 @@ class AppPublicExtension extends \Twig_Extension
     }
 
     /**
+     * Show translations available of the content
+     *
      * @param Content $content
      * @param string  $class
      *
@@ -54,15 +74,17 @@ class AppPublicExtension extends \Twig_Extension
         $result = "<ul class='".$class."'>";
         foreach ($this->getTranslations($content) as $item) {
             if ($item['type'] == 'post') {
-                $route = $this->routingExtenxion->getPath('app_blog_post',
+
+                $route = $this->urlGenerator->generate('app_blog_post',
                     [
                         '_locale' => $item['locale'],
                         'slugcategory' => $item['slugcategory'],
                         'slug' => $item['slug'],
                     ]
                 );
+
             } else {
-                $route = $this->routingExtenxion->getPath('app_page',
+                $route = $this->urlGenerator->generate('app_page',
                     [
                         '_locale' => $item['locale'],
                         'slug' => $item['slug'],
@@ -77,9 +99,19 @@ class AppPublicExtension extends \Twig_Extension
         return $result;
     }
 
+    /**
+     * Show the navigation menu
+     * //TODO
+     * This method has not all functionality, for now!
+     *
+     * @param $name
+     * @param $locale
+     * @return string
+     * @throws \Exception
+     */
     public function nav_locale($name, $locale)
     {
-        $contentsNav = $this->container->get('session')->has($name.$locale) ? $this->container->get('session')->get($name.$locale) : $this->container->get('doctrine')->getRepository('AppBundle:Nav')->findOneBy(['name' => $name, 'locale' => $locale]);
+        $contentsNav = $this->session->has($name.$locale) ? $this->session->get($name.$locale) : $this->em->getRepository('AppBundle:Nav')->findOneBy(['name' => $name, 'locale' => $locale]);
 
         if ($contentsNav) {
             $data = $contentsNav->getContentsNav();
@@ -87,24 +119,34 @@ class AppPublicExtension extends \Twig_Extension
 
             foreach ($data as $item) {
                 if ($item->getType() == 'category') {
-                    $route = $this->routingExtenxion->getPath('app_blog_category', ['slug' => $item->getSlug()]);
+                    $route = $this->urlGenerator->generate('app_blog_category', [
+                       'slug' => $item->getSlug()
+                    ]);
+
                     $result .= "<li><a href='".$route."'>".$item->getName().'</a></li>';
                 }
                 if ($item->getType() == 'page') {
-                    $route = $this->routingExtenxion->getPath('app_page', ['slug' => $item->getSlug()]);
+                    $route = $this->urlGenerator->generate('app_page', [
+                        'slug' => $item->getSlug()
+                    ]);
+
                     $result .= "<li><a href='".$route."'>".$item->getName().'</a></li>';
                 }
             }
             $result .= '</ul>';
 
-            if (!$this->container->get('session')->has($name.$locale)) {
-                $this->container->get('session')->set($name.$locale, $contentsNav);
+            if (!$this->session->has($name.$locale)) {
+                $this->session->set($name.$locale, $contentsNav);
             }
 
             return $result;
         }
     }
 
+    /**
+     * @param Content $content
+     * @return array
+     */
     private function getTranslations(Content $content)
     {
         $contents = [];
