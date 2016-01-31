@@ -6,6 +6,10 @@ use AppBundle\Entity\Content;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Class Pagination
+ * @package AppBundle\Util
+ */
 class Pagination
 {
     /**

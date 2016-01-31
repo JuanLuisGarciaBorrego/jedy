@@ -58,4 +58,4 @@ services:
 
    pagination:
        class: AppBundle\Util\Pagination
-       arguments: ["@doctrine.orm.entity_manager"]
+       arguments: ["@doctrine.orm.default_entity_manager"]
