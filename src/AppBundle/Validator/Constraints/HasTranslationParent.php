@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class HasTranslationParent extends Constraint
 {
-    public $message = 'You must create the translations of the parent category "%string%" first.';
+    public $message = 'You must create the translations of the category "%string%" first.';
 
     public function validatedBy()
     {

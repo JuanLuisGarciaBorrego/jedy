@@ -40,7 +40,7 @@ services:
 
    app.validator.has_translation_parent:
        class: AppBundle\Validator\Constraints\HasTranslationParentValidator
-       arguments: ["@doctrine.orm.entity_manager", "@locales"]
+       arguments: ["@doctrine.orm.default_entity_manager", "@locales"]
        tags:
            - { name: validator.constraint_validator, alias: has_translation_parent }
 

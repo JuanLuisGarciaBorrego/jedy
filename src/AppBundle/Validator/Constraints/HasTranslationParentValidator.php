@@ -8,6 +8,14 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
+/**
+ * Class HasTranslationParentValidator
+ *
+ * Make sure the selected category have all translations.
+ * This is necessary because the translations of the object are automatically associated.
+ *
+ * @package AppBundle\Validator\Constraints
+ */
 class HasTranslationParentValidator extends ConstraintValidator
 {
     /**
@@ -30,6 +38,10 @@ class HasTranslationParentValidator extends ConstraintValidator
         $this->locales = $locales;
     }
 
+    /**
+     * @param mixed $category
+     * @param Constraint $constraint
+     */
     public function validate($category, Constraint $constraint)
     {
         if ($category && $category->getLocale() == $this->locales->getLocaleActive()) {
@@ -44,6 +56,10 @@ class HasTranslationParentValidator extends ConstraintValidator
         }
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     private function selectCategoryParentMultilangue($id)
     {
         return $this->em->getRepository('AppBundle:Category')

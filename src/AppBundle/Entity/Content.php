@@ -91,7 +91,9 @@ class Content
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="contents")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      *
-     * @AppAssert\HasTranslationParent()
+     * @AppAssert\HasTranslationParent(
+     *     message="category.translation_parent"
+     * )
      */
     private $category;
 
