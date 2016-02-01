@@ -86,7 +86,7 @@ class CategoryForm extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\Category',
+                'data_class' => Category::class,
                 'parent' => null,
             )
         );

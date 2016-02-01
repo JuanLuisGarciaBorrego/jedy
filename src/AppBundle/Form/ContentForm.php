@@ -118,7 +118,7 @@ class ContentForm extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\Content',
+                'data_class' => Content::class,
                 'type' => null,
                 'parent' => null,
             )

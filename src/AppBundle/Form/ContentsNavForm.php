@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\ContentsNav;
 
 class ContentsNavForm extends AbstractType
 {
@@ -42,7 +43,7 @@ class ContentsNavForm extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\ContentsNav',
+                'data_class' => ContentsNav::class,
                 'contentsNav' => null,
             )
         );

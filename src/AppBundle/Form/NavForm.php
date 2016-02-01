@@ -7,6 +7,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\Nav;
 
 class NavForm extends AbstractType
 {
@@ -33,7 +34,7 @@ class NavForm extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\Nav',
+                'data_class' => Nav::class,
                 'contentsNav' => null,
             )
         );
