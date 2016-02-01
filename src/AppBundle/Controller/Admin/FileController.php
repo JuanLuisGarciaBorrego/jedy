@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Form\FileForm;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ class FileController extends Controller
     /**
      * @Route("s/", name="admin_file_home", defaults={"page" = 1})
      * @Route("s/page-{page}", name="admin_file_home_page", requirements={"page" : "\d+"})
+     * @Method("GET")
      */
     public function indexAction($page)
     {
@@ -47,6 +49,7 @@ class FileController extends Controller
 
     /**
      * @Route("/upload", name="admin_file_upload")
+     * @Method({"GET", "POST"})
      */
     public function uploadAction(Request $request)
     {
@@ -71,6 +74,7 @@ class FileController extends Controller
 
     /**
      * @Route("/{filename}/delete/", name="admin_file_delete")
+     * @Method("GET")
      */
     public function deleteAction($filename)
     {
