@@ -6,6 +6,7 @@ use AppBundle\Entity\Content;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use AppBundle\Entity\Category;
 
 /**
@@ -16,6 +17,7 @@ class BlogController extends Controller
     /**
      * @Route("/", name="app_blog_index", defaults={"page" = 1})
      * @Route("/{page}", name="app_blog_index_paginated", requirements={"page" : "\d+"})
+     * @Method("GET")
      */
     public function indexAction($page)
     {
@@ -41,6 +43,7 @@ class BlogController extends Controller
     /**
      * @Route("/{slug}", name="app_blog_category", defaults={"page" = 1})
      * @Route("/{slug}/{page}", name="app_blog_category_paginated", requirements={"page" : "\d+"})
+     * @Method("GET")
      */
     public function categoryAction(Category $category, $page)
     {
@@ -67,6 +70,7 @@ class BlogController extends Controller
 
     /**
      * @Route("/{slugcategory}/{slug}", name="app_blog_post")
+     * @Method("GET")
      * @ParamConverter("post", class="AppBundle:Content", options={
      *      "repository_method" : "findBySlugIfContentIsPublished" ,
      *      "exclude": {"slugcategory"}
