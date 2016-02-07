@@ -16,3 +16,4 @@
 /web/bundles/
 .idea/
 .DS_Store
+.rules
