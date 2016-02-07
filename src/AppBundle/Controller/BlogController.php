@@ -21,7 +21,7 @@ class BlogController extends Controller
      */
     public function indexAction($page)
     {
-        $postPagination = $this->get('pagination')->pagination(
+        $postPagination = $this->get('pagination')->create(
             'post',
             $page,
             $this->get('request_stack')->getMasterRequest()->get('_locale'),
@@ -47,7 +47,7 @@ class BlogController extends Controller
      */
     public function categoryAction(Category $category, $page)
     {
-        $postPagination = $this->get('pagination')->pagination(
+        $postPagination = $this->get('pagination')->create(
             'post',
             $page,
             $this->get('request_stack')->getMasterRequest()->get('_locale'),

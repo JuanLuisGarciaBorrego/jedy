@@ -20,7 +20,7 @@ class ContentController extends Controller
      */
     public function indexAction($type, $page)
     {
-        $pagination = $this->get('pagination')->pagination(
+        $pagination = $this->get('pagination')->create(
             $type,
             $page,
             $this->get('locales')->getLocaleActive()

@@ -34,7 +34,7 @@ class Pagination
      *
      * @return array
      */
-    public function pagination($type, $page, $locale, $status = null, $category = null)
+    public function create($type, $page, $locale, $status = null, $category = null)
     {
         $total = $this->em->getRepository('AppBundle:Content')->getTotalRegisters(
             $locale,
