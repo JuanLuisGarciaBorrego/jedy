@@ -16,7 +16,7 @@ security:
             security: false
 
         secured_area:
-            pattern: ^/(%app_locales%)/admin
+            pattern: ^/
             provider: in_memory
             anonymous: ~
             guard:
