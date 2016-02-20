@@ -1,0 +1,22 @@
+{% extends 'public/base_public.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <div class="alert alert-dismissible alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path('login_check_route') }}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control"/>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password" class="form-control"/>
+        <br>
+        <button class="btn btn-md btn-primary btn-block" type="submit">login</button>
+    </form>
+
+    <br>
+{% endblock %}
