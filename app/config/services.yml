@@ -59,3 +59,7 @@ services:
    pagination:
        class: AppBundle\Util\Pagination
        arguments: ["@doctrine.orm.default_entity_manager"]
+
+   app.form_login_authenticator:
+       class: AppBundle\Security\FormLoginAuthenticator
+       arguments: ["@security.password_encoder", "@router"]

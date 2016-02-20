@@ -19,9 +19,9 @@ security:
             pattern: ^/(%app_locales%)/admin
             provider: in_memory
             anonymous: ~
-            form_login:
-                login_path: login_route
-                check_path: login_check_route
+            guard:
+                authenticators:
+                    - app.form_login_authenticator
             logout:
                 path: logout_route
                 target: app_index
