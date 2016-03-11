@@ -9,14 +9,14 @@ use AppBundle\Entity\Category;
 use Cocur\Slugify\Slugify;
 
 /**
- * Class SetterSubscriber
+ * Class SetterListener
  * Set properties of the Content and Category class
  * - slug
  * - publishAt
  *
  * @package AppBundle\EventListener
  */
-class SetterSubscriber implements EventSubscriber
+class SetterListener implements EventSubscriber
 {
     /**
      * @var Slugify

@@ -9,7 +9,7 @@ services:
            - { name: kernel.event_subscriber }
 
    app.redirect_to_locale_active:
-       class: AppBundle\EventListener\RedirectToLocaleActiveSubscriber
+       class: AppBundle\EventListener\RedirectToLocaleActiveListener
        arguments: ["@router", "%locale_active%"]
        tags:
            - { name: kernel.event_subscriber }
@@ -45,7 +45,7 @@ services:
            - { name: validator.constraint_validator, alias: has_translation_parent }
 
    app.setter_content_category:
-       class: AppBundle\EventListener\SetterSubscriber
+       class: AppBundle\EventListener\SetterListener
        arguments: ["@cocur_slugify"]
        tags:
            - { name: doctrine.event_subscriber }

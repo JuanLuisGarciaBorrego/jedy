@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  *
  * @package AppBundle\EventListener
  */
-class RedirectToLocaleActiveSubscriber implements EventSubscriberInterface
+class RedirectToLocaleActiveListener implements EventSubscriberInterface
 {
     /**
      * @var UrlGeneratorInterface
