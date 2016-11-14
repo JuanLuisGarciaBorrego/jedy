@@ -11,7 +11,7 @@ down: ## destroy all container
 	docker-compose down
 	
 composer: ## run composer command using: make composer argument=install
-	docker exec -it jedy-php-fpm php composer.phar
+	docker exec -it jedy-php-fpm php composer.phar $(argument)
 
 log: ## see prod logs
 	 tail -f $(PWD)/var/logs/prod.log
