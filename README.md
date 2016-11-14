@@ -86,3 +86,18 @@ http://127.0.0.1:8000/{locale}/admin
 
 > - At the moment only it has http basic security. You can expand using FOSUserbundle or other
 > - Also, it has not set any Wysiwyg editor yet.
+
+
+**Installation & Configuration using docker**
+
+- Execute this commands
+```
+$ make up
+$ make composer argument=install
+$ make install
+```
+
+- And then access via browser: 
+```
+http://localhost:8080/
+```

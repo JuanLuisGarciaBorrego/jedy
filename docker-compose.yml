@@ -1,0 +1,35 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+
+jedy-mysql:
+  image: mysql:5.7
+  container_name: jedy-mysql
+  ports:
+    - "3306:3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=qwerty
+    - MYSQL_DATABASE=jedy
+    - MYSQL_USER=jedy
+    - MYSQL_PASSWORD=jedy
+
+jedy-webserver:
+  image: phpdockerio/nginx:latest
+  container_name: jedy-webserver
+  volumes:
+      - .:/var/www/jedy
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+  ports:
+   - "8080:80"
+  links:
+   - jedy-php-fpm
+
+jedy-php-fpm:
+  build: .
+  dockerfile: docker/php-fpm/Dockerfile
+  container_name: jedy-php-fpm
+  volumes:
+    - .:/var/www/jedy
+    - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.0/fpm/conf.d/99-overrides.ini
+  links:
+    - jedy-mysql
