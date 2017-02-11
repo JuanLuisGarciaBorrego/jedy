@@ -60,6 +60,7 @@ class CategoryForm extends AbstractType
                 TextareaType::class,
                 [
                     'label' => 'category.description',
+                    'required' => false,
                 ]
             )
         ;
