@@ -68,6 +68,7 @@ class ContentForm extends AbstractType
                 TextareaType::class,
                 [
                     'label' => 'content.summary',
+                    'required' => false,
                 ]
             )
             ->add(
@@ -75,6 +76,7 @@ class ContentForm extends AbstractType
                 TextareaType::class,
                 [
                     'label' => 'content.content',
+                    'required' => false,
                 ]
             )
             ->add(
