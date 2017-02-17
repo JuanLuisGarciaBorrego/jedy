@@ -57,6 +57,8 @@ class Category
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = "10")
      */
     private $description;
 
