@@ -13,7 +13,7 @@
         {% for post in posts %}
             <div class="col-xs-12">
                 <h2>{{ post.title }}</h2>
-                <p>{{ post.summary }}</p>
+                <p>{{ post.summary|raw }}</p>
                 <span>{{ post.publishedAt|localizeddate('medium', 'short') }}</span>
                 <p><a class="btn btn-default" href="{{ path('app_blog_post', {'_locale': post.locale, 'slugcategory': post.category.slug ,'slug': post.slug}) }}" role="button">{{ 'app.read.more'|trans }} &raquo;</a></p>
             </div>

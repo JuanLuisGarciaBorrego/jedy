@@ -7,7 +7,7 @@
     <h1>{{ post.title }}</h1>
 
     <span>{{ post.publishedAt|date("m/d/Y") }}</span>
-    <p>{{ post.content }}.</p>
+    <p>{{ post.content|raw }}</p>
     <hr>
     {{ translation_content(post) }}
 {% endblock %}
