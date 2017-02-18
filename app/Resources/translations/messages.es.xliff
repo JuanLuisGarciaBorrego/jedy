@@ -39,6 +39,10 @@
                 <source>app.delete</source>
                 <target>Eliminar</target>
             </trans-unit>
+            <trans-unit id="app.confirm.delete.record">
+                <source>app.confirm.delete.record</source>
+                <target>¿Desea eliminar el registro seleccionado?</target>
+            </trans-unit>
             <trans-unit id="app.actions">
                 <source>app.actions</source>
                 <target>Acciones</target>
