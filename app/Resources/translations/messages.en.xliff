@@ -39,6 +39,10 @@
                 <source>app.delete</source>
                 <target>Delete</target>
             </trans-unit>
+            <trans-unit id="app.confirm.delete.record">
+                <source>app.confirm.delete.record</source>
+                <target>Do you want to delete the selected record?</target>
+            </trans-unit>
             <trans-unit id="app.actions">
                 <source>app.actions</source>
                 <target>Actions</target>

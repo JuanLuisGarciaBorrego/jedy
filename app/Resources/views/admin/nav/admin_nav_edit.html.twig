@@ -15,10 +15,32 @@
         </div>
 
         <div class="col-xs-4">
-            {{ form_start(form_delete) }}
-                {{ form_widget(form_delete) }}
-                <button class="btn btn-block btn-danger" type="submit">{{ 'app.delete'|trans }}</button>
-            {{ form_end(form_delete) }}
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#deleteModal">{{ 'app.delete'|trans }}</button>
+
+            <!-- Modal -->
+            <div id="deleteModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{ 'app.delete'|trans }} {{ 'nav.title.singular'|trans }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ 'app.confirm.delete.record'|trans }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            {{ form_start(form_delete) }}
+                                {{ form_widget(form_delete) }}
+                                <button class="btn btn-block btn-danger" type="submit">{{ 'app.delete'|trans }}</button>
+                            {{ form_end(form_delete) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
