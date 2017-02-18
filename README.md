@@ -1,6 +1,6 @@
  **Jedy CMS Multi-language**
 ===================
- Jedy CMS Multi-language is created with **Symfony 3** 
+ Jedy CMS Multi-language is created with **Symfony 3** (3.2)
 
 ----------
 
