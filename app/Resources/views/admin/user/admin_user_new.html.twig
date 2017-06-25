@@ -1,0 +1,27 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block title %} {{ 'user.add'|trans }} {% endblock %}
+
+{% block content %}
+    <ul class="breadcrumb">
+        <li><a href="{{ path('admin_home') }}">Home</a></li>
+        <li><a href="{{ path('admin_user_home') }}">{{ 'user.title.plural'|trans }}</a></li>
+        <li class="active">{{ 'user.add'|trans }}</li>
+    </ul>
+
+    <div class="row margin-vertical-md">
+        <div class="col-md-12">
+            <h1 class="h-btn-line">
+                {{ 'user.add'|trans }}
+            </h1>
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">
+            {{ 'user.add'|trans }}
+        </button>
+    {{ form_end(form) }}
+
+{% endblock %}

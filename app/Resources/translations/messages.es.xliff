@@ -2,7 +2,6 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
     <file source-language="es" target-language="en" datatype="plaintext" original="file.ext">
         <body>
-
             <trans-unit id="app.welcome">
                 <source>app.welcome</source>
                 <target>Bienvenido to Jedy</target>
@@ -106,6 +105,14 @@
             <trans-unit id="app.error.home">
                 <source>app.error.home</source>
                 <target>Volver a inicio</target>
+            </trans-unit>
+            <trans-unit id="app.yes">
+                <source>app.yes</source>
+                <target>Sí</target>
+            </trans-unit>
+            <trans-unit id="app.no">
+                <source>app.no</source>
+                <target>No</target>
             </trans-unit>
 
             <trans-unit id="category.title.singular">
@@ -396,6 +403,50 @@
                 <target>El archivo fue eliminado</target>
             </trans-unit>
 
+            <trans-unit id="user.title.singular">
+                <source>user.title.singular</source>
+                <target>Usuario</target>
+            </trans-unit>
+            <trans-unit id="user.title.plural">
+                <source>user.title.plural</source>
+                <target>Usuarios</target>
+            </trans-unit>
+            <trans-unit id="user.add">
+                <source>user.add</source>
+                <target>Añadir usuario</target>
+            </trans-unit>
+            <trans-unit id="user.edit">
+                <source>user.edit</source>
+                <target>Editar usuario</target>
+            </trans-unit>
+            <trans-unit id="user.username">
+                <source>user.username</source>
+                <target>Nombre de usuario</target>
+            </trans-unit>
+            <trans-unit id="user.password">
+                <source>user.password</source>
+                <target>Contraseña</target>
+            </trans-unit>
+            <trans-unit id="user.email">
+                <source>user.email</source>
+                <target>Correo electrónico</target>
+            </trans-unit>
+            <trans-unit id="user.is_active">
+                <source>user.is_active</source>
+                <target>Es activo</target>
+            </trans-unit>
+            <trans-unit id="user.flash.created">
+                <source>user.flash.created</source>
+                <target>El usuario fue creado</target>
+            </trans-unit>
+            <trans-unit id="user.flash.edited">
+                <source>user.flash.edited</source>
+                <target>El usuario fue editado</target>
+            </trans-unit>
+            <trans-unit id="user.flash.deleted">
+                <source>user.flash.deleted</source>
+                <target>El usuario fue eliminado</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
