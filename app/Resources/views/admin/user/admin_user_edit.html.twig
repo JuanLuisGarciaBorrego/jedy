@@ -1,0 +1,55 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block title %} {{ 'user.edit'|trans }} {% endblock %}
+
+{% block content %}
+
+    <ul class="breadcrumb">
+        <li><a href="{{ path('admin_home') }}">Home</a></li>
+        <li><a href="{{ path('admin_user_home') }}">{{ 'user.title.plural'|trans }}</a></li>
+        <li class="active">{{ 'user.edit'|trans }}</i></li>
+    </ul>
+
+    {% include 'admin/_flashbag.html.twig' %}
+
+    <div class="row margin-vertical-md">
+        <div class="col-xs-8">
+            <h1 class="h-btn-line">{{ 'user.edit'|trans }}</h1>
+        </div>
+
+        <div class="col-xs-4">
+
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-block btn-danger" data-toggle="modal" data-target="#deleteModal">{{ 'app.delete'|trans }}</button>
+
+            <!-- Modal -->
+            <div id="deleteModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">{{ 'app.delete'|trans }} {{ 'user.title.singular'|trans }}</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ 'app.confirm.delete.record'|trans }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            {{ form_start(form_delete) }}
+                                {{ form_widget(form_delete) }}
+                                <button class="btn btn-block btn-danger" type="submit">{{ 'app.delete'|trans }}</button>
+                            {{ form_end(form_delete) }}
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">{{ 'user.edit'|trans }}</button>
+    {{ form_end(form) }}
+
+{% endblock %}
