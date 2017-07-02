@@ -19,7 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class UserForm extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,7 +30,7 @@ class UserForm extends AbstractType
                     'attr' => array('placeholder' => 'user.username')
                 ]
             )
-            ->add('password',
+            ->add('plainPassword',
                 PasswordType::class,
                 [
                     'attr' => array('placeholder' => 'user.password'),
@@ -50,24 +51,14 @@ class UserForm extends AbstractType
                 ]
             );
     }
-    
+
     /**
-     * {@inheritdoc}
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\User'
-        ));
+        $resolver->setDefaults([
+            'data_class' => User::class
+        ]);
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'appbundle_user';
-    }
-
-
 }

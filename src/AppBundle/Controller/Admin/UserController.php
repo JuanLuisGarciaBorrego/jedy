@@ -42,12 +42,10 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //Encrypt password
-            $user = $this->setPassword($user);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
-            $em->flush($user);
+            $em->flush();
 
             $this->addFlash('success', 'user.flash.created');
 
@@ -73,16 +71,6 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            //TODO; create a listener for to setter automatically the password
-            if($user->getPassword() != null) {
-                //Encrypt password
-                $user = $this->setPassword($user);
-            } else {
-                $original_data = $em->getUnitOfWork()->getOriginalEntityData($user);
-                $old_password = $original_data['password'];
-                $user->setPassword($old_password);
-            }   
 
             $em->persist($user);
             $em->flush();
@@ -138,18 +126,5 @@ class UserController extends Controller
             ->setAction($this->generateUrl('admin_user_delete', ['id' => $user->getId()]))
             ->setMethod('DELETE')
             ->getForm();
-    }
-
-    /**
-     * @param user $user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    private function setPassword(User $user) {
-        $encoder = $this->get('security.password_encoder');
-        $password = $encoder->encodePassword($user, $user->getPassword());
-        $user->setPassword($password);
-
-        return $user;
     }
 }

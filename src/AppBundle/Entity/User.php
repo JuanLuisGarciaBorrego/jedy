@@ -29,6 +29,11 @@ class User implements AdvancedUserInterface, \Serializable
     private $password;
 
     /**
+     * @var string
+     */
+    private $plainPassword;
+
+    /**
      * @ORM\Column(type="string", length=60, unique=true)
      */
     private $email;
@@ -124,6 +129,24 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->password = $password;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param $plainPassword
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+
+        $this->password =  null;
     }
 
     /**
