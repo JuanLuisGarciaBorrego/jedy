@@ -73,6 +73,8 @@ class UserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //TODO; create a listener for to setter automatically the password
             if($user->getPassword() != null) {
                 //Encrypt password
                 $user = $this->setPassword($user);
@@ -144,7 +146,7 @@ class UserController extends Controller
      * @return \AppBundle\Entity\User
      */
     private function setPassword(User $user) {
-        $encoder = $this->container->get('security.password_encoder');
+        $encoder = $this->get('security.password_encoder');
         $password = $encoder->encodePassword($user, $user->getPassword());
         $user->setPassword($password);
 
