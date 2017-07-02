@@ -32,7 +32,7 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("new/", name="admin_user_new")
+     * @Route("/new/", name="admin_user_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
