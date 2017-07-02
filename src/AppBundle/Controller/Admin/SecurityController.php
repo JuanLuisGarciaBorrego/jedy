@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,11 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
+
+        if ($this->getUser() instanceof User) {
+            return $this->redirectToRoute('admin_home');
+        }
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -26,7 +32,7 @@ class SecurityController extends Controller
             'security/login.html.twig',
             array(
                 'last_username' => $lastUsername,
-                'error'         => $error,
+                'error' => $error,
             )
         );
     }

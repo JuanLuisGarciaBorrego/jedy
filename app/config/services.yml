@@ -63,3 +63,9 @@ services:
    app.form_login_authenticator:
        class: AppBundle\Security\FormLoginAuthenticator
        arguments: ["@security.password_encoder", "@router"]
+
+   app.doctrine.encode_password_user_listener:
+       class: AppBundle\Doctrine\EncodePasswordUserListener
+       arguments: ["@security.password_encoder"]
+       tags:
+           - { name: doctrine.event_subscriber }
