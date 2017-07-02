@@ -34,6 +34,13 @@ class User implements AdvancedUserInterface, \Serializable
     private $plainPassword;
 
     /**
+     * @var array
+     *
+     * @ORM\Column(name="roles", type="json_array")
+     */
+    private $roles = [];
+
+    /**
      * @ORM\Column(type="string", length=60, unique=true)
      */
     private $email;
@@ -63,8 +70,28 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->password;
     }
 
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return array
+     */
     public function getRoles()
     {
+        //TODO;
         return ['ROLE_ADMIN'];
     }
 
@@ -215,5 +242,10 @@ class User implements AdvancedUserInterface, \Serializable
     public function isEnabled()
     {
         return $this->isActive;
+    }
+
+    public function __toString()
+    {
+        return $this->getUsername();
     }
 }
