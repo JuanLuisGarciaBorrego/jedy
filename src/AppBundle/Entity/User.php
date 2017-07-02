@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace AppBundle\Entity;
 
@@ -41,8 +41,6 @@ class User implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         $this->isActive = true;
-        // may not be needed, see section on salt below
-        // $this->salt = md5(uniqid(null, true));
     }
 
     public function getUsername()
@@ -52,8 +50,6 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function getSalt()
     {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
         return null;
     }
 
@@ -64,7 +60,7 @@ class User implements AdvancedUserInterface, \Serializable
 
     public function getRoles()
     {
-        return array('ROLE_ADMIN');
+        return ['ROLE_ADMIN'];
     }
 
     public function eraseCredentials()
@@ -74,13 +70,13 @@ class User implements AdvancedUserInterface, \Serializable
     /** @see \Serializable::serialize() */
     public function serialize()
     {
-        return serialize(array(
+        return serialize([
             $this->id,
             $this->username,
             $this->password,
             // see section on salt below
             // $this->salt,
-        ));
+        ]);
     }
 
     /** @see \Serializable::unserialize() */
@@ -90,8 +86,6 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            // see section on salt below
-            // $this->salt
         ) = unserialize($serialized);
     }
 
@@ -129,7 +123,7 @@ class User implements AdvancedUserInterface, \Serializable
     public function setPassword($password)
     {
         $this->password = $password;
-        return $this;  
+        return $this;
     }
 
     /**
