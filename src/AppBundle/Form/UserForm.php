@@ -33,8 +33,7 @@ class UserForm extends AbstractType
             ->add('plainPassword',
                 PasswordType::class,
                 [
-                    'attr' => array('placeholder' => 'user.password'),
-                    'required' => is_null($builder->getData()->getId())
+                    'attr' => array('placeholder' => 'user.password')
                 ]
             )
             ->add('email',
