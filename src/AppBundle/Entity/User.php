@@ -50,6 +50,11 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $isActive;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Profile")
+     */
+    private $profile;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -247,5 +252,29 @@ class User implements AdvancedUserInterface, \Serializable
     public function __toString()
     {
         return $this->getUsername();
+    }
+
+    /**
+     * Set profile
+     *
+     * @param \AppBundle\Entity\Profile $profile
+     *
+     * @return User
+     */
+    public function setProfile(\AppBundle\Entity\Profile $profile = null)
+    {
+        $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * Get profile
+     *
+     * @return \AppBundle\Entity\Profile
+     */
+    public function getProfile()
+    {
+        return $this->profile;
     }
 }
