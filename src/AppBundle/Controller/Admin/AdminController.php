@@ -44,15 +44,7 @@ class AdminController extends Controller
         
         if ($form->isSubmitted() && $form->isValid()) {
             $file = $form['photo']->getData();
-            if(isset($file)) {
-                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-                $file->move($this->getParameter('profile_directory'), $fileName);
-                $profile->setPhoto($fileName);
-            } else {
-                $original_data = $em->getUnitOfWork()->getOriginalEntityData($profile);
-                $photo = $original_data['photo'];
-                $profile->setPhoto($photo);
-            }
+            $profile = $this->uploadPhotoProfile($file, $profile, $em);
 
             $em->persist($profile);
             $em->flush();
@@ -66,5 +58,26 @@ class AdminController extends Controller
                 'profile' => $profile
             ]
         );
+    }
+
+    /*
+    * Upload photo of profile in the entity Profile
+    * @param $file Symfony\Component\HttpFoundation\File\File 
+    * @param $profile AppBundle\Entity\Profile
+    * @param $em Doctrine\ORM\EntityManager
+    */
+    private function uploadPhotoProfile($file, $profile, $em) 
+    {   
+        if(isset($file)) {
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('profile_directory'), $fileName);
+            $profile->setPhoto($fileName);
+        } else {
+            $original_data = $em->getUnitOfWork()->getOriginalEntityData($profile);
+            $photo = $original_data['photo'];
+            $profile->setPhoto($photo);
+        }
+
+        return $profile;
     }
 }

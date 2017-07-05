@@ -104,7 +104,7 @@ class UserController extends Controller
             try {
                 $em->flush();
             } catch (ForeignKeyConstraintViolationException $e) {
-                $this->addFlash('success', 'user.flash.deleted.children');
+                $this->addFlash('success', 'user.flash.deleted');
 
                 return $this->redirectToRoute('admin_user_home');
             }

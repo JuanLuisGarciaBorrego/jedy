@@ -10,14 +10,5 @@ namespace AppBundle\Repository;
  */
 class ProfileRepository extends \Doctrine\ORM\EntityRepository
 {
-    /*public function getProfile($id)
-    {
-        return $this->createQueryBuilder('p')
-                ->select('p, us')
-                ->join('p.user', 'us')
-                ->where('p.user = :id')
-                ->setParameter('id', $id)
-                ->getQuery()
-                ->getResult();
-    }*/
+
 }
