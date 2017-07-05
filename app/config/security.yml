@@ -25,5 +25,5 @@ security:
               target: /
 
     access_control:
-        - { path: ^/(%app_locales%)/admin/login,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(%app_locales%)/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(%app_locales%)/admin, roles: ROLE_ADMIN }

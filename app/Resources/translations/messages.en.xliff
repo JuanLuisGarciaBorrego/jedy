@@ -447,6 +447,39 @@
                 <source>user.flash.deleted</source>
                 <target>The user was deleted</target>
             </trans-unit>
+
+            <trans-unit id="profile.title">
+                <source>profile.title</source>
+                <target>Profile</target>
+            </trans-unit>
+            <trans-unit id="profile.edit_profile">
+                <source>profile.edit_profile</source>
+                <target>Edit profile</target>
+            </trans-unit>
+            <trans-unit id="profile.last_name">
+                <source>profile.last_name</source>
+                <target>Last name</target>
+            </trans-unit>
+            <trans-unit id="profile.first_name">
+                <source>profile.first_name</source>
+                <target>First name</target>
+            </trans-unit>
+            <trans-unit id="profile.public_email">
+                <source>profile.public_email</source>
+                <target>Public email</target>
+            </trans-unit>
+            <trans-unit id="profile.location">
+                <source>profile.location</source>
+                <target>Location</target>
+            </trans-unit>
+            <trans-unit id="profile.about">
+                <source>profile.about</source>
+                <target>About me</target>
+            </trans-unit>
+            <trans-unit id="profile.photo">
+                <source>profile.photo</source>
+                <target>Photo</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

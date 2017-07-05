@@ -11,6 +11,7 @@ parameters:
     app_locales: es|en|fr
     uploads_directory_name: 'uploads'
     uploads_directory: '%kernel.root_dir%/../web/%uploads_directory_name%'
+    profile_directory: '%kernel.root_dir%/../web/%uploads_directory_name%/profiles'
     google_analytics:
         enable: '%enable_google_analytics%'
         code: 'UA-XXXXX-X'
