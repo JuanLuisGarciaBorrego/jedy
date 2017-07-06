@@ -64,7 +64,11 @@
             </trans-unit>
             <trans-unit id="app.profile">
                 <source>app.profile</source>
-                <target>Perfíl</target>
+                <target>Profile</target>
+            </trans-unit>
+            <trans-unit id="app.configuration">
+                <source>app.configuration</source>
+                <target>Configuration</target>
             </trans-unit>
             <trans-unit id="app.visit.website">
                 <source>app.visit.website</source>
@@ -479,6 +483,15 @@
             <trans-unit id="profile.photo">
                 <source>profile.photo</source>
                 <target>Photo</target>
+            </trans-unit>
+
+            <trans-unit id="configuration.title">
+                <source>configuration.title</source>
+                <target>Configuration</target>
+            </trans-unit>
+            <trans-unit id="configuration.edit_configuration">
+                <source>configuration.edit_configuration</source>
+                <target>Edit configuration</target>
             </trans-unit>
         </body>
     </file>

@@ -6,8 +6,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\ConfigurationForm;
 use AppBundle\Form\ProfileForm;
-use AppBundle\Entity\Profile;
 
 /**
  * @Route("/admin")
@@ -56,6 +56,33 @@ class AdminController extends Controller
             [
                 'form' => $form->createView(),
                 'profile' => $profile
+            ]
+        );
+    }
+
+    /**
+     * @Route("/configuration/", name="admin_edit_configuration")
+     * @Method({"GET", "POST"})
+     */
+    public function editConfigurationAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $config = $em->getRepository('AppBundle:Configuration')->findOneBy([]);
+        
+        $form = $this->createForm(ConfigurationForm::class, $config);
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($config);
+            $em->flush();
+            return $this->redirectToRoute('admin_home');
+        }
+
+        return $this->render(
+            'admin/admin_edit_config.html.twig',
+            [
+                'form' => $form->createView(),
+                'config' => $config
             ]
         );
     }

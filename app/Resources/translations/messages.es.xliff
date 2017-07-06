@@ -66,6 +66,10 @@
                 <source>app.profile</source>
                 <target>Perfil</target>
             </trans-unit>
+            <trans-unit id="app.configuration">
+                <source>app.configuration</source>
+                <target>Configuración</target>
+            </trans-unit>
             <trans-unit id="app.visit.website">
                 <source>app.visit.website</source>
                 <target>Visitar sitio</target>
@@ -479,6 +483,15 @@
             <trans-unit id="profile.photo">
                 <source>profile.photo</source>
                 <target>Foto</target>
+            </trans-unit>
+
+            <trans-unit id="configuration.title">
+                <source>configuration.title</source>
+                <target>Configuración</target>
+            </trans-unit>
+            <trans-unit id="configuration.edit_configuration">
+                <source>configuration.edit_configuration</source>
+                <target>Editar configuración</target>
             </trans-unit>
         </body>
     </file>

@@ -109,6 +109,11 @@ class Content
     private $parentMultilangue;
 
     /**
+     * @ORM\OneToMany(targetEntity="Configuration", mappedBy="content")
+     */
+    private $configurations;
+
+    /**
      * Get id.
      *
      * @return int
@@ -402,5 +407,39 @@ class Content
     public function __toString()
     {
         return $this->getTitle().' ['.$this->getLocale().']';
+    }
+
+    /**
+     * Add configuration
+     *
+     * @param \AppBundle\Entity\Configuration $configuration
+     *
+     * @return Content
+     */
+    public function addConfiguration(\AppBundle\Entity\Configuration $configuration)
+    {
+        $this->configurations[] = $configuration;
+
+        return $this;
+    }
+
+    /**
+     * Remove configuration
+     *
+     * @param \AppBundle\Entity\Configuration $configuration
+     */
+    public function removeConfiguration(\AppBundle\Entity\Configuration $configuration)
+    {
+        $this->configurations->removeElement($configuration);
+    }
+
+    /**
+     * Get configurations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getConfigurations()
+    {
+        return $this->configurations;
     }
 }
