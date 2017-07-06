@@ -460,6 +460,10 @@
                 <source>profile.edit_profile</source>
                 <target>Edit profile</target>
             </trans-unit>
+            <trans-unit id="profile.flash.edited">
+                <source>profile.flash.edited</source>
+                <target>The profile was edited</target>
+            </trans-unit>
             <trans-unit id="profile.last_name">
                 <source>profile.last_name</source>
                 <target>Last name</target>
@@ -492,6 +496,26 @@
             <trans-unit id="configuration.edit_configuration">
                 <source>configuration.edit_configuration</source>
                 <target>Edit configuration</target>
+            </trans-unit>
+            <trans-unit id="configuration.flash.edited">
+                <source>configuration.flash.edited</source>
+                <target>The configuration was edited</target>
+            </trans-unit>
+            <trans-unit id="configuration.site_title">
+                <source>configuration.site_title</source>
+                <target>Site title</target>
+            </trans-unit>
+            <trans-unit id="configuration.site_description">
+                <source>configuration.site_description</source>
+                <target>Site description</target>
+            </trans-unit>
+            <trans-unit id="configuration.enable_blog">
+                <source>configuration.enable_blog</source>
+                <target>Enable blog</target>
+            </trans-unit>
+            <trans-unit id="configuration.index_page">
+                <source>configuration.index_page</source>
+                <target>Index page</target>
             </trans-unit>
         </body>
     </file>

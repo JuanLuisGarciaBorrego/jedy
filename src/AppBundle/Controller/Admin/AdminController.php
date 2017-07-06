@@ -57,7 +57,10 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($config);
             $em->flush();
-            return $this->redirectToRoute('admin_home');
+
+            $this->addFlash('success', 'configuration.flash.edited');
+
+            return $this->redirectToRoute('admin_edit_configuration');
         }
 
         return $this->render(
