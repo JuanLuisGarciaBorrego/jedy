@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
- * @ORM\Table(name="users")
+ * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User implements AdvancedUserInterface, \Serializable
@@ -107,13 +107,15 @@ class User implements AdvancedUserInterface, \Serializable
     /** @see \Serializable::serialize() */
     public function serialize()
     {
-        return serialize([
-            $this->id,
-            $this->username,
-            $this->password,
-            // see section on salt below
-            // $this->salt,
-        ]);
+        return serialize(
+            [
+                $this->id,
+                $this->username,
+                $this->password,
+                // see section on salt below
+                // $this->salt,
+            ]
+        );
     }
 
     /** @see \Serializable::unserialize() */
@@ -123,7 +125,7 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-        ) = unserialize($serialized);
+            ) = unserialize($serialized);
     }
 
     /**
@@ -160,6 +162,7 @@ class User implements AdvancedUserInterface, \Serializable
     public function setPassword($password)
     {
         $this->password = $password;
+
         return $this;
     }
 
@@ -178,7 +181,7 @@ class User implements AdvancedUserInterface, \Serializable
     {
         $this->plainPassword = $plainPassword;
 
-        $this->password =  null;
+        $this->password = null;
     }
 
     /**
@@ -249,19 +252,14 @@ class User implements AdvancedUserInterface, \Serializable
         return $this->isActive;
     }
 
-    public function __toString()
-    {
-        return $this->getUsername();
-    }
-
     /**
      * Set profile
      *
-     * @param \AppBundle\Entity\Profile $profile
+     * @param Profile $profile | null
      *
      * @return User
      */
-    public function setProfile(\AppBundle\Entity\Profile $profile = null)
+    public function setProfile(Profile $profile = null)
     {
         $this->profile = $profile;
 
@@ -271,10 +269,15 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Get profile
      *
-     * @return \AppBundle\Entity\Profile
+     * @return Profile
      */
     public function getProfile()
     {
         return $this->profile;
+    }
+
+    public function __toString()
+    {
+        return $this->getUsername();
     }
 }

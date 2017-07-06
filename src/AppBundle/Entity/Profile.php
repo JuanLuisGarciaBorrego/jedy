@@ -2,10 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * Profile.
@@ -73,12 +71,6 @@ class Profile
      * )
      */
     private $photo;
-
-    /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="profile")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
-     */
-    private $user;
 
     /**
      * Get id
@@ -163,30 +155,6 @@ class Profile
     }
 
     /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Profile
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
      * Set firstName
      *
      * @param string $firstName
@@ -256,5 +224,10 @@ class Profile
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function __toString()
+    {
+        return ($this->getFirstName()) ? $this->getFirstName(): '';
     }
 }

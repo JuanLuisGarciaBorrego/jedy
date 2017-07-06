@@ -70,7 +70,7 @@ services:
        tags:
            - { name: doctrine.event_subscriber }
    
-   app.doctrine.create_profile_user_listener:
-       class: AppBundle\Doctrine\CreateProfileUserListener
-       tags:
-           - { name: doctrine.event_subscriber }
+   #app.doctrine.create_profile_user_listener:
+   #    class: AppBundle\Doctrine\CreateProfileUserListener
+   #    tags:
+   #        - { name: doctrine.event_subscriber }
