@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use AppBundle\Form\ProfileForm;
+use AppBundle\Entity\Profile;
 
 /**
  * @Route("/admin/user")
@@ -52,10 +54,12 @@ class UserController extends Controller
             return $this->redirectToRoute('admin_user_home');
         }
 
-        return $this->render('admin/user/admin_user_new.html.twig',
-        [
-            'form' => $form->createView(),
-        ]);
+        return $this->render(
+            'admin/user/admin_user_new.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
     }
 
     /**
@@ -126,5 +130,60 @@ class UserController extends Controller
             ->setAction($this->generateUrl('admin_user_delete', ['id' => $user->getId()]))
             ->setMethod('DELETE')
             ->getForm();
+    }
+
+    /**
+     * @Route("/profile/", name="admin_edit_profile")
+     * @Method({"GET", "POST"})
+     */
+    public function editProfileAction(Request $request)
+    {
+
+        $form = $this->createForm(ProfileForm::class, $this->getUser()->getProfile());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $file = $form['photo']->getData();
+            $profile = $this->uploadPhotoProfile($file, $this->getUser()->getProfile());
+
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($profile);
+            $em->flush();
+
+            $this->addFlash('success', 'user.flash.edited');
+
+            return $this->redirectToRoute('admin_edit_profile');
+        }
+
+        return $this->render(
+            'admin/admin_edit_profile.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /*
+    * Upload photo of profile in the entity Profile
+    * @param $file Symfony\Component\HttpFoundation\File\File
+    * @param $profile AppBundle\Entity\Profile
+    * @param $em Doctrine\ORM\EntityManager
+    */
+    private function uploadPhotoProfile($file, $profile)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if (isset($file)) {
+            $fileName = md5(uniqid()).'.'.$file->guessExtension();
+            $file->move($this->getParameter('profile_directory'), $fileName);
+            $profile->setPhoto($fileName);
+        } else {
+            $original_data = $em->getUnitOfWork()->getOriginalEntityData($profile);
+            $photo = $original_data['photo'];
+            $profile->setPhoto($photo);
+        }
+
+        return $profile;
     }
 }

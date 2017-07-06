@@ -11,8 +11,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="profile")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProfileRepository")
  */
-class Profile 
+class Profile
 {
+    const PATH = '/uploads/profiles/';
+    const DEFAULT_PROFILE = 'default_profile.png';
+
     /**
      * @var int
      *
@@ -71,6 +74,14 @@ class Profile
      * )
      */
     private $photo;
+
+    /**
+     * Profile constructor.
+     */
+    public function __construct()
+    {
+        $this->photo = self::DEFAULT_PROFILE;
+    }
 
     /**
      * Get id
@@ -151,7 +162,13 @@ class Profile
      */
     public function getPhoto()
     {
-        return $this->photo;
+        $photo = $this->photo;
+
+        if (!$photo) {
+            $this->photo = self::DEFAULT_PROFILE;
+        }
+
+        return self::PATH.$this->photo;
     }
 
     /**
@@ -228,6 +245,6 @@ class Profile
 
     public function __toString()
     {
-        return ($this->getFirstName()) ? $this->getFirstName(): '';
+        return ($this->getFirstName()) ? $this->getFirstName() : '';
     }
 }

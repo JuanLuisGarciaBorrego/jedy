@@ -68,7 +68,7 @@ class Category
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="children", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      *
      * @AppAssert\HasTranslationParent()

@@ -51,7 +51,7 @@ class User implements AdvancedUserInterface, \Serializable
     private $isActive;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Profile", fetch="EAGER")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Profile", fetch="EAGER", cascade={"persist"})
      */
     private $profile;
 
@@ -112,6 +112,7 @@ class User implements AdvancedUserInterface, \Serializable
                 $this->id,
                 $this->username,
                 $this->password,
+                $this->profile
                 // see section on salt below
                 // $this->salt,
             ]
@@ -125,6 +126,7 @@ class User implements AdvancedUserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
+            $this->profile
             ) = unserialize($serialized);
     }
 

@@ -50,6 +50,8 @@ class UserForm extends AbstractType
                     'required' => false,
                 ]
             );
+
+        $builder->add('profile', ProfileForm::class);
     }
 
     /**
