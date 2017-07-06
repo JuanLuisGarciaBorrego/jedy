@@ -4,13 +4,19 @@
 
 {% block content %}
 
-    <div class="jumbotron text-center">
-        <h1>{{ 'app.welcome'|trans }}</h1>
-        <p>{{ 'app.description'|trans()|raw }}</p>
-        <p><a href="https://github.com/JuanLuisGarciaBorrego/jedy" target="_new" class="btn btn-primary btn-lg"><i class="fa fa-github"></i> {{ 'app.view.project'|trans() }}</a></p>
-    </div>
+    {% if config.content %}
+        <h1>{{ config.content.title }}</h1>
+        <p>{{ config.content.summary|raw }}</p>
+        <p>{{ config.content.content|raw }}</p>
+    {% else %}
+        <div class="jumbotron text-center">
+            <h1>{{ 'app.welcome'|trans }}</h1>
+            <p>{{ 'app.description'|trans()|raw }}</p>
+            <p><a href="https://github.com/JuanLuisGarciaBorrego/jedy" target="_new" class="btn btn-primary btn-lg"><i class="fa fa-github"></i> {{ 'app.view.project'|trans() }}</a></p>
+        </div>
 
-    <div class="row">
-    </div>
+        <div class="row">
+        </div>
+    {% endif %}
 
 {% endblock %}
