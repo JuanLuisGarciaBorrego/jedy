@@ -51,7 +51,7 @@ class User implements AdvancedUserInterface, \Serializable
     private $isActive;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Profile")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Profile", fetch="EAGER")
      */
     private $profile;
 
