@@ -2,9 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>{% block title %}{% endblock %} | Jedy CMS Multi-language</title>
+    <title>{% block title %}{% endblock %} | {{ get_configuration()['site_title'] }}</title>
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <meta name="description" content="{{ get_configuration()['site_description'] }}" />
 </head>
 <body>
     {% block body %}{% endblock %}

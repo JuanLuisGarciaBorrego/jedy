@@ -13,6 +13,8 @@ class LoadConfigurationData implements FixtureInterface
     public function load(ObjectManager $manager)
     {
         $config = new Configuration();
+        $config->setTitleSite("Jedy CMS");
+        $config->setDescriptionSite("Jedy CMS Multi-language is created with Symfony 3");
         $config->setEnableBlog(true);
 
         $manager->persist($config);
