@@ -48,7 +48,9 @@ class AdminController extends Controller
 
             $em->persist($profile);
             $em->flush();
-            return $this->redirectToRoute('admin_home');
+
+            $this->addFlash('success', 'user.flash.edited');
+            return $this->redirectToRoute('admin_edit_profile');
         }
 
         return $this->render(
