@@ -4,22 +4,26 @@
 
 {% block content %}
 
+    <ul class="breadcrumb">
+        <li><a href="{{ path('admin_home') }}">Home</a></li>
+        <li class="active">{{ 'app.profile'|trans }}</li>
+    </ul>
+
+    {% include 'admin/_flashbag.html.twig' %}
+
     <div class="row margin-vertical-md">
         <div class="col-xs-8">
             <h1 class="h-btn-line">{{ 'profile.title'|trans }}</h1>
         </div>
     </div>
 
-    {% if profile.photo %}
-    <img src="{{ asset('uploads/profiles/' ~ profile.photo) }}" class="img-responsive" width="200px" height="200px" />
-    {% else %}
-    <img src="{{ asset('img/profile.png') }}" class="img-responsive" width="200px" height="200px" />
-    {% endif %}
+    <img src="{{ asset(form.vars.data.photo) }}" class="img-responsive" width="200px" height="200px" />
+
     <hr />
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-primary">{{ 'profile.edit_profile'|trans }}</button>
     {{ form_end(form) }}
-
+    <br>
 {% endblock %}

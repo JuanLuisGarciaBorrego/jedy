@@ -17,3 +17,5 @@
 .idea/
 .DS_Store
 .rules
+/web/uploads/profiles/*
+!/web/uploads/profiles/default_profile.png

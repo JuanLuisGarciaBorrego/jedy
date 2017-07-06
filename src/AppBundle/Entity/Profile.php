@@ -2,10 +2,8 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use AppBundle\Validator\Constraints as AppAssert;
 
 /**
  * Profile.
@@ -13,8 +11,11 @@ use AppBundle\Validator\Constraints as AppAssert;
  * @ORM\Table(name="profile")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ProfileRepository")
  */
-class Profile 
+class Profile
 {
+    const PATH = '/uploads/profiles/';
+    const DEFAULT_PROFILE = 'default_profile.png';
+
     /**
      * @var int
      *
@@ -75,10 +76,12 @@ class Profile
     private $photo;
 
     /**
-     * @ORM\OneToOne(targetEntity="User", inversedBy="profile")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     * Profile constructor.
      */
-    private $user;
+    public function __construct()
+    {
+        $this->photo = self::DEFAULT_PROFILE;
+    }
 
     /**
      * Get id
@@ -159,31 +162,13 @@ class Profile
      */
     public function getPhoto()
     {
-        return $this->photo;
-    }
+        $photo = $this->photo;
 
-    /**
-     * Set user
-     *
-     * @param \AppBundle\Entity\User $user
-     *
-     * @return Profile
-     */
-    public function setUser(\AppBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
+        if (!$photo) {
+            $this->photo = self::DEFAULT_PROFILE;
+        }
 
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \AppBundle\Entity\User
-     */
-    public function getUser()
-    {
-        return $this->user;
+        return self::PATH.$this->photo;
     }
 
     /**
@@ -256,5 +241,10 @@ class Profile
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function __toString()
+    {
+        return ($this->getFirstName()) ? $this->getFirstName() : '';
     }
 }

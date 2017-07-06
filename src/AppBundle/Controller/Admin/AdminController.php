@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\ConfigurationForm;
-use AppBundle\Form\ProfileForm;
+
 
 /**
  * @Route("/admin")
@@ -20,42 +20,24 @@ class AdminController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('admin/admin_home.html.twig', [
-            'count' => [
-                'category' => $this->getDoctrine()->getRepository('AppBundle:Category')->getTotalCategories($this->getParameter('locale_active')),
-                'post' => $this->getDoctrine()->getRepository('AppBundle:Content')->getTotalRegisters($this->getParameter('locale_active'), 'post', true),
-                'page' => $this->getDoctrine()->getRepository('AppBundle:Content')->getTotalRegisters($this->getParameter('locale_active'), 'page', true),
-            ],
-        ]);
-    }
-
-    /**
-     * @Route("/profile/", name="admin_edit_profile")
-     * @Method({"GET", "POST"})
-     */
-    public function editProfileAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $profile = $em->getRepository('AppBundle:Profile')->find($user);
-        
-        $form = $this->createForm(ProfileForm::class, $profile);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form['photo']->getData();
-            $profile = $this->uploadPhotoProfile($file, $profile, $em);
-
-            $em->persist($profile);
-            $em->flush();
-            return $this->redirectToRoute('admin_home');
-        }
-
         return $this->render(
-            'admin/admin_edit_profile.html.twig',
+            'admin/admin_home.html.twig',
             [
-                'form' => $form->createView(),
-                'profile' => $profile
+                'count' => [
+                    'category' => $this->getDoctrine()->getRepository('AppBundle:Category')->getTotalCategories(
+                        $this->getParameter('locale_active')
+                    ),
+                    'post' => $this->getDoctrine()->getRepository('AppBundle:Content')->getTotalRegisters(
+                        $this->getParameter('locale_active'),
+                        'post',
+                        true
+                    ),
+                    'page' => $this->getDoctrine()->getRepository('AppBundle:Content')->getTotalRegisters(
+                        $this->getParameter('locale_active'),
+                        'page',
+                        true
+                    ),
+                ],
             ]
         );
     }
@@ -85,26 +67,5 @@ class AdminController extends Controller
                 'config' => $config
             ]
         );
-    }
-
-    /*
-    * Upload photo of profile in the entity Profile
-    * @param $file Symfony\Component\HttpFoundation\File\File 
-    * @param $profile AppBundle\Entity\Profile
-    * @param $em Doctrine\ORM\EntityManager
-    */
-    private function uploadPhotoProfile($file, $profile, $em) 
-    {   
-        if(isset($file)) {
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-            $file->move($this->getParameter('profile_directory'), $fileName);
-            $profile->setPhoto($fileName);
-        } else {
-            $original_data = $em->getUnitOfWork()->getOriginalEntityData($profile);
-            $photo = $original_data['photo'];
-            $profile->setPhoto($photo);
-        }
-
-        return $profile;
     }
 }
