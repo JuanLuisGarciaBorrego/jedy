@@ -2,6 +2,7 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Entity\Configuration;
 use AppBundle\Entity\Content;
 use AppBundle\Util\Locales;
 use Doctrine\ORM\EntityManager;
@@ -58,6 +59,7 @@ class AppPublicExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('translation_content', [$this, 'translation_content'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('nav_locale', [$this, 'nav_locale'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('check_enable_blog', [$this, 'check_enable_blog'], ['is_safe' => ['html']]),
         );
     }
 
@@ -141,6 +143,15 @@ class AppPublicExtension extends \Twig_Extension
 
             return $result;
         }
+    }
+
+    /*
+    * Check if is enable the blog in the configuration
+    */
+    public function check_enable_blog() 
+    {
+        $config = $this->em->getRepository('AppBundle:Configuration')->findOneBy([]);
+        return $config->getEnableBlog();
     }
 
     /**

@@ -2,12 +2,13 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
 use AppBundle\Entity\Content;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use AppBundle\Entity\Category;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * @Route("/blog")
@@ -21,6 +22,7 @@ class BlogController extends Controller
      */
     public function indexAction($page)
     {
+        $this->check_enable_blog();
         $postPagination = $this->get('pagination')->create(
             'post',
             $page,
@@ -47,6 +49,7 @@ class BlogController extends Controller
      */
     public function categoryAction(Category $category, $page)
     {
+        $this->check_enable_blog();
         $postPagination = $this->get('pagination')->create(
             'post',
             $page,
@@ -78,6 +81,20 @@ class BlogController extends Controller
      */
     public function postShowAction(Content $post)
     {
+        $this->check_enable_blog();
         return $this->render('public/blog/blog_post.html.twig', ['post' => $post]);
+    }
+
+    /*
+    * Check if is enable the blog in the configuration
+    */
+    private function check_enable_blog() 
+    {
+        $em = $this->getDoctrine()->getManager();
+        $config = $em->getRepository('AppBundle:Configuration')->findOneBy([]);
+        if (!$config->getEnableBlog()) 
+        {
+            throw new NotFoundHttpException("Page not found");
+        }
     }
 }
