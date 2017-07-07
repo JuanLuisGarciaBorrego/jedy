@@ -10,8 +10,9 @@ parameters:
     locale_active: 'es'
     app_locales: es|en|fr
     uploads_directory_name: 'uploads'
+    uploads_profile_directory_name: 'profiles'
     uploads_directory: '%kernel.root_dir%/../web/%uploads_directory_name%'
-    profile_directory: '%kernel.root_dir%/../web/%uploads_directory_name%/profiles'
+    profile_directory: '%kernel.root_dir%/../web/%uploads_directory_name%/%uploads_profile_directory_name%'
     google_analytics:
         enable: '%enable_google_analytics%'
         code: 'UA-XXXXX-X'

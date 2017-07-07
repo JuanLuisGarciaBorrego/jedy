@@ -138,17 +138,20 @@ class UserController extends Controller
      */
     public function editProfileAction(Request $request)
     {
-
         $form = $this->createForm(ProfileForm::class, $this->getUser()->getProfile());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $file = $form['photo']->getData();
-            $profile = $this->uploadPhotoProfile($file, $this->getUser()->getProfile());
+
+            $newName = $this->get('cocur_slugify')->slugify($this->getUser()->getUsername()).'.'.$file->getClientOriginalExtension();
+            $file->move($this->getParameter('profile_directory'), $newName);
+            $this->getUser()->getProfile()->setPhoto($newName);
 
             $em = $this->getDoctrine()->getManager();
 
-            $em->persist($profile);
+            $em->persist($this->getUser()->getProfile());
             $em->flush();
 
             $this->addFlash('success', 'user.flash.edited');
@@ -162,28 +165,5 @@ class UserController extends Controller
                 'form' => $form->createView(),
             ]
         );
-    }
-
-    /*
-    * Upload photo of profile in the entity Profile
-    * @param $file Symfony\Component\HttpFoundation\File\File
-    * @param $profile AppBundle\Entity\Profile
-    * @param $em Doctrine\ORM\EntityManager
-    */
-    private function uploadPhotoProfile($file, $profile)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        if (isset($file)) {
-            $fileName = md5(uniqid()).'.'.$file->guessExtension();
-            $file->move($this->getParameter('profile_directory'), $fileName);
-            $profile->setPhoto($fileName);
-        } else {
-            $original_data = $em->getUnitOfWork()->getOriginalEntityData($profile);
-            $photo = $original_data['photo'];
-            $profile->setPhoto($photo);
-        }
-
-        return $profile;
     }
 }
