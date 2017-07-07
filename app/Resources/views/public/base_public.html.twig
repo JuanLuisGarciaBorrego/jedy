@@ -18,12 +18,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ path('app_index') }}">Jedy CMS</a>
+                <a class="navbar-brand" href="{{ path('app_index') }}">{{ get_configuration()['site_title'] }}</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="{{ path('app_index') }}">Home</a></li>
+                    {% if get_configuration()['enable_blog']  %}
                     <li><a href="{{ path('app_blog_index') }}">Blog</a></li>
+                    {% endif %}
                 </ul>
 
                 {{ nav_locale('principal', app.request.locale)  }}

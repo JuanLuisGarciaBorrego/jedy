@@ -15,7 +15,9 @@ class AppController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('public/app/app_index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $config = $em->getRepository('AppBundle:Configuration')->findOneBy([]);
+        return $this->render('public/app/app_index.html.twig', ['config' => $config]);
     }
 
     /**

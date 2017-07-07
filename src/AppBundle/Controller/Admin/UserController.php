@@ -154,7 +154,7 @@ class UserController extends Controller
             $em->persist($this->getUser()->getProfile());
             $em->flush();
 
-            $this->addFlash('success', 'user.flash.edited');
+            $this->addFlash('success', 'profile.flash.edited');
 
             return $this->redirectToRoute('admin_edit_profile');
         }

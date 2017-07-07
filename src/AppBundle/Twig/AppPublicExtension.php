@@ -2,6 +2,7 @@
 
 namespace AppBundle\Twig;
 
+use AppBundle\Entity\Configuration;
 use AppBundle\Entity\Content;
 use AppBundle\Util\Locales;
 use Doctrine\ORM\EntityManager;
@@ -39,6 +40,11 @@ class AppPublicExtension extends \Twig_Extension
      */
     private $em;
 
+    /*
+    * @var AppBundle\Entity\Configuration
+    */
+    private $configuration;
+
     /**
      * @param Locales $locales
      * @param UrlGeneratorInterface $urlGenerator
@@ -51,6 +57,8 @@ class AppPublicExtension extends \Twig_Extension
         $this->urlGenerator = $urlGenerator;
         $this->session = $session;
         $this->em = $em;
+        //Get data configuration
+        $this->configuration = $this->em->getRepository('AppBundle:Configuration')->findOneBy([]);
     }
 
     public function getFunctions()
@@ -58,6 +66,7 @@ class AppPublicExtension extends \Twig_Extension
         return array(
             new \Twig_SimpleFunction('translation_content', [$this, 'translation_content'], ['is_safe' => ['html']]),
             new \Twig_SimpleFunction('nav_locale', [$this, 'nav_locale'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('get_configuration', [$this, 'get_configuration'], ['is_safe' => ['html']]),
         );
     }
 
@@ -141,6 +150,19 @@ class AppPublicExtension extends \Twig_Extension
 
             return $result;
         }
+    }
+
+    /*
+    * Return the configuration record
+    */
+    public function get_configuration() 
+    {
+        $record = array(
+            "enable_blog" => $this->configuration->getEnableBlog(),
+            "site_title" => $this->configuration->getTitleSite(),
+            "site_description" => $this->configuration->getDescriptionSite()
+        );
+        return $record;
     }
 
     /**

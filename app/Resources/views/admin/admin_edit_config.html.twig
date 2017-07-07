@@ -1,0 +1,25 @@
+{% extends ':admin:base_admin.html.twig' %}
+
+{% block title %} {{ 'configuration.title'|trans }} {% endblock %}
+
+{% block content %}
+
+    <ul class="breadcrumb">
+        <li><a href="{{ path('admin_home') }}">Home</a></li>
+        <li class="active">{{ 'configuration.title'|trans }}</li>
+    </ul>
+
+    {% include 'admin/_flashbag.html.twig' %}
+
+    <div class="row margin-vertical-md">
+        <div class="col-xs-8">
+            <h1 class="h-btn-line">{{ 'configuration.title'|trans }}</h1>
+        </div>
+    </div>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">{{ 'configuration.edit_configuration'|trans }}</button>
+    {{ form_end(form) }}
+
+{% endblock %}
