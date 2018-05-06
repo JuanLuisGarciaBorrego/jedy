@@ -1,0 +1,522 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="de" target-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="app.welcome">
+                <source>app.welcome</source>
+                <target>Willkommen zu Jedy</target>
+            </trans-unit>
+            <trans-unit id="app.description">
+                <source>app.description</source>
+                <target>Ein "kleines"<![CDATA[<i class="fa fa-hand-lizard-o"></i>]]> CMS für mehrsprachige Webseite erstellt mit Symfony3</target>
+            </trans-unit>
+            <trans-unit id="app.view.project">
+                <source>app.view.project</source>
+                <target>Das Projekt ansehen</target>
+            </trans-unit>
+            <trans-unit id="app.translation">
+                <source>app.translation</source>
+                <target>Übersetzung</target>
+            </trans-unit>
+            <trans-unit id="app.translations">
+                <source>app.translations</source>
+                <target>Übersetzungen</target>
+            </trans-unit>
+            <trans-unit id="app.translation.edit">
+                <source>app.translation.edit</source>
+                <target>Übersetzung bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="app.translation.add">
+                <source>app.translation.add</source>
+                <target>Übersetzung hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="app.edit">
+                <source>app.edit</source>
+                <target>Bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="app.delete">
+                <source>app.delete</source>
+                <target>Löschen</target>
+            </trans-unit>
+            <trans-unit id="app.confirm.delete.record">
+                <source>app.confirm.delete.record</source>
+                <target>Möchten Sie den ausgewählten Datensatz löschen?</target>
+            </trans-unit>
+            <trans-unit id="app.actions">
+                <source>app.actions</source>
+                <target>Aktionen</target>
+            </trans-unit>
+            <trans-unit id="app.language">
+                <source>app.language</source>
+                <target>Sprache</target>
+            </trans-unit>
+            <trans-unit id="app.pagination.older">
+                <source>app.pagination.older</source>
+                <target>Älter</target>
+            </trans-unit>
+            <trans-unit id="app.pagination.newer">
+                <source>app.pagination.newer</source>
+                <target>Neuer</target>
+            </trans-unit>
+            <trans-unit id="app.administration">
+                <source>app.administration</source>
+                <target>Administration</target>
+            </trans-unit>
+            <trans-unit id="app.profile">
+                <source>app.profile</source>
+                <target>Profil</target>
+            </trans-unit>
+            <trans-unit id="app.configuration">
+                <source>app.configuration</source>
+                <target>Konfiguration</target>
+            </trans-unit>
+            <trans-unit id="app.visit.website">
+                <source>app.visit.website</source>
+                <target>Website ansehen</target>
+            </trans-unit>
+            <trans-unit id="app.close.session">
+                <source>app.close.session</source>
+                <target>Session schließen</target>
+            </trans-unit>
+            <trans-unit id="app.private">
+                <source>app.private</source>
+                <target>Privat</target>
+            </trans-unit>
+            <trans-unit id="app.website">
+                <source>app.website</source>
+                <target>Website</target>
+            </trans-unit>
+            <trans-unit id="app.about">
+                <source>app.about</source>
+                <target>Über uns</target>
+            </trans-unit>
+            <trans-unit id="app.github">
+                <source>app.github</source>
+                <target>Projekt bei Github</target>
+            </trans-unit>
+            <trans-unit id="app.read.more">
+                <source>app.read.more</source>
+                <target>Mehr lesen</target>
+            </trans-unit>
+            <trans-unit id="app.404.title">
+                <source>app.404.title</source>
+                <target>Seite nicht gefunden</target>
+            </trans-unit>
+            <trans-unit id="app.404.message">
+                <source>app.404.message</source>
+                <target>Die angeforderte Seite konnte nicht gefunden werden</target>
+            </trans-unit>
+            <trans-unit id="app.error.home">
+                <source>app.error.home</source>
+                <target>Zurück zur Startseite</target>
+            </trans-unit>
+            <trans-unit id="app.yes">
+                <source>app.yes</source>
+                <target>Ja</target>
+            </trans-unit>
+            <trans-unit id="app.no">
+                <source>app.no</source>
+                <target>Nein</target>
+            </trans-unit>
+
+            <trans-unit id="category.title.singular">
+                <source>category.title.singular</source>
+                <target>Kategorie</target>
+            </trans-unit>
+            <trans-unit id="category.title.plural">
+                <source>category.title.plural</source>
+                <target>Kategorien</target>
+            </trans-unit>
+            <trans-unit id="category.add">
+                <source>category.add</source>
+                <target>Kategorie hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="category.edit">
+                <source>category.edit</source>
+                <target>Kategorie bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="category.translation.add">
+                <source>category.translation.add</source>
+                <target>Übersetzung zur Kategorie hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="category.name">
+                <source>category.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="category.description">
+                <source>category.description</source>
+                <target>Beschreibung</target>
+            </trans-unit>
+            <trans-unit id="category.parent">
+                <source>category.parent</source>
+                <target>Gibt es eine Elternkategorie?</target>
+            </trans-unit>
+            <trans-unit id="category.parent.select">
+                <source>category.parent.select</source>
+                <target>Wählen Sie eine Elternkategorie aus</target>
+            </trans-unit>
+            <trans-unit id="category.flash.created">
+                <source>category.flash.created</source>
+                <target>Die Kategorie wurde erstellt</target>
+            </trans-unit>
+            <trans-unit id="category.flash.edited">
+                <source>category.flash.edited</source>
+                <target>Die Kategorie wurde bearbeitet</target>
+            </trans-unit>
+            <trans-unit id="category.flash.deleted">
+                <source>category.flash.deleted</source>
+                <target>Die Kategorie wurde gelöscht</target>
+            </trans-unit>
+            <trans-unit id="category.flash.deleted.children">
+                <source>category.flash.deleted.children</source>
+                <target>Sie können diese Kategorie nicht löschen, da es noch verknüpte Inhalte gibt</target>
+            </trans-unit>
+            <trans-unit id="category.flash.translation.created">
+                <source>category.flash.translation.created</source>
+                <target>Die Übersetzung zur Kategorie wurde erstellt</target>
+            </trans-unit>
+            <trans-unit id="category.flash.translation.edited">
+                <source>category.flash.translation.edited</source>
+                <target>Die Übersetzung zur Kategorie wurde bearbeitet</target>
+            </trans-unit>
+            <trans-unit id="category.definition">
+                <source>category.definition</source>
+                <target>Jeder Eintrag gehört zu einer Kategorie, das erlaubt Ihnen die Informationen als Inhalte zu organisieren.</target>
+            </trans-unit>
+
+            <trans-unit id="content.title.singular">
+                <source>content.title.singular</source>
+                <target>Inhalt</target>
+            </trans-unit>
+            <trans-unit id="content.title.plural">
+                <source>content.title.plural</source>
+                <target>Inhalte</target>
+            </trans-unit>
+            <trans-unit id="content.type">
+                <source>content.type</source>
+                <target>Typ</target>
+            </trans-unit>
+            <trans-unit id="content.type.page">
+                <source>content.type.page</source>
+                <target>Seite</target>
+            </trans-unit>
+            <trans-unit id="content.type.post">
+                <source>content.type.post</source>
+                <target>Post</target>
+            </trans-unit>
+            <trans-unit id="content.type.all">
+                <source>content.type.all</source>
+                <target></target>
+            </trans-unit>
+            <trans-unit id="content.see.all">
+                <source>content.see.all</source>
+                <target>Alle sehen</target>
+            </trans-unit>
+            <trans-unit id="content.add">
+                <source>content.add</source>
+                <target>Inhalt hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="content.edit">
+                <source>content.edit</source>
+                <target>Inhalt bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="content.translation.add">
+                <source>content.translation.add</source>
+                <target>Übersetzung zu Inhalt erstellen</target>
+            </trans-unit>
+            <trans-unit id="content.title">
+                <source>content.title</source>
+                <target>Titel</target>
+            </trans-unit>
+            <trans-unit id="content.summary">
+                <source>content.summary</source>
+                <target>Zusammenfassung</target>
+            </trans-unit>
+            <trans-unit id="content.content">
+                <source>content.content</source>
+                <target>Inhalt</target>
+            </trans-unit>
+            <trans-unit id="content.published">
+                <source>content.published</source>
+                <target>Möchten Sie es veröffentlichen?</target>
+            </trans-unit>
+            <trans-unit id="content.category">
+                <source>content.category</source>
+                <target>Gibt es eine Kategorie?</target>
+            </trans-unit>
+            <trans-unit id="content.category.select">
+                <source>content.category.select</source>
+                <target>Wählen Sie eine Kategorie für diesen Inhalt</target>
+            </trans-unit>
+            <trans-unit id="content.flash.created">
+                <source>content.flash.created</source>
+                <target>Der Inhalt wurde erstellt</target>
+            </trans-unit>
+            <trans-unit id="content.flash.edited">
+                <source>content.flash.edited</source>
+                <target>Der Inhalt wurde bearbeitet</target>
+            </trans-unit>
+            <trans-unit id="content.flash.deleted">
+                <source>content.flash.deleted</source>
+                <target>Der Inhalt wurde gelöscht</target>
+            </trans-unit>
+            <trans-unit id="content.flash.translation.created">
+                <source>content.flash.translation.created</source>
+                <target>Die Übersetzung des Inhalts wurde erstellt</target>
+            </trans-unit>
+            <trans-unit id="content.flash.translation.edited">
+                <source>content.flash.translation.edited</source>
+                <target>Die Übersetzung des Inhalts wurde bearbeitet</target>
+            </trans-unit>
+            <trans-unit id="content.definition.page">
+                <source>content.definition.page</source>
+                <target>"Statische" Inhalte werden normalerweise benutzt, um allgemeine Informationen über Ihre Website darzustellen.</target>
+            </trans-unit>
+            <trans-unit id="content.definition.post">
+                <source>content.definition.post</source>
+                <target>Posts erscheinen Besuchern in umgekehrter chronologischer Abfolge.</target>
+            </trans-unit>
+
+            <trans-unit id="nav.title.singular">
+                <source>nav.title.singular</source>
+                <target>Menü</target>
+            </trans-unit>
+            <trans-unit id="nav.title.plural">
+                <source>nav.title.plural</source>
+                <target>Menüs</target>
+            </trans-unit>
+            <trans-unit id="nav.add">
+                <source>nav.add</source>
+                <target>Menü hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="nav.there.not">
+                <source>nav.there.not</source>
+                <target>Es gibt keine Inhalte</target>
+            </trans-unit>
+            <trans-unit id="nav.edit">
+                <source>nav.edit</source>
+                <target>Menü bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="nav.translation.add">
+                <source>nav.translation.add</source>
+                <target>Übersetzung für das Menü erstellen</target>
+            </trans-unit>
+            <trans-unit id="nav.id">
+                <source>nav.id</source>
+                <target>Id Menü</target>
+            </trans-unit>
+            <trans-unit id="nav.name">
+                <source>nav.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="nav.parent">
+                <source>nav.parent</source>
+                <target>Gibt es ein Elternmenü?</target>
+            </trans-unit>
+            <trans-unit id="nav.parent.select">
+                <source>nav.parent.select</source>
+                <target>Wählen Sie ein Elternmenü</target>
+            </trans-unit>
+            <trans-unit id="nav.sort">
+                <source>nav.sort</source>
+                <target>Sortieren</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.created">
+                <source>nav.flash.created</source>
+                <target>Das Menü wurde erstellt</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.edited">
+                <source>nav.flash.edited</source>
+                <target>Das Menü wurde bearbeitet</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.deleted">
+                <source>nav.flash.deleted</source>
+                <target>Das Menü wurde gelöscht</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.translation.generated">
+                <source>nav.flash.translation.generated</source>
+                <target>Die Übersetzung des Menüs wurde erstellt</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.translation.updated">
+                <source>nav.flash.translation.updated</source>
+                <target>Die Übersetzung des Menüs wurde aktualisiert</target>
+            </trans-unit>
+            <trans-unit id="nav.flash.exists">
+                <source>nav.flash.exists</source>
+                <target>Das Element exisitiert</target>
+            </trans-unit>
+            <trans-unit id="nav.translation.update">
+                <source>nav.translation.update</source>
+                <target>Übersetzung aktualisieren</target>
+            </trans-unit>
+            <trans-unit id="nav.translation.generate">
+                <source>nav.translation.generate</source>
+                <target>Übersetzung generieren</target>
+            </trans-unit>
+            <trans-unit id="nav.category.add">
+                <source>nav.category.add</source>
+                <target>Kategorie zum Menü hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="nav.category.select">
+                <source>nav.category.select</source>
+                <target>Wählen Sie eine Kategorie zum Hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="nav.page.add">
+                <source>nav.page.add</source>
+                <target>Seiten zum Menü hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="nav.page.select">
+                <source>nav.page.select</source>
+                <target>Wählen Sie eine Seite zum Hinzufügen</target>
+            </trans-unit>
+
+            <trans-unit id="file.title.singular">
+                <source>file.title.singular</source>
+                <target>Datei</target>
+            </trans-unit>
+            <trans-unit id="file.title.plural">
+                <source>file.title.plural</source>
+                <target>Dateien</target>
+            </trans-unit>
+            <trans-unit id="file.add">
+                <source>file.add</source>
+                <target>Datei erstellen</target>
+            </trans-unit>
+            <trans-unit id="file.name">
+                <source>file.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="file.view">
+                <source>file.view</source>
+                <target>Ansehen</target>
+            </trans-unit>
+            <trans-unit id="file.details">
+                <source>file.details</source>
+                <target>Details</target>
+            </trans-unit>
+            <trans-unit id="file.upload">
+                <source>file.upload</source>
+                <target>Datei hochladen</target>
+            </trans-unit>
+            <trans-unit id="file.flash.created">
+                <source>file.flash.created</source>
+                <target>Die Datei wurde erstellt</target>
+            </trans-unit>
+            <trans-unit id="file.flash.deleted">
+                <source>file.flash.deleted</source>
+                <target>Die Datei wurde gelöscht</target>
+            </trans-unit>
+
+            <trans-unit id="user.title.singular">
+                <source>user.title.singular</source>
+                <target>Benutzer</target>
+            </trans-unit>
+            <trans-unit id="user.title.plural">
+                <source>user.title.plural</source>
+                <target>Benutzer</target>
+            </trans-unit>
+            <trans-unit id="user.add">
+                <source>user.add</source>
+                <target>Benutzer hinzufügen</target>
+            </trans-unit>
+            <trans-unit id="user.edit">
+                <source>user.edit</source>
+                <target>Benutzer bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="user.username">
+                <source>user.username</source>
+                <target>Benutzername</target>
+            </trans-unit>
+            <trans-unit id="user.password">
+                <source>user.password</source>
+                <target>Passwort</target>
+            </trans-unit>
+            <trans-unit id="user.email">
+                <source>user.email</source>
+                <target>E-Mailadresse</target>
+            </trans-unit>
+            <trans-unit id="user.is_active">
+                <source>user.is_active</source>
+                <target>Ist aktiv</target>
+            </trans-unit>
+            <trans-unit id="user.flash.created">
+                <source>user.flash.created</source>
+                <target>Der Benutzer wurde erstellt</target>
+            </trans-unit>
+            <trans-unit id="user.flash.edited">
+                <source>user.flash.edited</source>
+                <target>Der Benutzer wurde bearbeitet</target>
+            </trans-unit>
+            <trans-unit id="user.flash.deleted">
+                <source>user.flash.deleted</source>
+                <target>Der Benutzer wurde gelöscht</target>
+            </trans-unit>
+
+            <trans-unit id="profile.title">
+                <source>profile.title</source>
+                <target>Profil</target>
+            </trans-unit>
+            <trans-unit id="profile.edit_profile">
+                <source>profile.edit_profile</source>
+                <target>Profil bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="profile.flash.edited">
+                <source>profile.flash.edited</source>
+                <target>Profil wurde bearbeitet</target>
+            </trans-unit>
+            <trans-unit id="profile.last_name">
+                <source>profile.last_name</source>
+                <target>Nachname</target>
+            </trans-unit>
+            <trans-unit id="profile.first_name">
+                <source>profile.first_name</source>
+                <target>Vorname</target>
+            </trans-unit>
+            <trans-unit id="profile.public_email">
+                <source>profile.public_email</source>
+                <target>Öffentliche E-Mailadresse</target>
+            </trans-unit>
+            <trans-unit id="profile.location">
+                <source>profile.location</source>
+                <target>Ort</target>
+            </trans-unit>
+            <trans-unit id="profile.about">
+                <source>profile.about</source>
+                <target>Über uns</target>
+            </trans-unit>
+            <trans-unit id="profile.photo">
+                <source>profile.photo</source>
+                <target>Foto</target>
+            </trans-unit>
+
+            <trans-unit id="configuration.title">
+                <source>configuration.title</source>
+                <target>Konfiguration</target>
+            </trans-unit>
+            <trans-unit id="configuration.edit_configuration">
+                <source>configuration.edit_configuration</source>
+                <target>Konfiguration bearbeiten</target>
+            </trans-unit>
+            <trans-unit id="configuration.flash.edited">
+                <source>configuration.flash.edited</source>
+                <target>Konfiguration wurde bearbeitet</target>
+            </trans-unit>
+            <trans-unit id="configuration.site_title">
+                <source>configuration.site_title</source>
+                <target>Seitentitel</target>
+            </trans-unit>
+            <trans-unit id="configuration.site_description">
+                <source>configuration.site_description</source>
+                <target>Beschreibung</target>
+            </trans-unit>
+            <trans-unit id="configuration.enable_blog">
+                <source>configuration.enable_blog</source>
+                <target>Blog aktivieren</target>
+            </trans-unit>
+            <trans-unit id="configuration.index_page">
+                <source>configuration.index_page</source>
+                <target>Startseite</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
