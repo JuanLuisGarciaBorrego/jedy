@@ -37,7 +37,7 @@ class Nav
     private $locale;
 
     /**
-     * @ORM\OneToMany(targetEntity="Nav", mappedBy="parentMultilangue", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="Nav", mappedBy="parentMultilangue", cascade={"persist", "remove"}, fetch="EAGER")
      */
     private $childrenMultilangue;
 

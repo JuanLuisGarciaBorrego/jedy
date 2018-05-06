@@ -3,9 +3,11 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Content;
+use AppBundle\Entity\ContentsNav;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Request;
 
 class AppController extends Controller
 {
@@ -25,7 +27,16 @@ class AppController extends Controller
      * @Method("GET")
      */
     public function pageAction(Content $content)
-    {
+    { 
         return $this->render('public/app/app_page.html.twig', ['page' => $content]);
+    }
+
+    public function navAction($locale)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $config = $em->getRepository('AppBundle:Configuration')->findOneBy([]);
+        $contentsNav = $em->getRepository('AppBundle:ContentsNav')->getNav($locale);
+        dump($contentsNav);
+        return $this->render('public/app/app_nav.html.twig', ['nav' => $contentsNav]);
     }
 }

@@ -155,7 +155,7 @@ class AppPublicExtension extends \Twig_Extension
     /*
     * Return the configuration record
     */
-    public function get_configuration() 
+    public function get_configuration()
     {
         $record = array(
             "enable_blog" => $this->configuration->getEnableBlog(),
@@ -211,7 +211,7 @@ class AppPublicExtension extends \Twig_Extension
                 }
             }
         }
-
+        dump($contents);
         return $contents;
     }
 

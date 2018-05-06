@@ -26,6 +26,7 @@
                     {% if get_configuration()['enable_blog']  %}
                     <li><a href="{{ path('app_blog_index') }}">Blog</a></li>
                     {% endif %}
+                    {{ render(controller('AppBundle:App:nav', { 'locale': app.request.locale })) }}
                 </ul>
 
                 {{ nav_locale('principal', app.request.locale)  }}

@@ -73,7 +73,7 @@ class NavController extends Controller
 
             $checkIdElement = function ($sessionContent) use ($sessionContents) {
                 foreach ($sessionContents as $item) {
-                    if ($item['idElement'] == $sessionContent['idElement']) {
+                    if ($item['id'] == $sessionContent['id']) {
                         return false;
                     }
                 }
@@ -123,7 +123,7 @@ class NavController extends Controller
     public function editAction(Request $request, Nav $nav = null, $idRemove = null)
     {
         $sessionContents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
-
+        dump($sessionContents);
         $form_delete = $this->formDelete($nav);
 
         if ($idRemove) {
@@ -139,7 +139,7 @@ class NavController extends Controller
 
         foreach ($nav->getContentsNav()->toArray() as $item) {
             $contentsNavBD = [
-                'idElement' => $item->getIdElement(),
+                'id' => $item->getId(),
                 'name' => $item->getName(),
                 'slug' => $item->getSlug(),
                 'type' => $item->getType(),
@@ -169,7 +169,7 @@ class NavController extends Controller
 
             $checkIdElement = function ($sessionContent) use ($sessionContents) {
                 foreach ($sessionContents as $item) {
-                    if ($item['idElement'] == $sessionContent['idElement']) {
+                    if ($item['id'] == $sessionContent['id']) {
                         return false;
                     }
                 }
@@ -313,7 +313,7 @@ class NavController extends Controller
     private function createContentsNav($sessionContent, Nav $nav)
     {
         $contentsNav = new ContentsNav();
-        $contentsNav->setIdElement($sessionContent['idElement']);
+        #$contentsNav->setId($sessionContent['id']);
         $contentsNav->setName($sessionContent['name']);
         $contentsNav->setSlug($sessionContent['slug']);
         $contentsNav->setType($sessionContent['type']);
@@ -328,7 +328,7 @@ class NavController extends Controller
     private function createSession($item, $type)
     {
         return [
-            'idElement' => $item->getId(),
+            'id' => $item->getId(),
             'name' => ($type == 'page') ? $item->getTitle() : $item->getName(),
             'slug' => $item->getSlug(),
             'type' => $type,
@@ -343,7 +343,7 @@ class NavController extends Controller
             $arrayContent = [];
 
             foreach ($contentsNav as $item) {
-                $arrayContent[$item['name']] = $item['idElement'];
+                $arrayContent[$item['name']] = $item['id'];
             }
 
             return $arrayContent;
