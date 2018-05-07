@@ -8,7 +8,7 @@ imports:
 parameters:
     locale: 'en'
     locale_active: 'es'
-    app_locales: es|en|de
+    app_locales: es|en|de|fr
     uploads_directory_name: 'uploads'
     uploads_profile_directory_name: 'profiles'
     uploads_directory: '%kernel.root_dir%/../web/%uploads_directory_name%'

@@ -211,7 +211,7 @@ class AppPublicExtension extends \Twig_Extension
                 }
             }
         }
-        dump($contents);
+
         return $contents;
     }
 
