@@ -36,6 +36,7 @@ class AppController extends Controller
         $em = $this->getDoctrine()->getManager();
         $config = $em->getRepository('AppBundle:Configuration')->findOneBy([]);
         $contentsNav = $em->getRepository('AppBundle:ContentsNav')->getNav($locale);
+   
         return $this->render('public/app/app_nav.html.twig', ['nav' => $contentsNav]);
     }
 }
