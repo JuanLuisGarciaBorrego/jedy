@@ -123,7 +123,7 @@ class NavController extends Controller
     public function editAction(Request $request, Nav $nav = null, $idRemove = null)
     {
         $sessionContents = $request->getSession()->has('contents') ? $request->getSession()->get('contents') : new ArrayCollection();
-        dump($sessionContents);
+     
         $form_delete = $this->formDelete($nav);
 
         if ($idRemove) {
