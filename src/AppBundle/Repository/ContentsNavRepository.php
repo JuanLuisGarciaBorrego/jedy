@@ -22,4 +22,19 @@ class ContentsNavRepository extends \Doctrine\ORM\EntityRepository
             ->execute()
         ;
     }
+
+    public function getNav($locale)
+    {
+      $qb = $this->getEntityManager()->createQueryBuilder();
+      $qb->select('cn')
+       ->from('AppBundle:ContentsNav', 'cn')
+       ->innerJoin('AppBundle:Nav', 'n', 'WITH', 'cn.nav = n.id')
+       ->where('n.locale = :locale')
+       ->andWhere('cn.parentContent IS NULL')
+       ->setParameter('locale', $locale)
+       ->getQuery();
+
+       return $qb->getQuery()->getResult();
+    }
+
 }

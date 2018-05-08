@@ -3,9 +3,10 @@
 {% block title %} {{ page.title }} {% endblock %}
 
 {% block content %}
-
+<div class="col-md-12">
     <h1>{{ page.title }}</h1>
-    <p>{{ page.content }}</p>
+    <p>{{ page.content|raw }}</p>
     <hr>
     {{ translation_content(page) }}
+</div>
 {% endblock %}

@@ -70,6 +70,75 @@ class ContentsNav
     private $nav;
 
     /**
+     * @ORM\OneToMany(targetEntity="ContentsNav", mappedBy="parentContent", cascade={"persist", "remove"}, fetch="EAGER")
+     */
+    private $childrenContent;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ContentsNav", inversedBy="childrenContent")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     */
+    private $parentContent;
+
+    /**
+     * Add childrenContent.
+     *
+     * @param \AppBundle\Entity\ContentsNav $childrenContent
+     *
+     * @return ContentsNav
+     */
+    public function addChildrenContent(ContentsNav $childrenContent)
+    {
+        $this->childrenContent[] = $childrenContent;
+
+        return $this;
+    }
+
+    /**
+     * Remove childrenContent
+     *
+     * @param \AppBundle\Entity\ContentsNav $childrenContent
+     */
+    public function removeChildrenContent(ContentsNav $childrenContent)
+    {
+        $this->childrenContent->removeElement($childrenContent);
+    }
+
+    /**
+     * Get childrenContent.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getChildrenContent()
+    {
+        return $this->childrenContent;
+    }
+
+    /**
+     * Set parentContent.
+     *
+     * @param \AppBundle\Entity\ContentsNav $parentContent
+     *
+     * @return ContentsNav
+     */
+    public function setParentContent(Nav $parentContent = null)
+    {
+        $this->parentContent = $parentContent;
+
+        return $this;
+    }
+
+    /**
+     * Get parentContent.
+     *
+     * @return \AppBundle\Entity\ContentsNav
+     */
+    public function getParentContent()
+    {
+        return $this->parentContent;
+    }
+
+    /**
      * Get id.
      *
      * @return int
